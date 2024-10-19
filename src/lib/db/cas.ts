@@ -6,7 +6,6 @@
  * Author: Joshua Lau
  */
 
-import { goto } from "$app/navigation";
 import { redirect } from "@sveltejs/kit";
 import type { SessionData } from "../../app";
 
@@ -86,6 +85,6 @@ export class CASClient {
      */
     static async logout(locals: App.Locals) {
         await locals.session.destroy();
-        goto("/");
+        throw redirect(302, "/");
     }
 }
