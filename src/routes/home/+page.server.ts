@@ -3,10 +3,10 @@ import type { ServerLoad } from "@sveltejs/kit";
 // import Database from "bun:sqlite";
 
 export const load: ServerLoad = async req => {
-    console.log(req.locals.session.data);
     if (!req.locals.session.data.netid) {
-        // Redirect to CAS server
+        // Redirect to CAS server if no session
         CASClient.authenticate();
+        return {};
     } else {
         // Get user data from database
         const userSession = req.locals.session.data;
