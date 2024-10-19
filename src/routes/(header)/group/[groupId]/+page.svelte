@@ -73,7 +73,7 @@
 </script>
 
 <div class="cont h-full overflow-hidden flex flex-col">
-    <section class="flex justify-between border-b pb-4">
+    <section class="flex justify-between border-b pb-8">
         <div>
             <h2 id="course-code" class="text-4xl font-semibold">
                 {data.code}
@@ -81,7 +81,7 @@
             <h3 id="course-name" class="text-xl font-semibold text-slate-700">
                 {data.name}
             </h3>
-            <h3 id="group-name" class="text-xl text-slate-700">
+            <h3 id="group-name" class="text-xl text-slate-700 mt-2">
                 <span> Group: </span>
                 <span>
                     {data.group}
@@ -120,7 +120,7 @@
             </AlertDialog.Root>
         </div>
     </section>
-    <section class="mt-4 space-y-2 overflow-hidden flex flex-col">
+    <section class="mt-8 space-y-4 overflow-hidden flex flex-col">
         <div class="flex justify-between items-center">
             <h3 class="text-2xl font-semibold">
                 Members ({groupMembers.length})
