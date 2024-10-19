@@ -6,7 +6,7 @@
  */
 
 import { CASClient } from "$lib/db/cas";
-import type { ServerLoad } from "@sveltejs/kit";
+import type { Actions, ServerLoad } from "@sveltejs/kit";
 // import Database from "bun:sqlite";
 
 export const load: ServerLoad = async req => {
@@ -24,5 +24,11 @@ export const load: ServerLoad = async req => {
                 name: userSession.displayname
             }
         };
+    }
+};
+
+export const actions: Actions = {
+    logout: async ({ locals }) => {
+        await CASClient.logout(locals);
     }
 };

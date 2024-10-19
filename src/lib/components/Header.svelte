@@ -8,8 +8,6 @@
 <script>
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
-
-    const handleLogout = async () => {};
 </script>
 
 <header class="h-16 border-b shadow-sm flex">
@@ -20,8 +18,9 @@
 
         <nav class="flex items-center gap-2">
             <Button variant="ghost" href="/">Home</Button>
-            <form action="/logout">
-                <Button variant="ghost" on:click={handleLogout}>Logout</Button>
+
+            <form method="POST" action="/home?/logout">
+                <Button type="submit" variant="ghost">Logout</Button>
             </form>
 
             <Button size="sm">
