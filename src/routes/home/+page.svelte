@@ -9,4 +9,9 @@
     import Header from "$lib/components/Header.svelte";
 </script>
 
-<Header />
+<div class="h-screen flex flex-col">
+    <Header />
+    <main class="flex-1">
+        <div class="cont"></div>
+    </main>
+</div>

@@ -15,6 +15,10 @@
         U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+.cont {
+    @apply w-11/12 max-w-7xl mx-auto;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
