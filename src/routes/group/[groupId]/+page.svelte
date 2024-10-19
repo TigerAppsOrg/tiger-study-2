@@ -12,6 +12,16 @@
     import * as Table from "$lib/components/ui/table";
     import { ClipboardCopy, Exit, Move } from "svelte-radix";
     import { toast } from "svelte-sonner";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import { goto } from "$app/navigation";
+
+    let leaveDialogOpen = false;
+
+    const handleLeave = async () => {
+        leaveDialogOpen = false;
+        goto("/home");
+        toast.success(`You have left your group for ${data.code}.`);
+    };
 
     const data = {
         code: "COS 126",
@@ -89,10 +99,33 @@
                         <Move class="mr-1" />
                         <span> Change Group </span>
                     </Button>
-                    <Button variant="outline">
+                    <Button
+                        variant="outline"
+                        on:click={() => {
+                            leaveDialogOpen = true;
+                        }}>
                         <Exit class="mr-1" />
                         <span> Leave Group </span>
                     </Button>
+                    <AlertDialog.Root bind:open={leaveDialogOpen}>
+                        <AlertDialog.Trigger />
+                        <AlertDialog.Content>
+                            <AlertDialog.Header>
+                                <AlertDialog.Title
+                                    >Are you sure you want to leave the group?</AlertDialog.Title>
+                                <AlertDialog.Description>
+                                    You can always rejoin later if you change
+                                    your mind.
+                                </AlertDialog.Description>
+                            </AlertDialog.Header>
+                            <AlertDialog.Footer>
+                                <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                                <Button
+                                    variant="destructive"
+                                    on:click={handleLeave}>Leave Group</Button>
+                            </AlertDialog.Footer>
+                        </AlertDialog.Content>
+                    </AlertDialog.Root>
                 </div>
             </section>
             <section class="mt-4 space-y-2 overflow-hidden flex flex-col">
@@ -101,6 +134,7 @@
                         Members ({groupMembers.length})
                     </h3>
                     <Button
+                        size="sm"
                         variant="secondary"
                         on:click={() => {
                             const emails = groupMembers
