@@ -1,3 +1,10 @@
+<!-- 
+    @component Header.svelte
+
+    The header for the "home" dashboard page.
+    - Author: Joshua Lau '26
+-->
+
 <script>
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";

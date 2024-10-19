@@ -1,3 +1,11 @@
+/**
+ * @file +server.ts (/auth)
+ * @author Joshua Lau '26
+ *
+ * Takes a CAS login ticket and validates it. If the ticket is valid, the user's session data is set.
+ * Otherwise, the user is redirected to the CAS server.
+ */
+
 import {
     redirect,
     type RequestEvent,

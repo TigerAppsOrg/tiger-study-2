@@ -1,6 +1,6 @@
 /**
- * resetSemester.ts
- * Author: Joshua Lau
+ * @file resetSemester.ts
+ * @author Joshua Lau '26
 
  * Resets the courses in the database for a given semester.
  * Should be run at the beginning of each semester to reset the app's data.

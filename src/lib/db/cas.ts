@@ -1,6 +1,6 @@
 /**
- * cas.ts
- * Author: Joshua Lau
+ * @file cas.ts
+ * @author Joshua Lau '26
  *
  * Provides a SvelteKit client for the CAS authentication system.
  * Based loosely on https://git.io/JRNLp

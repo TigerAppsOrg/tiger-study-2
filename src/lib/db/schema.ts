@@ -1,3 +1,10 @@
+/**
+ * @file schema.ts
+ * @author Joshua Lau '26
+ *
+ * App's SQLite database schema defined using Drizzle ORM.
+ */
+
 import {
     text,
     integer,

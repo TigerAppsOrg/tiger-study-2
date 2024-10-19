@@ -1,3 +1,10 @@
+/**
+ * @file +page.server.ts (/home)
+ * @author Joshua Lau '26
+ *
+ * Entry point for home page. Checks if user is logged in and loads user data.
+ */
+
 import { CASClient } from "$lib/db/cas";
 import type { ServerLoad } from "@sveltejs/kit";
 // import Database from "bun:sqlite";

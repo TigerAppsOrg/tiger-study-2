@@ -1,3 +1,10 @@
+<!-- 
+    @component +layout.svelte (/)
+
+    Global layout for all pages.
+    - Author: Joshua Lau '26
+-->
+
 <script>
     import "../app.css";
 </script>

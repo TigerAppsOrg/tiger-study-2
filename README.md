@@ -31,6 +31,12 @@ Dev Tools:
 -   [Prettier](https://prettier.io/)
 -   [ESLint](https://eslint.org/)
 
+## Contributing
+
+If you would like to contribute to this project, please message the TigerApps board on Discord (if you are a TigerApps member) or via email at [it.admin@tigerapps.org](mailto:it.admin@tigerapps.org).
+
+Please make sure to add file comments that specify authorship. Also, make sure to run `bun format` and `bun lint` before committing your changes.
+
 ## Acknowledgments
 
 This version of TigerStudy was made by [Joshua Lau '26](https://github.com/joshuamotoaki) with support from the [McGraw Center](https://mcgraw.princeton.edu/) and [TigerApps](https://tigerapps.org/).
