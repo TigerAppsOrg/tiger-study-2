@@ -15,9 +15,11 @@
 </script>
 
 <div class="cont flex flex-col h-full">
-    <h2 class="text-2xl font-semibold mt-4 mb-2">
+    <h2 class="text-2xl font-semibold mt-4">
         Welcome, {data.props?.name}!
     </h2>
+
+    <p class="mb-2 text-slate-500">View and manage your study groups:</p>
 
     <section class="space-y-8">
         {#if groups && groups.length > 0}
@@ -92,12 +94,11 @@
     <div class="flex-1"></div>
 
     <footer>
-        <p class="text-sm text-gray-500 mt-4 text-center">
+        <p class="text-sm text-slate-500 mt-4 text-center">
             Experiencing difficulties? Contact us at
             <a class="link" href="mailto:tiger-study@princeton.edu">
-                tiger-study@princeton.edu.
-            </a>
-            TigerStudy is supported by the
+                tiger-study@princeton.edu</a
+            >. TigerStudy is supported by the
             <a
                 class="link"
                 href="https://mcgraw.princeton.edu/"
