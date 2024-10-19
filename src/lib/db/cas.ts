@@ -1,9 +1,10 @@
 /**
  * cas.ts
- * This module provides a SvelteKit client for the CAS authentication system.
- * Based loosely on https://github.com/TigerAppsOrg/TigerSnatch/blob/main/src/CASClient.py
- * originally by Alex Halderman, Scott Karlin, Brian Kernighan, and Bob Dondero.
  * Author: Joshua Lau
+ *
+ * Provides a SvelteKit client for the CAS authentication system.
+ * Based loosely on https://git.io/JRNLp
+ * originally by Alex Halderman, Scott Karlin, Brian Kernighan, and Bob Dondero.
  */
 
 import { redirect } from "@sveltejs/kit";

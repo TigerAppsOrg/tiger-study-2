@@ -15,7 +15,8 @@ export const users = sqliteTable("users", {
 export const courses = sqliteTable("courses", {
     id: text("id").notNull().primaryKey().unique(),
     code: text("code").notNull(),
-    title: text("title").notNull()
+    title: text("title").notNull(),
+    term: integer("term").notNull()
 });
 
 export const groups = sqliteTable("groups", {
