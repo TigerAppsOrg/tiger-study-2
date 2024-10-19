@@ -5,9 +5,9 @@ import {
 } from "@sveltejs/kit";
 import { CASClient } from "$lib/db/cas";
 
+// Validate a CAS login ticket and set the user's session data
 export const GET: RequestHandler = async (req: RequestEvent) => {
     const ticket = req.url.searchParams.get("ticket");
-    console.log("Ticket:", ticket);
     if (!ticket) {
         CASClient.authenticate();
         return new Response("Redirecting to CAS server...", {
@@ -16,7 +16,6 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
     }
 
     const userInfo = await CASClient.validate(ticket);
-    console.log("User info:", userInfo);
     if (!userInfo) {
         console.error("CAS authentication failed");
         return new Response("CAS authentication failed", {
@@ -24,7 +23,6 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
         });
     }
 
-    req.locals.session.set(userInfo);
-    console.log("Session set:", req.locals.session.data);
-    redirect(302, "/");
+    await req.locals.session.set(userInfo);
+    redirect(302, "/home");
 };

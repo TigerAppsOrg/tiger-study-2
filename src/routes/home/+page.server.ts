@@ -9,10 +9,13 @@ export const load: ServerLoad = async req => {
         CASClient.authenticate();
     } else {
         // Get user data from database
-        console.log("User found");
         const userSession = req.locals.session.data;
         console.log(userSession);
 
-        return {};
+        return {
+            props: {
+                name: userSession.displayname
+            }
+        };
     }
 };
