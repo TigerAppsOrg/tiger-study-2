@@ -1,1 +1,5 @@
-<h1>Home</h1>
+<script>
+    import Header from "$lib/components/Header.svelte";
+</script>
+
+<Header />
