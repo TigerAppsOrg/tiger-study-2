@@ -1,3 +1,10 @@
+<!-- 
+    @component +layout.svelte (header group)
+
+    Shared layout for all pages with the standard app header.
+    - Author: Joshua Lau '26
+-->
+
 <script>
     import Header from "$lib/components/Header.svelte";
 </script>

@@ -7,13 +7,12 @@
 -->
 
 <script lang="ts">
-    import Header from "$lib/components/Header.svelte";
+    import { goto } from "$app/navigation";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
     import { ClipboardCopy, Exit, Move } from "svelte-radix";
     import { toast } from "svelte-sonner";
-    import * as AlertDialog from "$lib/components/ui/alert-dialog";
-    import { goto } from "$app/navigation";
 
     let leaveDialogOpen = false;
 
