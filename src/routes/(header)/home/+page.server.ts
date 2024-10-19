@@ -21,7 +21,39 @@ export const load: ServerLoad = async req => {
 
         return {
             props: {
-                name: userSession.displayname
+                name: userSession.displayname,
+                groups: [
+                    {
+                        id: 1,
+                        name: "Group 1",
+                        course: "COS 333",
+                        members: 4
+                    },
+                    {
+                        id: 2,
+                        name: "Group 2",
+                        course: "COS 333",
+                        members: 3
+                    },
+                    {
+                        id: 3,
+                        name: "Group 3",
+                        course: "COS 333",
+                        members: 5
+                    },
+                    {
+                        id: 4,
+                        name: "Group 4",
+                        course: "COS 333",
+                        members: 2
+                    },
+                    {
+                        id: 5,
+                        name: "Group 5",
+                        course: "COS 333",
+                        members: 4
+                    }
+                ]
             }
         };
     }

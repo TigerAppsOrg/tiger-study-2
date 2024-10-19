@@ -5,7 +5,129 @@
     - Author: Joshua Lau '26
 -->
 
-<script>
+<script lang="ts">
+    import Button from "$lib/components/ui/button/button.svelte";
+    import * as Table from "$lib/components/ui/table";
+    export let data;
+
+    const groups = data.props?.groups;
+    // const groups = [];
 </script>
 
-<div class="cont"></div>
+<div class="cont flex flex-col h-full">
+    <h2 class="text-2xl font-semibold mt-4 mb-2">
+        Welcome, {data.props?.name}!
+    </h2>
+
+    <section class="space-y-8">
+        {#if groups && groups.length > 0}
+            <Table.Root>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.Head>Course</Table.Head>
+                        <Table.Head>Group Name</Table.Head>
+                        <Table.Head>Members</Table.Head>
+                        <Table.Head class="text-right"></Table.Head>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {#each groups as group}
+                        <Table.Row>
+                            <Table.Cell>{group.course}</Table.Cell>
+                            <Table.Cell>{group.name}</Table.Cell>
+                            <Table.Cell>{group.members}</Table.Cell>
+                            <Table.Cell class="text-right">
+                                <Button
+                                    size="sm"
+                                    class="h-6"
+                                    variant="link"
+                                    href={`/group/${group.id}`}>
+                                    View
+                                </Button>
+                            </Table.Cell>
+                        </Table.Row>
+                    {/each}
+                </Table.Body>
+            </Table.Root>
+        {:else}
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <p>You're not in any study groups yet!</p>
+                    <Button>Get Started</Button>
+                </div>
+
+                <article class="grid sm:grid-cols-3 gap-4">
+                    <div class="card">
+                        <h4 class="card-title">Step 1</h4>
+                        <p class="card-body">
+                            Search for a course and join a study group! Note
+                            that some courses are disabled due to an instructor
+                            or department request.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title">Step 2</h4>
+                        <p class="card-body">
+                            Click on the "Join" button to join a group. If the
+                            course has been approved for study groups, you'll be
+                            placed into a group immediately and we'll send you
+                            an email with your partners' details. Otherwise,
+                            we'll let you know the moment the course is
+                            approved.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 class="card-title">Step 3</h4>
+                        <p class="card-body">
+                            Communicate with your study group to find a suitable
+                            time. Be sure to follow course collaboration
+                            policies!
+                        </p>
+                    </div>
+                </article>
+            </div>
+        {/if}
+    </section>
+
+    <div class="flex-1"></div>
+
+    <footer>
+        <p class="text-sm text-gray-500 mt-4 text-center">
+            Experiencing difficulties? Contact us at
+            <a class="link" href="mailto:tiger-study@princeton.edu">
+                tiger-study@princeton.edu.
+            </a>
+            TigerStudy is supported by the
+            <a
+                class="link"
+                href="https://mcgraw.princeton.edu/"
+                target="_blank">
+                McGraw Center for Teaching and Learning
+            </a>
+            and maintained by the
+            <a class="link" href="https://tigerapps.org" target="_blank">
+                TigerApps
+            </a>
+            Team.
+        </p>
+    </footer>
+</div>
+
+<style lang="postcss">
+    .card {
+        @apply p-4 space-y-1 shadow-sm rounded-lg border
+        bg-gradient-to-br from-white to-slate-100;
+    }
+
+    .card-title {
+        @apply text-lg font-semibold;
+    }
+
+    .card-body {
+        @apply text-sm;
+    }
+
+    .link {
+        @apply text-primary hover:underline;
+    }
+</style>
