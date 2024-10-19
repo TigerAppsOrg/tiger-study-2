@@ -13,7 +13,10 @@
 <header class="h-16 border-b shadow-sm flex">
     <div class="cont flex items-center justify-between">
         <a href="/home" aria-label="Dashboard">
-            <h1 class="text-2xl font-semibold">TigerStudy</h1>
+            <h1 class="text-2xl font-semibold">
+                <span> 🐯 </span>
+                <span> TigerStudy </span>
+            </h1>
         </a>
 
         <nav class="flex items-center gap-2">
