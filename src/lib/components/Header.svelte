@@ -8,17 +8,26 @@
 <script>
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
+
+    const handleLogout = async () => {};
 </script>
 
-<header class="h-16 bg-slate-200 flex">
+<header class="h-16 border-b shadow-sm flex">
     <div class="cont flex items-center justify-between">
         <a href="/home" aria-label="Dashboard">
-            <h1 class="text-xl font-semibold">TigerStudy</h1>
+            <h1 class="text-2xl font-semibold">TigerStudy</h1>
         </a>
 
-        <Button>
-            <Plus class="mr-1" />
-            <span> Join Group </span>
-        </Button>
+        <nav class="flex items-center gap-2">
+            <Button variant="ghost" href="/">Home</Button>
+            <form action="/logout">
+                <Button variant="ghost" on:click={handleLogout}>Logout</Button>
+            </form>
+
+            <Button size="sm">
+                <Plus class="mr-1" />
+                <span> Join Group </span>
+            </Button>
+        </nav>
     </div>
 </header>
