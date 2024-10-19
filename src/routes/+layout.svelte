@@ -6,6 +6,7 @@
 -->
 
 <script>
+    import { Toaster } from "$lib/components/ui/sonner";
     import "../app.css";
 </script>
 
@@ -19,4 +20,5 @@
         content="TigerStudy, study groups, student study groups, academic collaboration, class study groups, group study, peer learning, study buddies, student networking, online study groups, school collaboration, coursework help, study app for students" />
 </svelte:head>
 
+<Toaster richColors theme="light" />
 <slot></slot>
