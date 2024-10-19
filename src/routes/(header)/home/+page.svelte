@@ -8,10 +8,10 @@
 <script lang="ts">
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
+    import { joinDialogOpen } from "$lib/state.js";
     export let data;
 
-    // const groups = data.props?.groups;
-    const groups = [];
+    const groups = data.props?.groups;
 </script>
 
 <div class="cont flex flex-col h-full">
@@ -57,7 +57,8 @@
             <div class="space-y-8">
                 <div class="flex justify-between items-center">
                     <p>You're not in any study groups yet!</p>
-                    <Button>Get Started</Button>
+                    <Button on:click={() => joinDialogOpen.set(true)}
+                        >Get Started</Button>
                 </div>
 
                 <article class="grid sm:grid-cols-3 gap-4">

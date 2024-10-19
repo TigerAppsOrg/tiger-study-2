@@ -7,8 +7,10 @@
 
 <script>
     import Header from "$lib/components/Header.svelte";
+    import JoinDialog from "$lib/components/JoinDialog.svelte";
 </script>
 
+<JoinDialog />
 <div class="h-screen flex flex-col overflow-hidden">
     <Header />
     <main class="flex-1 overflow-hidden py-4">
