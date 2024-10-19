@@ -6,10 +6,13 @@
     - Author: Joshua Lau '26
 -->
 
-<script>
-    export let data;
+<script lang="ts">
+    import Header from "$lib/components/Header.svelte";
 </script>
 
-<h1>
-    {data.props?.groupId}
-</h1>
+<div class="h-screen flex flex-col">
+    <Header />
+    <main class="flex-1">
+        <div class="cont"></div>
+    </main>
+</div>

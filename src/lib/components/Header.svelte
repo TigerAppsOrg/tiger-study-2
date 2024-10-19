@@ -12,7 +12,9 @@
 
 <header class="h-16 bg-slate-200 flex">
     <div class="cont flex items-center justify-between">
-        <h1 class="text-xl font-semibold">TigerStudy</h1>
+        <a href="/home" aria-label="Dashboard">
+            <h1 class="text-xl font-semibold">TigerStudy</h1>
+        </a>
 
         <Button>
             <Plus class="mr-1" />
