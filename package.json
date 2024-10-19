@@ -37,6 +37,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.33.0",
+    "svelte-kit-cookie-session": "^4.0.0",
     "tailwind-merge": "^2.5.3",
     "tailwind-variants": "^0.2.1"
   }
