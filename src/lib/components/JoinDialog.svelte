@@ -14,6 +14,7 @@
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
+    import { toast } from "svelte-sonner";
 
     const normalize = (str: string) => {
         return str
@@ -53,7 +54,7 @@
         }
 
         // Create a new group in the database
-        const newGroupId = await fetch("/api/new-group", {
+        const res = await fetch("/api/new-group", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -61,11 +62,12 @@
             body: JSON.stringify({
                 courseId: selectedCourse.id
             })
-        }).then(res => res.json());
+        });
+        const newGroupId = (await res.json()).group;
 
-        // Redirect to the new group page
+        // Redirect to the new group page and cleanup
         goto(`/group/${newGroupId}`);
-
+        toast.success(`Created a new group for ${selectedCourse.code}!`);
         alertDialogOpen = false;
         $joinDialogOpen = false;
     };
