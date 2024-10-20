@@ -34,6 +34,24 @@ class DB {
         const name = uniqueNamesGenerator({
             dictionaries: [colors, animals]
         });
+
+        try {
+            const newGroup = await this.database
+                .insert(schema.groups)
+                .values({
+                    name: name,
+                    course_id: courseId
+                })
+                .returning();
+
+            console.log(
+                `Group ${newGroup[0].id} created for course ${courseId}`
+            );
+            return newGroup[0].id.toString();
+        } catch (e) {
+            console.log(`Group could not be created: ${e}`);
+            return "";
+        }
     }
 
     //------------------------------------------------------------------

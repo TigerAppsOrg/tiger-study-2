@@ -13,6 +13,7 @@
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
+    import { goto } from "$app/navigation";
 
     const normalize = (str: string) => {
         return str
@@ -45,7 +46,26 @@
 
     let alertDialogOpen = false;
 
-    const createNewGroup = () => {
+    const createNewGroup = async () => {
+        if (!selectedCourse) {
+            alertDialogOpen = false;
+            return;
+        }
+
+        // Create a new group in the database
+        const newGroupId = await fetch("/api/new-group", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                courseId: selectedCourse.id
+            })
+        }).then(res => res.json());
+
+        // Redirect to the new group page
+        goto(`/group/${newGroupId}`);
+
         alertDialogOpen = false;
         $joinDialogOpen = false;
     };

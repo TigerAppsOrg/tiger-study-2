@@ -31,7 +31,10 @@ export const courses = sqliteTable("courses", {
 
 // Groups Table
 export const groups = sqliteTable("groups", {
-    id: text("id").notNull().primaryKey().unique(),
+    id: integer("id", { mode: "number" })
+        .notNull()
+        .primaryKey({ autoIncrement: true })
+        .unique(),
     name: text("name").notNull(),
     course_id: text("course_id")
         .notNull()

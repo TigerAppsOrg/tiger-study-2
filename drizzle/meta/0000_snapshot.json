@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "4f980a71-cbf8-4df5-b8eb-f4e817d9a058",
+  "id": "b337746d-b715-48e4-a9fc-af90863b6096",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "courses": {
@@ -151,10 +151,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "name": {
           "name": "name",

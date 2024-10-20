@@ -20,7 +20,7 @@ CREATE TABLE `group_members` (
 );
 --> statement-breakpoint
 CREATE TABLE `groups` (
-	`id` text PRIMARY KEY NOT NULL,
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
 	`course_id` text NOT NULL,
 	FOREIGN KEY (`course_id`) REFERENCES `courses`(`id`) ON UPDATE no action ON DELETE cascade
