@@ -75,8 +75,13 @@
                     {/each}
                 </div>
             {:else}
-                <div>
-                    {selectedCourse.code} - {selectedCourse.title}
+                <div class="my-4">
+                    <h2 class="text-xl font-semibold">
+                        Groups for {selectedCourse.code}
+                    </h2>
+                    <p class="text-slate-500 text-sm">
+                        Select a group to join or create a new one.
+                    </p>
                 </div>
             {/if}
         </div>
