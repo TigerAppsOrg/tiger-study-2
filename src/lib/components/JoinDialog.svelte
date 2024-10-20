@@ -18,11 +18,18 @@
     };
 
     let search = "";
-    $: filteredCourses = $courses.filter(
-        course =>
-            normalize(course.code).includes(normalize(search)) ||
-            normalize(course.title).includes(normalize(search))
-    );
+    $: filteredCourses = $courses.filter(course => {
+        if (search.length < 3) {
+            return false;
+        } else if (search.length === 3) {
+            return normalize(course.code).includes(normalize(search));
+        } else {
+            return (
+                normalize(course.code).includes(normalize(search)) ||
+                normalize(course.title).includes(normalize(search))
+            );
+        }
+    });
 
     $: if ($joinDialogOpen === false) {
         search = "";
@@ -69,9 +76,15 @@
                             </div>
                         </button>
                     {:else}
-                        <p class="text-slate-500 text-center py-4">
-                            No courses found.
-                        </p>
+                        {#if search.length >= 3}
+                            <p class="text-slate-500 text-center py-4">
+                                No courses found.
+                            </p>
+                        {:else}
+                            <p class="text-slate-500 text-center py-4">
+                                Enter at least 3 characters to search.
+                            </p>
+                        {/if}
                     {/each}
                 </div>
             {:else}
