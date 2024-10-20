@@ -11,12 +11,12 @@
     import { joinDialogOpen } from "$lib/state.js";
     export let data;
 
-    const groups = data.props?.groups;
+    const groups = data.groups;
 </script>
 
 <div class="cont flex flex-col h-full flex-1">
     <h2 class="text-2xl font-semibold mt-4">
-        Welcome, {data.props?.name}!
+        Welcome, {data.name}!
     </h2>
 
     {#if groups && groups.length > 0}

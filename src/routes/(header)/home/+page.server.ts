@@ -6,55 +6,22 @@
  */
 
 import { CASClient } from "$lib/db/cas";
+import { db } from "$lib/db/db";
 import type { Actions, ServerLoad } from "@sveltejs/kit";
-// import Database from "bun:sqlite";
 
 export const load: ServerLoad = async req => {
-    if (!req.locals.session.data.netid) {
+    const sessionData = req.locals.session.data;
+    if (!sessionData.displayname) {
         // Redirect to CAS server if no session
         CASClient.authenticate();
         return {};
     } else {
-        // Get user data from database
-        const userSession = req.locals.session.data;
-        console.log(userSession);
+        // Get user groups
+        db.getUserGroups(sessionData.netid);
 
         return {
-            props: {
-                name: userSession.displayname,
-                groups: [
-                    {
-                        id: 1,
-                        name: "Group 1",
-                        course: "COS 333",
-                        members: 4
-                    },
-                    {
-                        id: 2,
-                        name: "Group 2",
-                        course: "COS 333",
-                        members: 3
-                    },
-                    {
-                        id: 3,
-                        name: "Group 3",
-                        course: "COS 333",
-                        members: 5
-                    },
-                    {
-                        id: 4,
-                        name: "Group 4",
-                        course: "COS 333",
-                        members: 2
-                    },
-                    {
-                        id: 5,
-                        name: "Group 5",
-                        course: "COS 333",
-                        members: 4
-                    }
-                ]
-            }
+            name: sessionData.displayname,
+            userGroups: []
         };
     }
 };

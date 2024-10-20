@@ -12,13 +12,16 @@ import {
     primaryKey
 } from "drizzle-orm/sqlite-core";
 
+// Users Table
 export const users = sqliteTable("users", {
     netid: text("netid").notNull().primaryKey().unique(),
     displayname: text("name").notNull(),
     mail: text("mail").notNull(),
+    year: text("year").notNull(),
     is_admin: integer("is_admin", { mode: "boolean" }).notNull().default(false)
 });
 
+// Courses Table
 export const courses = sqliteTable("courses", {
     id: text("id").notNull().primaryKey().unique(),
     code: text("code").notNull(),
@@ -26,6 +29,7 @@ export const courses = sqliteTable("courses", {
     term: integer("term").notNull()
 });
 
+// Groups Table
 export const groups = sqliteTable("groups", {
     id: text("id").notNull().primaryKey().unique(),
     name: text("name").notNull(),
@@ -36,6 +40,7 @@ export const groups = sqliteTable("groups", {
         })
 });
 
+// Group-Users Association Table
 export const group_members = sqliteTable(
     "group_members",
     {
@@ -51,6 +56,7 @@ export const group_members = sqliteTable(
     })
 );
 
+// Feedback Table
 export const feedback = sqliteTable("feedback", {
     id: integer("id", { mode: "number" })
         .notNull()

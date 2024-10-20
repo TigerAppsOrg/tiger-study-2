@@ -8,7 +8,8 @@
 <script lang="ts">
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { courses, joinDialogOpen, type Course } from "$lib/state";
+    import { courses, joinDialogOpen } from "$lib/state";
+    import type { Course } from "$lib/types";
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
