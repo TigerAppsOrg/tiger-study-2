@@ -21,7 +21,7 @@
         </a>
 
         <nav class="flex items-center gap-4">
-            <Button variant="ghost" href="/" size="sm">Home</Button>
+            <Button variant="ghost" href="/home" size="sm">Home</Button>
             <Button
                 variant="ghost"
                 size="sm"
