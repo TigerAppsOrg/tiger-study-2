@@ -13,6 +13,22 @@
     import { toast } from "svelte-sonner";
 
     let feedback = "";
+
+    const submitFeedback = async () => {
+        // TODO - Validate feedback
+
+        await fetch("/api/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text: feedback })
+        });
+
+        feedback = "";
+        feedbackDialogOpen.set(false);
+        toast.info("Thank you for your feedback!");
+    };
 </script>
 
 <Dialog.Root bind:open={$feedbackDialogOpen}>
@@ -41,15 +57,7 @@
                 on:click={() => feedbackDialogOpen.set(false)}>
                 Cancel
             </Button>
-            <Button
-                on:click={() => {
-                    // TODO - send feedback to backend
-                    feedback = "";
-                    feedbackDialogOpen.set(false);
-                    toast.info("Thank you for your feedback!");
-                }}>
-                Submit
-            </Button>
+            <Button on:click={submitFeedback}>Submit</Button>
         </Dialog.Footer>
     </Dialog.Content>
 </Dialog.Root>
