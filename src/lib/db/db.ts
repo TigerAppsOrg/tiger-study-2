@@ -93,13 +93,14 @@ class DB {
         return user[0];
     }
 
-    /**
-     * Get all groups for a user.
-     * @param netid NetID of user
-     * @returns All groups that the user is a member of
-     */
-    getUserGroups(netid: string): UserGroup[] {
-        const groups = this.database
+    getGroup(groupId: string) {
+        const id = parseInt(groupId);
+        if (isNaN(id)) {
+            console.error(`Invalid group ID: ${groupId}`);
+            return null;
+        }
+
+        const group = this.database
             .select({
                 groupId: schema.groups.id,
                 groupName: schema.groups.name,
@@ -107,10 +108,10 @@ class DB {
                 courseCode: schema.courses.code,
                 members: schema.users.displayname
             })
-            .from(schema.group_members)
+            .from(schema.groups)
             .leftJoin(
-                schema.groups,
-                eq(schema.groups.id, schema.group_members.group_id)
+                schema.group_members,
+                eq(schema.group_members.group_id, schema.groups.id)
             )
             .leftJoin(
                 schema.courses,
@@ -120,9 +121,50 @@ class DB {
                 schema.users,
                 eq(schema.users.netid, schema.group_members.user_id)
             )
+            .where(eq(schema.groups.id, id))
+            .groupBy(schema.groups.id)
+            .all();
+
+        if (group.length === 0) {
+            console.error(`Group ${id} not found`);
+            return null;
+        }
+
+        return group;
+    }
+
+    /**
+     * Get all groups for a user.
+     * @param netid NetID of user
+     * @returns All groups that the user is a member of
+     */
+    getUserGroups(netid: string): UserGroup[] {
+        const groups = this.database
+            // .select({
+            //     groupId: schema.groups.id,
+            //     groupName: schema.groups.name,
+            //     courseId: schema.groups.course_id,
+            //     courseCode: schema.courses.code
+            // })
+            .select()
+            .from(schema.group_members)
+            .leftJoin(
+                schema.groups,
+                eq(schema.groups.id, schema.group_members.group_id)
+            )
+            .leftJoin(
+                schema.users,
+                eq(schema.group_members.user_id, schema.users.netid)
+            )
+            .leftJoin(
+                schema.courses,
+                eq(schema.courses.id, schema.groups.course_id)
+            )
             .where(eq(schema.group_members.user_id, netid))
             .groupBy(schema.groups.id)
             .all();
+
+        console.log(groups);
 
         // Verify fields are not null
         return groups;

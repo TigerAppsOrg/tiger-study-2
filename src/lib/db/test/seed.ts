@@ -35,6 +35,10 @@ const seed = async () => {
             year: "Graduate"
         }
     ]);
+
+    await db.joinGroup("mk1", "1");
+    await db.joinGroup("remilia", "2");
+    await db.joinGroup("sakuya", "2");
 };
 
 seed();

@@ -7,6 +7,7 @@
  */
 
 import { CASClient } from "$lib/db/cas";
+import { db } from "$lib/db/db";
 import type { ServerLoad } from "@sveltejs/kit";
 
 export const load: ServerLoad = async ({ locals, params }) => {
@@ -17,7 +18,6 @@ export const load: ServerLoad = async ({ locals, params }) => {
     }
 
     const groupId = params.groupId;
-    // Get group info from database
 
     return {
         props: {

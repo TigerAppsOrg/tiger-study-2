@@ -50,7 +50,7 @@ export const group_members = sqliteTable(
         user_id: text("user_id")
             .notNull()
             .references(() => users.netid),
-        group_id: text("group_id")
+        group_id: integer("group_id")
             .notNull()
             .references(() => groups.id)
     },

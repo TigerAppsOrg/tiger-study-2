@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "b337746d-b715-48e4-a9fc-af90863b6096",
+  "id": "c95283d4-4a35-4d86-9f8f-d253966c7555",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "courses": {
@@ -100,7 +100,7 @@
         },
         "group_id": {
           "name": "group_id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

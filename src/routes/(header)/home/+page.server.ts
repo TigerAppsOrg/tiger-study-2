@@ -17,11 +17,11 @@ export const load: ServerLoad = async req => {
         return {};
     } else {
         // Get user groups
-        db.getUserGroups(sessionData.netid);
+        const userGroups = db.getUserGroups(sessionData.netid);
 
         return {
             name: sessionData.displayname,
-            userGroups: []
+            userGroups: userGroups
         };
     }
 };

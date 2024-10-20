@@ -82,10 +82,7 @@
                 {data.name}
             </h3>
             <h3 id="group-name" class="text-xl text-slate-700 mt-2">
-                <span> Group: </span>
-                <span>
-                    {data.group}
-                </span>
+                Group {data.group}
             </h3>
         </div>
         <div class="flex flex-col gap-2">
