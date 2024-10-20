@@ -19,9 +19,9 @@
 <JoinDialog />
 <FeedbackDialog />
 
-<div class="flex flex-col overflow-hidden">
+<div class="flex flex-col overflow-hidden min-h-screen">
     <Header />
-    <main class="flex-1 overflow-hidden py-4">
+    <main class="flex-1 overflow-hidden py-4 flex flex-col">
         <slot />
     </main>
 </div>

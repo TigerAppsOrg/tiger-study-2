@@ -14,7 +14,7 @@
     const groups = data.props?.groups;
 </script>
 
-<div class="cont flex flex-col h-full">
+<div class="cont flex flex-col h-full flex-1">
     <h2 class="text-2xl font-semibold mt-4">
         Welcome, {data.props?.name}!
     </h2>
