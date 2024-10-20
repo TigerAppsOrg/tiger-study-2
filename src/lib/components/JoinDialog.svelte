@@ -75,8 +75,10 @@
                             on:click={() => {
                                 selectedCourse = course;
                             }}
-                            class="w-full text-left bg-slate-50 border border-t-0
-                        hover:bg-slate-200 duration-100 flex justify-between">
+                            class="w-full text-left border-t-0
+                            border-input bg-background hover:bg-accent
+                            hover:text-accent-foreground
+                            duration-100 flex justify-between">
                             <div class="p-1">
                                 <p class="text-sm font-semibold">
                                     {course.code}
@@ -111,8 +113,9 @@
                 <div>
                     <button
                         on:click={() => {}}
-                        class="w-full text-left bg-slate-50 border border-t-0
-                    hover:bg-slate-200 duration-100 flex justify-between">
+                        class="w-full text-left border border-t-0
+                    border-input bg-background hover:bg-accent hover:text-accent-foreground
+                    duration-100 flex justify-between">
                         <div class="p-2">
                             <p class="text-sm font-semibold">Blue Dolphins</p>
                             <p class="text-xs text-slate-500">
