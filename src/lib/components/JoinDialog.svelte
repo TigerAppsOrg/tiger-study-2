@@ -6,8 +6,11 @@
 -->
 
 <script lang="ts">
-    import { courses, joinDialogOpen, type Course } from "$lib/state";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
+    import { courses, joinDialogOpen, type Course } from "$lib/state";
+    import { Plus } from "svelte-radix";
+    import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
 
     const normalize = (str: string) => {
@@ -31,12 +34,20 @@
         }
     });
 
+    // Clear component data when dialog is closed
     $: if ($joinDialogOpen === false) {
         search = "";
         selectedCourse = null;
     }
 
     let selectedCourse: Course | null = null;
+
+    let alertDialogOpen = false;
+
+    const createNewGroup = () => {
+        alertDialogOpen = false;
+        $joinDialogOpen = false;
+    };
 </script>
 
 <Dialog.Root bind:open={$joinDialogOpen}>
@@ -96,6 +107,52 @@
                         Select a group to join or create a new one.
                     </p>
                 </div>
+
+                <div>
+                    <button
+                        on:click={() => {}}
+                        class="w-full text-left bg-slate-50 border border-t-0
+                    hover:bg-slate-200 duration-100 flex justify-between">
+                        <div class="p-2">
+                            <p class="text-sm font-semibold">Blue Dolphins</p>
+                            <p class="text-xs text-slate-500">
+                                <span class="font-semibold"> 5 Members: </span>
+                                <span>
+                                    John Doe, Jane Smith, Alice Johnson, Bob
+                                    Brown, and Charlie White
+                                </span>
+                            </p>
+                        </div>
+                    </button>
+                </div>
+                <Button
+                    variant="outline"
+                    on:click={() => {
+                        alertDialogOpen = true;
+                    }}
+                    class="w-full mt-2">
+                    <p class="flex items-center justify-center">
+                        <Plus class="mr-1" />
+                        <span> New Group </span>
+                    </p>
+                </Button>
+                <AlertDialog.Root bind:open={alertDialogOpen}>
+                    <AlertDialog.Trigger />
+                    <AlertDialog.Content>
+                        <AlertDialog.Header>
+                            <AlertDialog.Title
+                                >Are you want to create a new group?</AlertDialog.Title>
+                            <AlertDialog.Description>
+                                Consider joining an existing group instead.
+                            </AlertDialog.Description>
+                        </AlertDialog.Header>
+                        <AlertDialog.Footer>
+                            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                            <Button on:click={createNewGroup}
+                                >Create New Group</Button>
+                        </AlertDialog.Footer>
+                    </AlertDialog.Content>
+                </AlertDialog.Root>
             {/if}
         </div>
     </Dialog.Content>
