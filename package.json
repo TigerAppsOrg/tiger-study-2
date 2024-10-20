@@ -46,6 +46,7 @@
     "svelte-kit-cookie-session": "^4.0.0",
     "svelte-radix": "^1.1.1",
     "tailwind-merge": "^2.5.3",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.2.1",
+    "unique-names-generator": "^4.7.1"
   }
 }
