@@ -6,6 +6,7 @@
 -->
 
 <script>
+    import FeedbackDialog from "$lib/components/FeedbackDialog.svelte";
     import Header from "$lib/components/Header.svelte";
     import JoinDialog from "$lib/components/JoinDialog.svelte";
     import { courses } from "$lib/state";
@@ -16,6 +17,8 @@
 </script>
 
 <JoinDialog />
+<FeedbackDialog />
+
 <div class="h-screen flex flex-col overflow-hidden">
     <Header />
     <main class="flex-1 overflow-hidden py-4">

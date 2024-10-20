@@ -8,7 +8,7 @@
 <script>
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
-    import { joinDialogOpen } from "$lib/state";
+    import { feedbackDialogOpen, joinDialogOpen } from "$lib/state";
 </script>
 
 <header class="h-16 border-b shadow-sm flex">
@@ -20,11 +20,15 @@
             </h1>
         </a>
 
-        <nav class="flex items-center gap-2">
-            <Button variant="ghost" href="/">Home</Button>
+        <nav class="flex items-center gap-4">
+            <Button variant="ghost" href="/" size="sm">Home</Button>
+            <Button
+                variant="ghost"
+                size="sm"
+                on:click={() => feedbackDialogOpen.set(true)}>Feedback</Button>
 
             <form method="POST" action="/home?/logout">
-                <Button type="submit" variant="ghost">Logout</Button>
+                <Button type="submit" variant="ghost" size="sm">Logout</Button>
             </form>
 
             <Button size="sm" on:click={() => joinDialogOpen.set(true)}>

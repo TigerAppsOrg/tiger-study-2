@@ -50,3 +50,12 @@ export const group_members = sqliteTable(
         pk: primaryKey({ columns: [t.user_id, t.group_id] })
     })
 );
+
+export const feedback = sqliteTable("feedback", {
+    id: integer("id", { mode: "number" })
+        .notNull()
+        .primaryKey({ autoIncrement: true })
+        .unique(),
+    feedback: text("feedback").notNull(),
+    resolved: integer("resolved", { mode: "boolean" }).notNull().default(false)
+});

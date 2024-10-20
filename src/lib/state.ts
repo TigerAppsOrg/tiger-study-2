@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 
 export const joinDialogOpen = writable<boolean>(false);
+export const feedbackDialogOpen = writable<boolean>(false);
 
 export type Course = {
     id: string;
