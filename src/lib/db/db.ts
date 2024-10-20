@@ -9,6 +9,7 @@
 import { drizzle, type BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
 import * as schema from "./schema";
+import { eq } from "drizzle-orm";
 import {
     adjectives,
     animals,
@@ -42,6 +43,18 @@ class DB {
     getCourses() {
         const courses = this.database.select().from(schema.courses).all();
         return courses;
+    }
+
+    getUser(netid: string) {
+        const user = this.database
+            .select()
+            .from(schema.users)
+            .where(eq(schema.users.netid, netid))
+            .all();
+        if (user.length === 0) {
+            return null;
+        }
+        return user[0];
     }
 
     //------------------------------------------------------------------
