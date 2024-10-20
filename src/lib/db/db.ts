@@ -11,7 +11,7 @@ import { Database } from "bun:sqlite";
 import * as schema from "./schema";
 import { eq } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
-import type { Course } from "$lib/types";
+import type { Course, UserGroup } from "$lib/types";
 
 class DB {
     database: BunSQLiteDatabase;
@@ -77,7 +77,7 @@ class DB {
      * @param netid NetID of user
      * @returns All groups that the user is a member of
      */
-    getUserGroups(netid: string) {
+    getUserGroups(netid: string): UserGroup[] {
         const groups = this.database
             .select({
                 groupId: schema.groups.id,
@@ -102,7 +102,8 @@ class DB {
             .where(eq(schema.group_members.user_id, netid))
             .groupBy(schema.groups.id)
             .all();
-        console.log(groups);
+
+        // Verify fields are not null
         return groups;
     }
 

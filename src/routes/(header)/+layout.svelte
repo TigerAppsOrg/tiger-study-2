@@ -12,7 +12,6 @@
     import { courses } from "$lib/state";
 
     export let data;
-
     courses.set(data.courses);
 </script>
 

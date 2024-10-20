@@ -11,7 +11,7 @@
     import { joinDialogOpen } from "$lib/state.js";
     export let data;
 
-    const groups = data.groups;
+    const groups = data.userGroups;
 </script>
 
 <div class="cont flex flex-col h-full flex-1">
