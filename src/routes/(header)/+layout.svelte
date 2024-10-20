@@ -8,6 +8,11 @@
 <script>
     import Header from "$lib/components/Header.svelte";
     import JoinDialog from "$lib/components/JoinDialog.svelte";
+    import { courses } from "$lib/state";
+
+    export let data;
+
+    courses.set(data.courses);
 </script>
 
 <JoinDialog />

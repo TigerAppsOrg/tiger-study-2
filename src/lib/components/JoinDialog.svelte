@@ -6,7 +6,7 @@
 -->
 
 <script lang="ts">
-    import { courses, joinDialogOpen } from "$lib/state";
+    import { courses, joinDialogOpen, type Course } from "$lib/state";
     import * as Dialog from "$lib/components/ui/dialog";
     import Input from "./ui/input/input.svelte";
 
@@ -29,12 +29,12 @@
         selectedCourse = null;
     }
 
-    let selectedCourse = null;
+    let selectedCourse: Course | null = null;
 </script>
 
 <Dialog.Root bind:open={$joinDialogOpen}>
     <Dialog.Content class="h-2/3">
-        <div class="flex flex-col h-full">
+        <div class="flex flex-col h-full overflow-hidden">
             {#if !selectedCourse}
                 <div class="my-4">
                     <h2 class="text-xl font-semibold">Join Study Group</h2>
@@ -50,7 +50,7 @@
                     placeholder="Search for courses" />
 
                 <div
-                    class="flex flex-col flex-1 mt-2
+                    class="flex flex-col flex-1 mt-2 overflow-y-auto
                  {filteredCourses.length > 0 && 'border-t'}">
                     {#each filteredCourses as course}
                         <button
