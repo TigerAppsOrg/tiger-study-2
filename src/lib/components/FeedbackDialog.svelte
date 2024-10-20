@@ -31,6 +31,7 @@
 
             <Textarea
                 bind:value={feedback}
+                rows={6}
                 class="focus-visible:ring-0 focus-visible:border-slate-300 resize-none"
                 placeholder="Enter your feedback here" />
         </div>
