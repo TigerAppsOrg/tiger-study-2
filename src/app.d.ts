@@ -4,6 +4,7 @@ export type SessionData = {
     netid: string;
     displayname: string;
     mail: string;
+    year: string;
 };
 
 declare global {

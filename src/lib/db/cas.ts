@@ -54,10 +54,18 @@ export class CASClient {
 
         if (this.hasKey(serviceResponse, "authenticationSuccess")) {
             const userInfo = serviceResponse.authenticationSuccess;
+
+            let year = "Graduate";
+            if (userInfo.attributes.pustatus[0] === "undergraduate") {
+                const splitDpt = userInfo.attributes.department[0].split(" ");
+                year = splitDpt[splitDpt.length - 1];
+            }
+
             return {
                 netid: userInfo.user,
                 displayname: userInfo.attributes.displayname[0] || "Student",
-                mail: userInfo.attributes.mail[0] || ""
+                mail: userInfo.attributes.mail[0] || "",
+                year: year
             };
         } else if (this.hasKey(serviceResponse, "authenticationFailure")) {
             console.error("CAS authentication failure:", serviceResponse);
