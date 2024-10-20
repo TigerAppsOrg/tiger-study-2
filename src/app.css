@@ -7,6 +7,10 @@
     @apply w-11/12 max-w-7xl mx-auto;
 }
 
+.link {
+    @apply text-primary hover:underline;
+}
+
 /* overpass-latin-wght-normal */
 @font-face {
     font-family: "Overpass Variable";

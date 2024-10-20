@@ -146,8 +146,4 @@
     .card-body {
         @apply text-sm;
     }
-
-    .link {
-        @apply text-primary hover:underline;
-    }
 </style>
