@@ -1,5 +1,5 @@
 /**
- * @file resetSemester.ts
+ * @file updateTermCourses.ts
  * @author Joshua Lau '26
 
  * Resets the courses in the database for a given semester.
@@ -9,6 +9,9 @@
  *
  * Note: Currently, the script must be run manually from the command line.
  */
+
+import { db } from "./db";
+import * as schema from "./schema";
 
 export type StringBoolean = "Y" | "N";
 
@@ -110,9 +113,46 @@ const fetchCourses = async (term: number): Promise<Course[]> => {
     return courses;
 };
 
-const resetSemester = async (term: number) => {
-    const courses = await fetchCourses(term);
-    console.log(courses);
+const updateTerm = async (term: number) => {
+    const startTime = Date.now();
+
+    const existingCourses = db.getCourses();
+    const newCourses = await fetchCourses(term).catch(err => {
+        console.error(err);
+        return [];
+    });
+
+    if (newCourses.length === 0) {
+        console.log("No courses found for term " + term);
+        return;
+    }
+
+    // Add new courses that are not already in the database
+    const coursesToAdd = newCourses.filter(
+        x => !existingCourses.some(y => y.id === x.id)
+    );
+
+    db.database.transaction(async tx => {
+        if (existingCourses.length > 0 && existingCourses[0].term !== term) {
+            // Delete all courses if the term is different
+            tx.delete(schema.courses).all();
+        }
+
+        if (coursesToAdd.length > 0) {
+            await tx.insert(schema.courses).values(coursesToAdd);
+        }
+    });
+
+    const endTime = Date.now();
+    console.log(
+        "Updated term " +
+            term +
+            " in " +
+            (endTime - startTime) +
+            "ms. Added " +
+            coursesToAdd.length +
+            " new courses."
+    );
 };
 
-resetSemester(1252);
+updateTerm(1252);
