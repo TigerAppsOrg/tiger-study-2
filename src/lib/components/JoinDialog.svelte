@@ -69,16 +69,13 @@
 
                 <div
                     class="flex flex-col flex-1 mt-2 overflow-y-auto
-                 {filteredCourses.length > 0 && 'border-t'}">
+                 {filteredCourses.length > 0 && 'border-t border-input'}">
                     {#each filteredCourses as course}
                         <button
                             on:click={() => {
                                 selectedCourse = course;
                             }}
-                            class="w-full text-left border-t-0
-                            border-input bg-background hover:bg-accent
-                            hover:text-accent-foreground
-                            duration-100 flex justify-between">
+                            class=" card">
                             <div class="p-1">
                                 <p class="text-sm font-semibold">
                                     {course.code}
@@ -110,12 +107,9 @@
                     </p>
                 </div>
 
-                <div>
-                    <button
-                        on:click={() => {}}
-                        class="w-full text-left border border-t-0
-                    border-input bg-background hover:bg-accent hover:text-accent-foreground
-                    duration-100 flex justify-between">
+                <div
+                    class="flex flex-col flex-1 overflow-y-auto border-t border-input">
+                    <button on:click={() => {}} class="card">
                         <div class="p-2">
                             <p class="text-sm font-semibold">Blue Dolphins</p>
                             <p class="text-xs text-slate-500">
@@ -129,7 +123,6 @@
                     </button>
                 </div>
                 <Button
-                    variant="outline"
                     on:click={() => {
                         alertDialogOpen = true;
                     }}
@@ -160,3 +153,11 @@
         </div>
     </Dialog.Content>
 </Dialog.Root>
+
+<style lang="postcss">
+    .card {
+        @apply border border-t-0 border-input bg-background hover:bg-accent 
+        hover:text-accent-foreground duration-100 flex justify-between
+        items-center w-full text-left;
+    }
+</style>
