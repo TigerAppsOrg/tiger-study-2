@@ -90,28 +90,25 @@
                         </p>
                     </div>
                 </article>
-
-                <div class="card">
-                    <h4 class="card-title">
-                        Looking for a 1-on-1 Study Partner instead?
-                    </h4>
-                    <p class="card-body">
-                        Would you benefit from meeting with a peer to help keep
-                        you accountable as you pursue your goals and
-                        aspirations? Do you want to offer supportive
-                        accountability to a fellow student? Check out the
-                        <a
-                            class="link"
-                            href="https://mcgraw.princeton.edu/undergraduates/programs/study-partners"
-                            target="_blank">
-                            McGraw Center's Study Partners program
-                        </a>
-                        to learn more!
-                    </p>
-                </div>
             </div>
         {/if}
     </section>
+
+    <div class="card my-8">
+        <h4 class="card-title">Looking for a 1-on-1 Study Partner instead?</h4>
+        <p class="card-body">
+            Would you benefit from meeting with a peer to help keep you
+            accountable as you pursue your goals and aspirations? Do you want to
+            offer supportive accountability to a fellow student? Check out the
+            <a
+                class="link"
+                href="https://mcgraw.princeton.edu/undergraduates/programs/study-partners"
+                target="_blank">
+                McGraw Center's Study Partners program
+            </a>
+            to learn more!
+        </p>
+    </div>
 
     <div class="flex-1"></div>
 
