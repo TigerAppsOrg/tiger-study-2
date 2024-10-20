@@ -33,7 +33,10 @@ class DB {
     async createGroup(courseId: string): Promise<string> {
         const name = uniqueNamesGenerator({
             dictionaries: [colors, animals]
-        });
+        })
+            .split("_")
+            .map(x => x.charAt(0).toUpperCase() + x.slice(1))
+            .join(" ");
 
         try {
             const newGroup = await this.database
