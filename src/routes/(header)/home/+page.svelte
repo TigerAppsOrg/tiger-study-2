@@ -29,23 +29,23 @@
                 <Table.Header>
                     <Table.Row>
                         <Table.Head>Course</Table.Head>
+                        <Table.Head>Title</Table.Head>
                         <Table.Head>Group Name</Table.Head>
-                        <Table.Head>Members</Table.Head>
                         <Table.Head class="text-right"></Table.Head>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {#each groups as group}
                         <Table.Row>
-                            <Table.Cell>{group.course}</Table.Cell>
-                            <Table.Cell>{group.name}</Table.Cell>
-                            <Table.Cell>{group.members}</Table.Cell>
+                            <Table.Cell>{group.courseCode}</Table.Cell>
+                            <Table.Cell>{group.courseName}</Table.Cell>
+                            <Table.Cell>{group.groupName}</Table.Cell>
                             <Table.Cell class="text-right">
                                 <Button
                                     size="sm"
                                     class="h-6"
                                     variant="link"
-                                    href={`/group/${group.id}`}>
+                                    href={`/group/${group.groupId}`}>
                                     View
                                 </Button>
                             </Table.Cell>

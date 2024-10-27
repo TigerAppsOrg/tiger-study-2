@@ -138,23 +138,19 @@ class DB {
      * @param netid NetID of user
      * @returns All groups that the user is a member of
      */
-    getUserGroups(netid: string): UserGroup[] {
-        const groups = this.database
-            // .select({
-            //     groupId: schema.groups.id,
-            //     groupName: schema.groups.name,
-            //     courseId: schema.groups.course_id,
-            //     courseCode: schema.courses.code
-            // })
-            .select()
+    getUserGroups(netid: string) {
+        return this.database
+            .select({
+                groupId: schema.groups.id,
+                groupName: schema.groups.name,
+                courseId: schema.groups.course_id,
+                courseCode: schema.courses.code,
+                courseName: schema.courses.title
+            })
             .from(schema.group_members)
             .leftJoin(
                 schema.groups,
                 eq(schema.groups.id, schema.group_members.group_id)
-            )
-            .leftJoin(
-                schema.users,
-                eq(schema.group_members.user_id, schema.users.netid)
             )
             .leftJoin(
                 schema.courses,
@@ -163,11 +159,6 @@ class DB {
             .where(eq(schema.group_members.user_id, netid))
             .groupBy(schema.groups.id)
             .all();
-
-        console.log(groups);
-
-        // Verify fields are not null
-        return groups;
     }
 
     /**
