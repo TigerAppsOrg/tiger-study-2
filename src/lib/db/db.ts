@@ -11,7 +11,7 @@ import { Database } from "bun:sqlite";
 import * as schema from "./schema";
 import { eq } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
-import type { Course, UserGroup } from "$lib/types";
+import type { Course } from "$lib/types";
 
 class DB {
     database: BunSQLiteDatabase;
@@ -198,7 +198,7 @@ class DB {
      * @param netid NetID of user
      * @param groupId ID of group
      */
-    async joinGroup(netid: string, groupId: string) {
+    async joinGroup(netid: string, groupId: number) {
         try {
             await this.database.insert(schema.group_members).values({
                 user_id: netid,
@@ -222,7 +222,7 @@ class DB {
      * @param netid NetID of user
      * @param groupId ID of group
      */
-    async leaveGroup(netid: string, groupId: string) {
+    async leaveGroup(netid: string, groupId: number) {
         try {
             await this.database
                 .delete(schema.group_members)
@@ -243,7 +243,7 @@ class DB {
      * Delete a group.
      * @param groupId ID of group
      */
-    async deleteGroup(groupId: string) {
+    async deleteGroup(groupId: number) {
         try {
             await this.database
                 .delete(schema.groups)
