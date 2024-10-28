@@ -11,6 +11,7 @@
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
+    import { userGroups } from "$lib/state.svelte.js";
     import { ClipboardCopy, Exit } from "svelte-radix";
     import { toast } from "svelte-sonner";
 
@@ -29,6 +30,8 @@
         goto("/home");
         toast.success(`You have left your group for ${data.courseCode}.`);
     };
+
+    userGroups.value = data.userGroups;
 </script>
 
 <div class="cont h-full overflow-hidden flex flex-col">

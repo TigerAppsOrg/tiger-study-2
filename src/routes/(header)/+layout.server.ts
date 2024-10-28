@@ -9,12 +9,9 @@ export const load: LayoutServerLoad = async req => {
         CASClient.authenticate();
     }
 
-    const courses = db.getCourses();
-    const userGroups = db.getUserGroups(sessionData.netid);
-
     return {
-        courses,
-        userGroups,
+        courses: db.getCourses(),
+        userGroups: db.getUserGroups(sessionData.netid),
         netid: sessionData.netid,
         name: sessionData.displayname
     };

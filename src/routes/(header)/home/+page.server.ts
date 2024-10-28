@@ -16,9 +16,8 @@ export const load: ServerLoad = async req => {
         CASClient.authenticate();
     }
 
-    const userGroups = db.getUserGroups(sessionData.netid);
     return {
-        userGroups
+        userGroups: db.getUserGroups(sessionData.netid)
     };
 };
 

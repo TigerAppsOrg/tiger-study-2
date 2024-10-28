@@ -31,6 +31,7 @@ export const load: ServerLoad = async ({ locals, params }) => {
     const { groupInfo, members } = groupData;
 
     return {
+        userGroups: db.getUserGroups(sessionData.netid),
         courseId: groupInfo.courseId,
         courseCode: groupInfo.courseCode || "",
         courseName: groupInfo.courseName || "",

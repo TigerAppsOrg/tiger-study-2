@@ -1,5 +1,7 @@
 import type { Course } from "./types";
 
+export const MAX_GROUPS = 8;
+
 type Box<T> = {
     value: T;
 };

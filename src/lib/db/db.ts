@@ -12,6 +12,7 @@ import * as schema from "./schema";
 import { eq, and, count } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import type { Course } from "$lib/types";
+import { MAX_GROUPS } from "$lib/state.svelte";
 
 class DB {
     database: BunSQLiteDatabase;
@@ -47,12 +48,9 @@ class DB {
                 })
                 .returning();
 
-            console.log(
-                `Group ${newGroup[0].id} created for course ${courseId}`
-            );
             return newGroup[0].id;
         } catch (e) {
-            console.log(`Group could not be created: ${e}`);
+            console.error(`Group could not be created: ${e}`);
             return -1;
         }
     }
@@ -222,8 +220,6 @@ class DB {
             });
         });
 
-        console.log(groups);
-
         return groups;
     }
 
@@ -238,17 +234,40 @@ class DB {
      */
     async joinGroup(netid: string, groupId: number) {
         try {
-            await this.database.insert(schema.group_members).values({
-                user_id: netid,
-                group_id: groupId
+            await this.database.transaction(async tx => {
+                // Check how many groups the user is in
+                const userGroups = this.getUserGroups(netid);
+                const group = this.getGroup(groupId);
+
+                // Users cannot join the same course twice
+                if (
+                    userGroups.some(
+                        x => x.courseId === group?.groupInfo.courseId
+                    )
+                ) {
+                    throw new Error(
+                        `User ${netid} attempted to join group ${groupId}, but is already in course ${group?.groupInfo.courseId}`
+                    );
+                }
+
+                // Users cannot join more than MAX_GROUPS groups
+                if (userGroups.length >= MAX_GROUPS) {
+                    throw new Error(
+                        `User ${netid} attempted to join group ${groupId}, but is already in ${MAX_GROUPS} groups`
+                    );
+                }
+
+                await tx.insert(schema.group_members).values({
+                    user_id: netid,
+                    group_id: groupId
+                });
             });
         } catch (e) {
-            console.log(
+            console.error(
                 `User ${netid} attempted to join group ${groupId}, but failed with error: ${e}`
             );
             return;
         }
-        console.log(`User ${netid} joined group ${groupId}`);
     }
 
     //------------------------------------------------------------------
@@ -284,12 +303,11 @@ class DB {
                 }
             });
         } catch (e) {
-            console.log(
+            console.error(
                 `User ${netid} attempted to leave group ${groupId}, but failed with error: ${e}`
             );
             return;
         }
-        console.log(`User ${netid} left group ${groupId}`);
     }
 }
 
