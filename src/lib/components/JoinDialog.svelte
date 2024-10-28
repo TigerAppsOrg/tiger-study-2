@@ -15,7 +15,8 @@
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
-    import { is } from "drizzle-orm";
+
+    const { netid } = $props();
 
     const normalize = (str: string) => {
         return str
@@ -54,11 +55,19 @@
     type Group = {
         groupId: number;
         groupName: string;
-        members: string[];
+        members: {
+            netid: number;
+            displayname: string;
+        }[];
     };
 
     let isLoading = $state(false);
     let availableGroups: Group[] = $state([]);
+    let notInGroups: Group[] = $derived(
+        availableGroups.filter(group => {
+            return !group.members.some(x => x.netid === netid);
+        })
+    );
 
     $effect(() => {
         if (selectedCourse !== null) {
@@ -133,7 +142,7 @@
                 <div
                     class="flex flex-col flex-1 mt-2 overflow-y-auto
                  {filteredCourses.length > 0 && 'border-t border-input'}">
-                    {#each filteredCourses as course}
+                    {#each filteredCourses as course (course.id)}
                         <button
                             onclick={() => {
                                 selectedCourse = course;
@@ -166,7 +175,12 @@
                         Groups for {selectedCourse.code}
                     </h2>
                     <p class="text-slate-500 text-sm">
-                        Select a group to join or create a new one.
+                        {#if notInGroups.length !== availableGroups.length}
+                            You are already in a group for this course. Change
+                            groups?
+                        {:else}
+                            Select a group to join or create a new one.
+                        {/if}
                     </p>
                 </div>
 
@@ -182,8 +196,8 @@
                 {:else}
                     <div
                         class="flex flex-col flex-1 overflow-y-auto border-t border-input">
-                        {#each availableGroups as group}
-                            <button onclick={() => {}} class="card">
+                        {#each notInGroups as group (group.groupId)}
+                            {#snippet content()}
                                 <div class="p-2">
                                     <p class="text-sm font-semibold">
                                         Group: {group.groupName}
@@ -193,11 +207,39 @@
                                             {group.members.length} Members:
                                         </span>
                                         <span>
-                                            {group.members.join(", ")}
+                                            {group.members
+                                                .map(x => x.displayname)
+                                                .join(", ")}
                                         </span>
                                     </p>
                                 </div>
+                            {/snippet}
+
+                            <button
+                                onclick={async () => {
+                                    await fetch("/api/join-group", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            groupId: group.groupId
+                                        })
+                                    });
+                                    joinDialogOpen.value = false;
+                                    goto(`/group/${group.groupId}`);
+                                    toast.success(
+                                        `Joined group ${group.groupName}!`
+                                    );
+                                }}
+                                class="card">
+                                {@render content()}
                             </button>
+                        {:else}
+                            <div
+                                class="flex-1 flex items-center justify-center text-slate-500">
+                                You are already in all available groups.
+                            </div>
                         {/each}
                     </div>
                 {/if}

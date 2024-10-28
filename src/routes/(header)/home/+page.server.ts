@@ -20,7 +20,6 @@ export const load: ServerLoad = async req => {
         const userGroups = db.getUserGroups(sessionData.netid);
 
         return {
-            name: sessionData.displayname,
             userGroups: userGroups
         };
     }

@@ -11,7 +11,8 @@ import { db } from "$lib/db/db";
 import { redirect, type ServerLoad } from "@sveltejs/kit";
 
 export const load: ServerLoad = async ({ locals, params }) => {
-    if (!locals.session.data.netid) {
+    const sessionData = locals.session.data;
+    if (!sessionData.netid) {
         // Redirect to CAS server if no session
         CASClient.authenticate();
     }

@@ -15,7 +15,7 @@
     courses.value = data.courses;
 </script>
 
-<JoinDialog />
+<JoinDialog netid={data.netid} />
 <FeedbackDialog />
 
 <div class="flex flex-col overflow-hidden min-h-screen">

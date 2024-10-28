@@ -203,7 +203,8 @@ class DB {
             return groupInfo.map(group => {
                 const members = tx
                     .select({
-                        displayname: schema.users.displayname
+                        displayname: schema.users.displayname,
+                        netid: schema.users.netid
                     })
                     .from(schema.group_members)
                     .leftJoin(
@@ -214,7 +215,7 @@ class DB {
                     .all();
 
                 return Object.assign(group, {
-                    members: members.map(x => x.displayname)
+                    members: members
                 });
             });
         });
