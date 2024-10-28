@@ -10,7 +10,7 @@
     - Author: Joshua Lau '26
 -->
 
-<div class="flex flex-col min-h-screen pb-4">
+<div id="page" class="flex flex-col min-h-screen pb-4">
     <header class="h-16 border-b shadow-sm flex">
         <div class="cont btw-flex">
             <button
@@ -100,6 +100,12 @@
 </div>
 
 <style lang="postcss">
+    #page {
+        background-image: url("/bg.svg");
+        background-size: cover;
+        background-position: center;
+    }
+
     .card {
         @apply p-4 space-y-1 shadow-sm rounded-lg border
         bg-gradient-to-br from-white to-slate-100;
