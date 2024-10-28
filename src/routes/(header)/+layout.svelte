@@ -16,7 +16,7 @@
     userGroups.value = data.userGroups;
 </script>
 
-<JoinDialog netid={data.netid} />
+<JoinDialog />
 <FeedbackDialog />
 
 <div class="flex flex-col overflow-hidden min-h-screen">

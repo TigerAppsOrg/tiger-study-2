@@ -6,6 +6,7 @@
 -->
 
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
     import {
@@ -15,16 +16,9 @@
         userGroups
     } from "$lib/state.svelte";
     import { Plus } from "svelte-radix";
+    import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
-    import { goto } from "$app/navigation";
-    import { toast } from "svelte-sonner";
-
-    const {
-        netid
-    }: {
-        netid: string;
-    } = $props();
 
     const normalize = (str: string) => {
         return str
@@ -76,11 +70,6 @@
 
     let isLoading = $state(false);
     let availableGroups: Group[] = $state([]);
-    let notInGroups: Group[] = $derived(
-        availableGroups.filter(group => {
-            return !group.members.some(x => x.netid === netid);
-        })
-    );
 
     $effect(() => {
         if (selectedCourse.value !== null) {
@@ -191,12 +180,7 @@
                         Groups for {selectedCourse.value.code}
                     </h2>
                     <p class="text-slate-500 text-sm">
-                        {#if notInGroups.length !== availableGroups.length}
-                            You are already in a group for this course. Change
-                            groups?
-                        {:else}
-                            Select a group to join or create a new one.
-                        {/if}
+                        Select a group to join or create a new one.
                     </p>
                 </div>
 
@@ -209,25 +193,7 @@
                 {:else}
                     <div
                         class="flex flex-col flex-1 overflow-y-auto border-t border-input">
-                        {#each notInGroups as group (group.groupId)}
-                            {#snippet content()}
-                                <div class="p-2">
-                                    <p class="text-sm font-semibold">
-                                        Group: {group.groupName}
-                                    </p>
-                                    <p class="text-xs text-slate-500">
-                                        <span class="font-semibold">
-                                            {group.members.length} Members:
-                                        </span>
-                                        <span>
-                                            {group.members
-                                                .map(x => x.displayname)
-                                                .join(", ")}
-                                        </span>
-                                    </p>
-                                </div>
-                            {/snippet}
-
+                        {#each availableGroups as group (group.groupId)}
                             <button
                                 onclick={async () => {
                                     await fetch("/api/join-group", {
@@ -246,7 +212,21 @@
                                     );
                                 }}
                                 class="card">
-                                {@render content()}
+                                <div class="p-2">
+                                    <p class="text-sm font-semibold">
+                                        Group: {group.groupName}
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        <span class="font-semibold">
+                                            {group.members.length} Members:
+                                        </span>
+                                        <span>
+                                            {group.members
+                                                .map(x => x.displayname)
+                                                .join(", ")}
+                                        </span>
+                                    </p>
+                                </div>
                             </button>
                         {:else}
                             <div class="flex-1 std-flex text-slate-500">
@@ -257,7 +237,11 @@
                 {/if}
                 <Button
                     on:click={() => {
-                        alertDialogOpen = true;
+                        if (availableGroups.length === 0) {
+                            createNewGroup();
+                        } else {
+                            alertDialogOpen = true;
+                        }
                     }}
                     class="w-full mt-2">
                     <p class="std-flex">
