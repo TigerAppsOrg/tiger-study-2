@@ -9,7 +9,7 @@
 import { drizzle, type BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
 import * as schema from "./schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, count } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import type { Course } from "$lib/types";
 
@@ -242,14 +242,27 @@ class DB {
      */
     async leaveGroup(netid: string, groupId: number) {
         try {
-            await this.database
-                .delete(schema.group_members)
-                .where(
-                    and(
-                        eq(schema.group_members.user_id, netid),
-                        eq(schema.group_members.group_id, groupId)
-                    )
-                );
+            await this.database.transaction(async tx => {
+                await tx
+                    .delete(schema.group_members)
+                    .where(
+                        and(
+                            eq(schema.group_members.user_id, netid),
+                            eq(schema.group_members.group_id, groupId)
+                        )
+                    );
+
+                const numMembers = await tx
+                    .select({ count: count() })
+                    .from(schema.group_members)
+                    .where(eq(schema.group_members.group_id, groupId));
+
+                if (numMembers[0].count === 0) {
+                    await tx
+                        .delete(schema.groups)
+                        .where(eq(schema.groups.id, groupId));
+                }
+            });
         } catch (e) {
             console.log(
                 `User ${netid} attempted to leave group ${groupId}, but failed with error: ${e}`
@@ -257,22 +270,6 @@ class DB {
             return;
         }
         console.log(`User ${netid} left group ${groupId}`);
-    }
-
-    /**
-     * Delete a group.
-     * @param groupId ID of group
-     */
-    async deleteGroup(groupId: number) {
-        try {
-            await this.database
-                .delete(schema.groups)
-                .where(eq(schema.groups.id, groupId));
-        } catch (e) {
-            console.log(`Group ${groupId} could not be deleted: ${e}`);
-            return;
-        }
-        console.log(`Group ${groupId} deleted`);
     }
 }
 
