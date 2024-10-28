@@ -15,7 +15,7 @@
         selectedCourse,
         userGroups
     } from "$lib/state.svelte";
-    import { Plus } from "svelte-radix";
+    import { Plus, ChevronLeft } from "svelte-radix";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
@@ -176,8 +176,20 @@
                 <!-- ! Course Selected -->
             {:else}
                 <div class="my-4">
-                    <h2 class="text-xl font-semibold">
-                        Groups for {selectedCourse.value.code}
+                    <h2 class="text-xl font-semibold flex items-center gap-2">
+                        <span>
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                on:click={() => {
+                                    selectedCourse.value = null;
+                                }}>
+                                <ChevronLeft />
+                            </Button>
+                        </span>
+                        <span>
+                            Groups for {selectedCourse.value.code}
+                        </span>
                     </h2>
                     <p class="text-slate-500 text-sm">
                         Select a group to join or create a new one.
