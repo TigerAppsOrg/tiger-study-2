@@ -8,14 +8,13 @@
 <script lang="ts">
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { courses, joinDialogOpen } from "$lib/state.svelte";
-    import type { Course } from "$lib/types";
+    import { courses, joinDialogOpen, selectedCourse } from "$lib/state.svelte";
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
-    import { fade, slide } from "svelte/transition";
+    import { fade } from "svelte/transition";
 
     const { netid } = $props();
 
@@ -46,11 +45,10 @@
     $effect(() => {
         if (joinDialogOpen.value === false) {
             search = "";
-            selectedCourse = null;
+            selectedCourse.value = null;
         }
     });
 
-    let selectedCourse: Course | null = $state(null);
     let alertDialogOpen = $state(false);
 
     type Group = {
@@ -71,7 +69,7 @@
     );
 
     $effect(() => {
-        if (selectedCourse !== null) {
+        if (selectedCourse.value !== null) {
             // Fetch available groups for the selected course
             isLoading = true;
 
@@ -82,7 +80,7 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        courseId: selectedCourse.id
+                        courseId: selectedCourse.value.id
                     })
                 })
                     .then(res => res.json())
@@ -98,7 +96,7 @@
     });
 
     const createNewGroup = async () => {
-        if (!selectedCourse) {
+        if (!selectedCourse.value) {
             alertDialogOpen = false;
             return;
         }
@@ -110,14 +108,14 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                courseId: selectedCourse.id
+                courseId: selectedCourse.value.id
             })
         });
         const newGroupId = (await res.json()).group;
 
         // Redirect to the new group page and cleanup
         goto(`/group/${newGroupId}`);
-        toast.success(`Created a new group for ${selectedCourse.code}!`);
+        toast.success(`Created a new group for ${selectedCourse.value.code}!`);
         alertDialogOpen = false;
         joinDialogOpen.value = false;
     };
@@ -127,7 +125,7 @@
     <Dialog.Content class="h-2/3">
         <div class="flex flex-col h-full overflow-hidden">
             <!-- ! Course Not Selected (search courses) -->
-            {#if !selectedCourse}
+            {#if !selectedCourse.value}
                 <div class="my-4">
                     <h2 class="text-xl font-semibold">Join Study Group</h2>
                     <p class="text-slate-500 text-sm">
@@ -148,7 +146,7 @@
                         <button
                             transition:fade={{ duration: 50 }}
                             onclick={() => {
-                                selectedCourse = course;
+                                selectedCourse.value = course;
                             }}
                             class=" card">
                             <div class="p-1">
@@ -177,7 +175,7 @@
             {:else}
                 <div class="my-4">
                     <h2 class="text-xl font-semibold">
-                        Groups for {selectedCourse.code}
+                        Groups for {selectedCourse.value.code}
                     </h2>
                     <p class="text-slate-500 text-sm">
                         {#if notInGroups.length !== availableGroups.length}

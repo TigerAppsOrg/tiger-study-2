@@ -11,6 +11,7 @@
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
+    import { joinDialogOpen, selectedCourse } from "$lib/state.svelte.js";
     import { ClipboardCopy, Exit, Move } from "svelte-radix";
     import { toast } from "svelte-sonner";
 
@@ -45,7 +46,16 @@
             </h3>
         </div>
         <div class="flex flex-col gap-2">
-            <Button variant="outline">
+            <Button
+                variant="outline"
+                on:click={() => {
+                    selectedCourse.value = {
+                        id: data.courseId,
+                        code: data.courseCode,
+                        title: data.courseName
+                    };
+                    joinDialogOpen.value = true;
+                }}>
                 <Move class="mr-1" />
                 <span> Change Group </span>
             </Button>
