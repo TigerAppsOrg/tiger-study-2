@@ -14,7 +14,6 @@
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
-    import { fade } from "svelte/transition";
 
     const { netid } = $props();
 
@@ -144,7 +143,6 @@
                  {filteredCourses.length > 0 && 'border-t border-input'}">
                     {#each filteredCourses as course (course.id)}
                         <button
-                            transition:fade={{ duration: 50 }}
                             onclick={() => {
                                 selectedCourse.value = course;
                             }}
