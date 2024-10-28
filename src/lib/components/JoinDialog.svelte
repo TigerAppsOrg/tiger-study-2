@@ -15,6 +15,7 @@
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
+    import { fade, slide } from "svelte/transition";
 
     const { netid } = $props();
 
@@ -125,6 +126,7 @@
 <Dialog.Root bind:open={joinDialogOpen.value}>
     <Dialog.Content class="h-2/3">
         <div class="flex flex-col h-full overflow-hidden">
+            <!-- ! Course Not Selected (search courses) -->
             {#if !selectedCourse}
                 <div class="my-4">
                     <h2 class="text-xl font-semibold">Join Study Group</h2>
@@ -144,6 +146,7 @@
                  {filteredCourses.length > 0 && 'border-t border-input'}">
                     {#each filteredCourses as course (course.id)}
                         <button
+                            transition:fade={{ duration: 50 }}
                             onclick={() => {
                                 selectedCourse = course;
                             }}
@@ -169,6 +172,8 @@
                         {/if}
                     {/each}
                 </div>
+
+                <!-- ! Course Selected -->
             {:else}
                 <div class="my-4">
                     <h2 class="text-xl font-semibold">
