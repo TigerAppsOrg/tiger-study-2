@@ -59,6 +59,8 @@ class DB {
 
     //------------------------------------------------------------------
     // Read
+    // Does not modify the database
+    // Because it's SQLite, these are actually synchronous
     //------------------------------------------------------------------
 
     /**
