@@ -9,7 +9,7 @@
 import { drizzle, type BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
 import * as schema from "./schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import type { Course } from "$lib/types";
 
@@ -245,8 +245,10 @@ class DB {
             await this.database
                 .delete(schema.group_members)
                 .where(
-                    eq(schema.group_members.user_id, netid) &&
+                    and(
+                        eq(schema.group_members.user_id, netid),
                         eq(schema.group_members.group_id, groupId)
+                    )
                 );
         } catch (e) {
             console.log(
