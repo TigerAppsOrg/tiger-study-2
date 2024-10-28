@@ -1,5 +1,6 @@
 <script>
     import { Button } from "$lib/components/ui/button";
+    import { MagnifyingGlass, Person, Share1 } from "svelte-radix";
 </script>
 
 <!-- 
@@ -30,19 +31,49 @@
         </div>
     </header>
     <main class="flex-1 std-flex">
-        <div class="cont py-4 std-flex">
-            <div class="text-center space-y-2">
-                <h1 class="text-5xl font-semibold text-slate-900 leading-tight">
+        <div class="cont py-12 std-flex flex-col space-y-16">
+            <div class="text-center space-y-4">
+                <h1 class="text-6xl font-semibold text-slate-900 leading-tight">
                     Study better, together
                 </h1>
                 <p
-                    class="text-lg text-slate-500 max-w-lg mx-auto leading-relaxed">
+                    class="text-xl text-slate-500 max-w-lg mx-auto leading-relaxed">
                     Find study groups for all your courses with TigerStudy.
                 </p>
                 <Button size="lg" href="/home">
                     <span> Get Started </span>
                 </Button>
             </div>
+            <section class="grid sm:grid-cols-3 gap-4">
+                <div class="card">
+                    <div class="icon">
+                        <MagnifyingGlass size="28" />
+                    </div>
+                    <h4 class="card-title">Step 1</h4>
+                    <p class="card-body">
+                        Search for any course and join a study group.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <Person size="28" />
+                    </div>
+                    <h4 class="card-title">Step 2</h4>
+                    <p class="card-body">
+                        View your group's information and members.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <Share1 size="28" />
+                    </div>
+                    <h4 class="card-title">Step 3</h4>
+                    <p class="card-body">
+                        Communicate with your study group to find a suitable
+                        time.
+                    </p>
+                </div>
+            </section>
         </div>
     </main>
     <footer>
@@ -67,3 +98,18 @@
         </div>
     </footer>
 </div>
+
+<style lang="postcss">
+    .card {
+        @apply p-4 space-y-1 shadow-sm rounded-lg border
+        bg-gradient-to-br from-white to-slate-100;
+    }
+
+    .icon {
+        @apply text-4xl text-primary mb-2;
+    }
+
+    .card-title {
+        @apply text-xl font-semibold;
+    }
+</style>
