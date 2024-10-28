@@ -105,7 +105,7 @@ const fetchCourses = async (term: number): Promise<Course[]> => {
         return {
             id: x.course_id,
             code: x.subject + x.catnum,
-            title: x.long_title,
+            title: x.long_title + (x.topic_title ? ": " + x.topic_title : ""),
             term: term
         };
     });
