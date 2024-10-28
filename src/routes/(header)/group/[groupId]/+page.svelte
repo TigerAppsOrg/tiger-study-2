@@ -14,7 +14,7 @@
     import { ClipboardCopy, Exit, Move } from "svelte-radix";
     import { toast } from "svelte-sonner";
 
-    let leaveDialogOpen = false;
+    let leaveDialogOpen = $state(false);
 
     const handleLeave = async () => {
         leaveDialogOpen = false;

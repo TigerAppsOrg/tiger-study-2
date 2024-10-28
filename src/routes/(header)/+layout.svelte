@@ -9,10 +9,10 @@
     import FeedbackDialog from "$lib/components/FeedbackDialog.svelte";
     import Header from "$lib/components/Header.svelte";
     import JoinDialog from "$lib/components/JoinDialog.svelte";
-    import { courses } from "$lib/state";
+    import { courses } from "$lib/state.svelte";
 
-    export let data;
-    courses.set(data.courses);
+    let { data, children } = $props();
+    courses.value = data.courses;
 </script>
 
 <JoinDialog />
@@ -21,6 +21,6 @@
 <div class="flex flex-col overflow-hidden min-h-screen">
     <Header />
     <main class="flex-1 overflow-hidden py-4 flex flex-col">
-        <slot />
+        {@render children?.()}
     </main>
 </div>

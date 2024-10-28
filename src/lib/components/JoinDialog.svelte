@@ -8,7 +8,7 @@
 <script lang="ts">
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { courses, joinDialogOpen } from "$lib/state";
+    import { courses, joinDialogOpen } from "$lib/state.svelte";
     import type { Course } from "$lib/types";
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
@@ -23,29 +23,32 @@
             .trim();
     };
 
-    let search = "";
-    $: filteredCourses = $courses.filter(course => {
-        if (search.length < 3) {
-            return false;
-        } else if (search.length === 3) {
-            return normalize(course.code).includes(normalize(search));
-        } else {
-            return (
-                normalize(course.code).includes(normalize(search)) ||
-                normalize(course.title).includes(normalize(search))
-            );
+    let search = $state("");
+    const filteredCourses = $derived(
+        courses.value.filter(course => {
+            if (search.length < 3) {
+                return false;
+            } else if (search.length === 3) {
+                return normalize(course.code).includes(normalize(search));
+            } else {
+                return (
+                    normalize(course.code).includes(normalize(search)) ||
+                    normalize(course.title).includes(normalize(search))
+                );
+            }
+        })
+    );
+
+    // Clear component data when dialog is closed
+    $effect(() => {
+        if (joinDialogOpen.value === false) {
+            search = "";
+            selectedCourse = null;
         }
     });
 
-    // Clear component data when dialog is closed
-    $: if ($joinDialogOpen === false) {
-        search = "";
-        selectedCourse = null;
-    }
-
-    let selectedCourse: Course | null = null;
-
-    let alertDialogOpen = false;
+    let selectedCourse: Course | null = $state(null);
+    let alertDialogOpen = $state(false);
 
     const createNewGroup = async () => {
         if (!selectedCourse) {
@@ -69,11 +72,11 @@
         goto(`/group/${newGroupId}`);
         toast.success(`Created a new group for ${selectedCourse.code}!`);
         alertDialogOpen = false;
-        $joinDialogOpen = false;
+        joinDialogOpen.value = false;
     };
 </script>
 
-<Dialog.Root bind:open={$joinDialogOpen}>
+<Dialog.Root bind:open={joinDialogOpen.value}>
     <Dialog.Content class="h-2/3">
         <div class="flex flex-col h-full overflow-hidden">
             {#if !selectedCourse}
@@ -95,7 +98,7 @@
                  {filteredCourses.length > 0 && 'border-t border-input'}">
                     {#each filteredCourses as course}
                         <button
-                            on:click={() => {
+                            onclick={() => {
                                 selectedCourse = course;
                             }}
                             class=" card">
@@ -132,7 +135,7 @@
 
                 <div
                     class="flex flex-col flex-1 overflow-y-auto border-t border-input">
-                    <button on:click={() => {}} class="card">
+                    <button onclick={() => {}} class="card">
                         <div class="p-2">
                             <p class="text-sm font-semibold">Blue Dolphins</p>
                             <p class="text-xs text-slate-500">

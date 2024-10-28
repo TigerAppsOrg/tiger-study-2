@@ -8,8 +8,8 @@
 <script lang="ts">
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
-    import { joinDialogOpen } from "$lib/state.js";
-    export let data;
+    import { joinDialogOpen } from "$lib/state.svelte.js";
+    let { data } = $props();
 
     const groups = data.userGroups;
 </script>
@@ -57,7 +57,7 @@
             <div class="space-y-8">
                 <div class="flex justify-between items-center">
                     <p>You're not in any study groups yet!</p>
-                    <Button on:click={() => joinDialogOpen.set(true)}
+                    <Button on:click={() => (joinDialogOpen.value = true)}
                         >Get Started</Button>
                 </div>
 

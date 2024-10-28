@@ -5,9 +5,15 @@
     - Author: Joshua Lau '26
 -->
 
-<script>
+<script lang="ts">
     import { Toaster } from "$lib/components/ui/sonner";
     import "../app.css";
+
+    interface Props {
+        children?: import("svelte").Snippet;
+    }
+
+    let { children }: Props = $props();
 </script>
 
 <svelte:head>
@@ -21,4 +27,4 @@
 </svelte:head>
 
 <Toaster richColors theme="light" />
-<slot></slot>
+{@render children?.()}

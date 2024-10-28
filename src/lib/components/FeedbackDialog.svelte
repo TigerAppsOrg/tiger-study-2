@@ -6,13 +6,13 @@
 -->
 
 <script lang="ts">
-    import { feedbackDialogOpen } from "$lib/state";
+    import { feedbackDialogOpen } from "$lib/state.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
     import Button from "./ui/button/button.svelte";
     import { toast } from "svelte-sonner";
 
-    let feedback = "";
+    let feedback = $state("");
 
     const submitFeedback = async () => {
         // TODO - Validate feedback
@@ -26,12 +26,12 @@
         });
 
         feedback = "";
-        feedbackDialogOpen.set(false);
+        feedbackDialogOpen.value = false;
         toast.info("Thank you for your feedback!");
     };
 </script>
 
-<Dialog.Root bind:open={$feedbackDialogOpen}>
+<Dialog.Root bind:open={feedbackDialogOpen.value}>
     <Dialog.Content>
         <div class="flex flex-col h-full overflow-hidden">
             <div class="my-4">
@@ -54,7 +54,7 @@
         <Dialog.Footer>
             <Button
                 variant="outline"
-                on:click={() => feedbackDialogOpen.set(false)}>
+                on:click={() => (feedbackDialogOpen.value = false)}>
                 Cancel
             </Button>
             <Button on:click={submitFeedback}>Submit</Button>
