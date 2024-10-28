@@ -10,8 +10,11 @@ export const load: LayoutServerLoad = async req => {
     }
 
     const courses = db.getCourses();
+    const userGroups = db.getUserGroups(sessionData.netid);
+
     return {
         courses,
+        userGroups,
         netid: sessionData.netid,
         name: sessionData.displayname
     };

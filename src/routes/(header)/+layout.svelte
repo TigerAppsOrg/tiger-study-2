@@ -9,10 +9,11 @@
     import FeedbackDialog from "$lib/components/FeedbackDialog.svelte";
     import Header from "$lib/components/Header.svelte";
     import JoinDialog from "$lib/components/JoinDialog.svelte";
-    import { courses } from "$lib/state.svelte";
+    import { courses, userGroups } from "$lib/state.svelte";
 
     let { data, children } = $props();
     courses.value = data.courses;
+    userGroups.value = data.userGroups;
 </script>
 
 <JoinDialog netid={data.netid} />

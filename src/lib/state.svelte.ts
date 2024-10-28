@@ -10,3 +10,6 @@ export const courses = $state<Box<Course[]>>({ value: [] });
 export const selectedCourse = $state<Box<Course | null>>({
     value: null
 });
+export const userGroups = $state<Box<any[]>>({
+    value: []
+});

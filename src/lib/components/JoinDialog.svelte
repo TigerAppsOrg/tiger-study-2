@@ -8,14 +8,23 @@
 <script lang="ts">
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { courses, joinDialogOpen, selectedCourse } from "$lib/state.svelte";
+    import {
+        courses,
+        joinDialogOpen,
+        selectedCourse,
+        userGroups
+    } from "$lib/state.svelte";
     import { Plus } from "svelte-radix";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
 
-    const { netid } = $props();
+    const {
+        netid
+    }: {
+        netid: string;
+    } = $props();
 
     const normalize = (str: string) => {
         return str
@@ -27,14 +36,20 @@
     let search = $state("");
     const filteredCourses = $derived(
         courses.value.filter(course => {
-            if (search.length < 3) {
+            if (userGroups.value.some(x => x.courseId === course.id)) {
                 return false;
-            } else if (search.length === 3) {
-                return normalize(course.code).includes(normalize(search));
+            }
+
+            const searchNorm = normalize(search);
+
+            if (searchNorm.length < 3) {
+                return false;
+            } else if (searchNorm.length === 3) {
+                return normalize(course.code).includes(searchNorm);
             } else {
                 return (
-                    normalize(course.code).includes(normalize(search)) ||
-                    normalize(course.title).includes(normalize(search))
+                    normalize(course.code).includes(searchNorm) ||
+                    normalize(course.title).includes(searchNorm)
                 );
             }
         })
@@ -54,7 +69,7 @@
         groupId: number;
         groupName: string;
         members: {
-            netid: number;
+            netid: string;
             displayname: string;
         }[];
     };

@@ -8,10 +8,10 @@
 <script lang="ts">
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
-    import { joinDialogOpen } from "$lib/state.svelte.js";
+    import { joinDialogOpen, userGroups } from "$lib/state.svelte.js";
     let { data } = $props();
 
-    const groups = data.userGroups;
+    userGroups.value = data.userGroups;
 </script>
 
 <div class="cont flex flex-col h-full flex-1">
@@ -19,12 +19,12 @@
         Welcome, {data.name}!
     </h2>
 
-    {#if groups && groups.length > 0}
+    {#if userGroups.value && userGroups.value.length > 0}
         <p class="mb-2 text-slate-500">View and manage your study groups:</p>
     {/if}
 
     <section class="space-y-8">
-        {#if groups && groups.length > 0}
+        {#if userGroups.value && userGroups.value.length > 0}
             <Table.Root>
                 <Table.Header>
                     <Table.Row>
@@ -35,7 +35,7 @@
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {#each groups as group (group.groupId)}
+                    {#each userGroups.value as group (group.groupId)}
                         <Table.Row>
                             <Table.Cell>{group.courseCode}</Table.Cell>
                             <Table.Cell>{group.courseName}</Table.Cell>

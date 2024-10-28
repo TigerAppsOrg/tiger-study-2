@@ -2,7 +2,7 @@
  * @file +page.server.ts (/home)
  * @author Joshua Lau '26
  *
- * Entry point for home page. Checks if user is logged in and loads user data.
+ * Entry point for home page. Checks if user is logged in.
  */
 
 import { CASClient } from "$lib/db/cas";
@@ -14,15 +14,12 @@ export const load: ServerLoad = async req => {
     if (!sessionData.displayname) {
         // Redirect to CAS server if no session
         CASClient.authenticate();
-        return {};
-    } else {
-        // Get user groups
-        const userGroups = db.getUserGroups(sessionData.netid);
-
-        return {
-            userGroups: userGroups
-        };
     }
+
+    const userGroups = db.getUserGroups(sessionData.netid);
+    return {
+        userGroups
+    };
 };
 
 export const actions: Actions = {
