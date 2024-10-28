@@ -35,7 +35,7 @@
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {#each groups as group}
+                    {#each groups as group (group.groupId)}
                         <Table.Row>
                             <Table.Cell>{group.courseCode}</Table.Cell>
                             <Table.Cell>{group.courseName}</Table.Cell>

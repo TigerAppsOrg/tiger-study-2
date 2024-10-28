@@ -114,7 +114,7 @@
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {#each data.members as member}
+                {#each data.members as member (member.displayname)}
                     <Table.Row>
                         <Table.Cell>{member.displayname}</Table.Cell>
                         <Table.Cell>{member.year}</Table.Cell>
