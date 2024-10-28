@@ -65,20 +65,17 @@
                     <div class="card">
                         <h4 class="card-title">Step 1</h4>
                         <p class="card-body">
-                            Search for a course and join a study group! Note
-                            that some courses are disabled due to an instructor
-                            or department request.
+                            Click the "Join Group" button to search for course
+                            study groups! Note that some courses may be disabled
+                            due to an instructor or department request.
                         </p>
                     </div>
                     <div class="card">
                         <h4 class="card-title">Step 2</h4>
                         <p class="card-body">
-                            Click on the "Join" button to join a group. If the
-                            course has been approved for study groups, you'll be
-                            placed into a group immediately and we'll send you
-                            an email with your partners' details. Otherwise,
-                            we'll let you know the moment the course is
-                            approved.
+                            View members of existing study groups and select a
+                            group to join or create a new group. See your
+                            group's information and members.
                         </p>
                     </div>
                     <div class="card">

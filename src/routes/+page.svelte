@@ -79,7 +79,7 @@
     <footer>
         <div class="cont">
             <p class="text-sm text-slate-500 mt-4 text-center">
-                Experiencing difficulties? Contact us at
+                Have questions? Contact us at
                 <a class="link" href="mailto:tiger-study@princeton.edu">
                     tiger-study@princeton.edu</a
                 >. TigerStudy is supported by the
