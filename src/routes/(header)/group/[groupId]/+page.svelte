@@ -27,64 +27,21 @@
         });
         leaveDialogOpen = false;
         goto("/home");
-        toast.success(`You have left your group for ${data.code}.`);
+        toast.success(`You have left your group for ${data.courseCode}.`);
     };
-
-    const groupMembers = [
-        {
-            name: "Alice Smith",
-            year: 2024,
-            email: "alice@princeton.edu"
-        },
-        {
-            name: "Bob Johnson",
-            year: 2023,
-            email: "bob@princeton.edu"
-        },
-        {
-            name: "Charlie Brown",
-            year: 2026,
-            email: "charlie@princeton.edu"
-        },
-        {
-            name: "Alice Smith",
-            year: 2024,
-            email: "alice@princeton.edu"
-        },
-        {
-            name: "Bob Johnson",
-            year: 2023,
-            email: "bob@princeton.edu"
-        },
-        {
-            name: "Charlie Brown",
-            year: 2026,
-            email: "charlie@princeton.edu"
-        },
-        {
-            name: "Alice Smith",
-            year: 2024,
-            email: "alice@princeton.edu"
-        },
-        {
-            name: "Bob Johnson",
-            year: 2023,
-            email: "bob@princeton.edu"
-        }
-    ];
 </script>
 
 <div class="cont h-full overflow-hidden flex flex-col">
     <section class="flex justify-between border-b pb-8">
         <div>
             <h2 id="course-code" class="text-4xl font-semibold">
-                {data.code}
+                {data.courseCode}
             </h2>
             <h3 id="course-name" class="text-xl font-semibold text-slate-700">
-                {data.name}
+                {data.courseName}
             </h3>
             <h3 id="group-name" class="text-xl text-slate-700 mt-2">
-                Group {data.group}
+                Group {data.groupName}
             </h3>
         </div>
         <div class="flex flex-col gap-2">
@@ -122,13 +79,13 @@
     <section class="mt-8 space-y-4 overflow-hidden flex flex-col">
         <div class="flex justify-between items-center">
             <h3 class="text-2xl font-semibold">
-                Members ({groupMembers.length})
+                Members ({data.members.length})
             </h3>
             <Button
                 size="sm"
                 variant="secondary"
                 on:click={() => {
-                    const emails = groupMembers
+                    const emails = data.members
                         .map(member => member.email)
                         .join(", ");
                     navigator.clipboard.writeText(emails);
@@ -147,9 +104,9 @@
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {#each groupMembers as member}
+                {#each data.members as member}
                     <Table.Row>
-                        <Table.Cell>{member.name}</Table.Cell>
+                        <Table.Cell>{member.displayname}</Table.Cell>
                         <Table.Cell>{member.year}</Table.Cell>
                         <Table.Cell class="text-right"
                             >{member.email}</Table.Cell>

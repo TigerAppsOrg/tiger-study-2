@@ -9,36 +9,9 @@ import { db } from "../db";
 import * as schema from "../schema";
 
 const seed = async () => {
-    await db.database.insert(schema.users).values([
-        {
-            netid: "mk1",
-            displayname: "Marisa Kirisame",
-            mail: "marisa@gmail.com",
-            year: "2025"
-        },
-        {
-            netid: "reimu",
-            displayname: "Reimu Hakurei",
-            mail: "reimu@gmail.com",
-            year: "2026"
-        },
-        {
-            netid: "sakuya",
-            displayname: "Sakuya Izayoi",
-            mail: "sakuya@gmail.com",
-            year: "2027"
-        },
-        {
-            netid: "remilia",
-            displayname: "Remilia Scarlet",
-            mail: "remilia@gmail.com",
-            year: "Graduate"
-        }
-    ]);
-
-    await db.joinGroup("mk1", "1");
-    await db.joinGroup("remilia", "2");
-    await db.joinGroup("sakuya", "2");
+    await db.joinGroup("mk1", 3);
+    await db.joinGroup("remilia", 3);
+    await db.joinGroup("sakuya", 3);
 };
 
 seed();

@@ -93,44 +93,62 @@ class DB {
         return user[0];
     }
 
-    getGroup(groupId: string) {
-        const id = parseInt(groupId);
-        if (isNaN(id)) {
+    getGroup(groupId: number) {
+        if (isNaN(groupId)) {
             console.error(`Invalid group ID: ${groupId}`);
             return null;
         }
 
-        const group = this.database
-            .select({
-                groupId: schema.groups.id,
-                groupName: schema.groups.name,
-                courseId: schema.groups.course_id,
-                courseCode: schema.courses.code,
-                members: schema.users.displayname
-            })
-            .from(schema.groups)
-            .leftJoin(
-                schema.group_members,
-                eq(schema.group_members.group_id, schema.groups.id)
-            )
-            .leftJoin(
-                schema.courses,
-                eq(schema.courses.id, schema.groups.course_id)
-            )
-            .leftJoin(
-                schema.users,
-                eq(schema.users.netid, schema.group_members.user_id)
-            )
-            .where(eq(schema.groups.id, id))
-            .groupBy(schema.groups.id)
-            .all();
+        const groupInfo = this.database.transaction(tx => {
+            // Get group info
+            const group = tx
+                .select({
+                    groupId: schema.groups.id,
+                    groupName: schema.groups.name,
+                    courseId: schema.groups.course_id,
+                    courseName: schema.courses.title,
+                    courseCode: schema.courses.code
+                })
+                .from(schema.groups)
+                .leftJoin(
+                    schema.group_members,
+                    eq(schema.group_members.group_id, schema.groups.id)
+                )
+                .leftJoin(
+                    schema.courses,
+                    eq(schema.courses.id, schema.groups.course_id)
+                )
+                .where(eq(schema.groups.id, groupId))
+                .groupBy(schema.groups.id)
+                .all();
 
-        if (group.length === 0) {
-            console.error(`Group ${id} not found`);
-            return null;
-        }
+            if (group.length === 0) {
+                console.error(`Group ${groupId} not found`);
+                return null;
+            }
 
-        return group;
+            // Get group members
+            const members = tx
+                .select({
+                    year: schema.users.year,
+                    displayname: schema.users.displayname,
+                    email: schema.users.mail
+                })
+                .from(schema.group_members)
+                .leftJoin(
+                    schema.users,
+                    eq(schema.users.netid, schema.group_members.user_id)
+                )
+                .where(eq(schema.group_members.group_id, groupId))
+                .all();
+
+            return {
+                groupInfo: group[0],
+                members: members
+            };
+        });
+
+        return groupInfo;
     }
 
     /**

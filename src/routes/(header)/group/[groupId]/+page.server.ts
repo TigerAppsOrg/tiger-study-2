@@ -8,18 +8,32 @@
 
 import { CASClient } from "$lib/db/cas";
 import { db } from "$lib/db/db";
-import type { ServerLoad } from "@sveltejs/kit";
+import { redirect, type ServerLoad } from "@sveltejs/kit";
 
 export const load: ServerLoad = async ({ locals, params }) => {
     if (!locals.session.data.netid) {
         // Redirect to CAS server if no session
         CASClient.authenticate();
-        return {};
     }
 
-    const groupId = params.groupId;
+    if (!params.groupId) {
+        throw redirect(404, "/home");
+    }
+
+    const groupId = parseInt(params.groupId);
+    const groupData = db.getGroup(groupId);
+    if (!groupData) {
+        console.error("Group not found:", groupId);
+        throw redirect(404, "/home");
+    }
+
+    const { groupInfo, members } = groupData;
 
     return {
-        groupId: groupId
+        courseCode: groupInfo.courseCode,
+        courseName: groupInfo.courseName,
+        groupId: groupInfo.groupId,
+        groupName: groupInfo.groupName,
+        members: members
     };
 };
