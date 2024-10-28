@@ -30,7 +30,7 @@ class DB {
      * @param courseId ID of course to create group for
      * @returns ID of created group
      */
-    async createGroup(courseId: string): Promise<string> {
+    async createGroup(courseId: string): Promise<number> {
         const name = uniqueNamesGenerator({
             dictionaries: [colors, animals]
         })
@@ -50,10 +50,10 @@ class DB {
             console.log(
                 `Group ${newGroup[0].id} created for course ${courseId}`
             );
-            return newGroup[0].id.toString();
+            return newGroup[0].id;
         } catch (e) {
             console.log(`Group could not be created: ${e}`);
-            return "";
+            return -1;
         }
     }
 

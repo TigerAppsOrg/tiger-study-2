@@ -20,8 +20,6 @@ export const load: ServerLoad = async ({ locals, params }) => {
     const groupId = params.groupId;
 
     return {
-        props: {
-            groupId
-        }
+        groupId: groupId
     };
 };

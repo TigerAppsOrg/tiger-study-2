@@ -14,18 +14,20 @@
     import { ClipboardCopy, Exit, Move } from "svelte-radix";
     import { toast } from "svelte-sonner";
 
+    const { data } = $props();
+
     let leaveDialogOpen = $state(false);
 
     const handleLeave = async () => {
+        await fetch("/api/leave-group", {
+            method: "POST",
+            body: JSON.stringify({
+                groupId: data.groupId
+            })
+        });
         leaveDialogOpen = false;
         goto("/home");
         toast.success(`You have left your group for ${data.code}.`);
-    };
-
-    const data = {
-        code: "COS 126",
-        name: "General Computer Science",
-        group: "Blue Penguins"
     };
 
     const groupMembers = [

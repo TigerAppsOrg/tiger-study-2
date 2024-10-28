@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
     // Create new group
     const newGroup = await db.createGroup(courseId);
-    if (newGroup === "") throw new Error("Group could not be created");
+    if (newGroup === -1) throw new Error("Group could not be created");
 
     await db.joinGroup(user.netid, newGroup);
 
