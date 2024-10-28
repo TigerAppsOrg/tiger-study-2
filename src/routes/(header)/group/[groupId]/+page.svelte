@@ -87,7 +87,7 @@
         </div>
     </section>
     <section class="mt-8 space-y-4 overflow-hidden flex flex-col">
-        <div class="flex justify-between items-center">
+        <div class="btw-flex">
             <h3 class="text-2xl font-semibold">
                 Members ({data.members.length})
             </h3>

@@ -11,7 +11,7 @@
 
 <div class="flex flex-col min-h-screen pb-4">
     <header class="h-16 border-b shadow-sm flex">
-        <div class="cont flex items-center justify-between">
+        <div class="cont btw-flex">
             <button
                 onclick={() => {
                     // Scroll to top
@@ -29,15 +29,22 @@
             </nav>
         </div>
     </header>
-    <main>
-        <div class="cont py-4">
-            <p>
-                Welcome to TigerStudy! Get started by creating an account or
-                logging in.
-            </p>
+    <main class="flex-1 std-flex">
+        <div class="cont py-4 std-flex">
+            <div class="text-center space-y-2">
+                <h1 class="text-5xl font-semibold text-slate-900 leading-tight">
+                    Study better, together
+                </h1>
+                <p
+                    class="text-lg text-slate-500 max-w-lg mx-auto leading-relaxed">
+                    Find study groups for all your courses with TigerStudy.
+                </p>
+                <Button size="lg" href="/home">
+                    <span> Get Started </span>
+                </Button>
+            </div>
         </div>
     </main>
-    <div class="flex-1"></div>
     <footer>
         <div class="cont">
             <p class="text-sm text-slate-500 mt-4 text-center">

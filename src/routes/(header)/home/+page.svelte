@@ -55,7 +55,7 @@
             </Table.Root>
         {:else}
             <div class="space-y-8">
-                <div class="flex justify-between items-center">
+                <div class="btw-flex">
                     <p>You're not in any study groups yet!</p>
                     <Button on:click={() => (joinDialogOpen.value = true)}
                         >Get Started</Button>

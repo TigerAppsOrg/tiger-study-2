@@ -11,6 +11,14 @@
     @apply text-primary hover:underline;
 }
 
+.std-flex {
+    @apply flex items-center justify-center;
+}
+
+.btw-flex {
+    @apply flex items-center justify-between;
+}
+
 /* overpass-latin-wght-normal */
 @font-face {
     font-family: "Overpass Variable";

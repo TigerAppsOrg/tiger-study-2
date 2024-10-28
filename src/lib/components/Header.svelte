@@ -12,7 +12,7 @@
 </script>
 
 <header class="h-16 border-b shadow-sm flex">
-    <div class="cont flex items-center justify-between">
+    <div class="cont btw-flex">
         <a href="/home" aria-label="Dashboard">
             <h1 class="text-2xl font-semibold">
                 <span> 🐯 </span>

@@ -188,12 +188,9 @@
                 </div>
 
                 {#if isLoading}
-                    <div class="flex items-center justify-center mt-4">
-                        Loading groups...
-                    </div>
+                    <div class="std-flex mt-4">Loading groups...</div>
                 {:else if availableGroups.length === 0}
-                    <div
-                        class="flex-1 flex items-center justify-center text-slate-500">
+                    <div class="flex-1 std-flex text-slate-500">
                         No groups found. Create a new one?
                     </div>
                 {:else}
@@ -239,8 +236,7 @@
                                 {@render content()}
                             </button>
                         {:else}
-                            <div
-                                class="flex-1 flex items-center justify-center text-slate-500">
+                            <div class="flex-1 std-flex text-slate-500">
                                 You are already in all available groups.
                             </div>
                         {/each}
@@ -251,7 +247,7 @@
                         alertDialogOpen = true;
                     }}
                     class="w-full mt-2">
-                    <p class="flex items-center justify-center">
+                    <p class="std-flex">
                         <Plus class="mr-1" />
                         <span> New Group </span>
                     </p>

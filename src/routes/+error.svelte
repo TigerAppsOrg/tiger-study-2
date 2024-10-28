@@ -17,7 +17,7 @@
     <meta property="og:title" content="TigerStudy | Oh Noes!" />
 </svelte:head>
 
-<div class="h-[80vh] flex justify-center items-center">
+<div class="h-[80vh] std-flex">
     <div class="text-center">
         <h1 class="text-8xl font-semibold text-primary">Oh noes!</h1>
         <h2 class="text-4xl mb-8 text-slate-700 font-light">
