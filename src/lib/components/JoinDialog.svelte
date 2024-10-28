@@ -15,6 +15,7 @@
     import Input from "./ui/input/input.svelte";
     import { goto } from "$app/navigation";
     import { toast } from "svelte-sonner";
+    import { is } from "drizzle-orm";
 
     const normalize = (str: string) => {
         return str
@@ -49,6 +50,42 @@
 
     let selectedCourse: Course | null = $state(null);
     let alertDialogOpen = $state(false);
+
+    type Group = {
+        groupId: number;
+        groupName: string;
+        members: string[];
+    };
+
+    let isLoading = $state(false);
+    let availableGroups: Group[] = $state([]);
+
+    $effect(() => {
+        if (selectedCourse !== null) {
+            // Fetch available groups for the selected course
+            isLoading = true;
+
+            try {
+                fetch(`/api/get-groups`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        courseId: selectedCourse.id
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        availableGroups = data.groups;
+                    });
+            } finally {
+                isLoading = false;
+            }
+        } else {
+            availableGroups = [];
+        }
+    });
 
     const createNewGroup = async () => {
         if (!selectedCourse) {
@@ -133,21 +170,37 @@
                     </p>
                 </div>
 
-                <div
-                    class="flex flex-col flex-1 overflow-y-auto border-t border-input">
-                    <button onclick={() => {}} class="card">
-                        <div class="p-2">
-                            <p class="text-sm font-semibold">Blue Dolphins</p>
-                            <p class="text-xs text-slate-500">
-                                <span class="font-semibold"> 5 Members: </span>
-                                <span>
-                                    John Doe, Jane Smith, Alice Johnson, Bob
-                                    Brown, and Charlie White
-                                </span>
-                            </p>
-                        </div>
-                    </button>
-                </div>
+                {#if isLoading}
+                    <div class="flex items-center justify-center mt-4">
+                        Loading groups...
+                    </div>
+                {:else if availableGroups.length === 0}
+                    <div
+                        class="flex-1 flex items-center justify-center text-slate-500">
+                        No groups found. Create a new one?
+                    </div>
+                {:else}
+                    <div
+                        class="flex flex-col flex-1 overflow-y-auto border-t border-input">
+                        {#each availableGroups as group}
+                            <button onclick={() => {}} class="card">
+                                <div class="p-2">
+                                    <p class="text-sm font-semibold">
+                                        Group: {group.groupName}
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        <span class="font-semibold">
+                                            {group.members.length} Members:
+                                        </span>
+                                        <span>
+                                            {group.members.join(", ")}
+                                        </span>
+                                    </p>
+                                </div>
+                            </button>
+                        {/each}
+                    </div>
+                {/if}
                 <Button
                     on:click={() => {
                         alertDialogOpen = true;

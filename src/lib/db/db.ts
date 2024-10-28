@@ -185,25 +185,42 @@ class DB {
      * @returns All groups for a course
      */
     getCourseGroups(courseId: string) {
-        const groups = this.database
-            .select({
-                groupId: schema.groups.id,
-                groupName: schema.groups.name,
-                members: schema.users.displayname
-            })
-            .from(schema.groups)
-            .leftJoin(
-                schema.group_members,
-                eq(schema.group_members.group_id, schema.groups.id)
-            )
-            .leftJoin(
-                schema.users,
-                eq(schema.users.netid, schema.group_members.user_id)
-            )
-            .where(eq(schema.groups.course_id, courseId))
-            .groupBy(schema.groups.id)
-            .all();
+        const groups = this.database.transaction(tx => {
+            const groupInfo = tx
+                .select({
+                    groupId: schema.groups.id,
+                    groupName: schema.groups.name
+                })
+                .from(schema.groups)
+                .leftJoin(
+                    schema.group_members,
+                    eq(schema.group_members.group_id, schema.groups.id)
+                )
+                .where(eq(schema.groups.course_id, courseId))
+                .groupBy(schema.groups.id)
+                .all();
+
+            return groupInfo.map(group => {
+                const members = tx
+                    .select({
+                        displayname: schema.users.displayname
+                    })
+                    .from(schema.group_members)
+                    .leftJoin(
+                        schema.users,
+                        eq(schema.users.netid, schema.group_members.user_id)
+                    )
+                    .where(eq(schema.group_members.group_id, group.groupId))
+                    .all();
+
+                return Object.assign(group, {
+                    members: members.map(x => x.displayname)
+                });
+            });
+        });
+
         console.log(groups);
+
         return groups;
     }
 
