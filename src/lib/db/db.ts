@@ -12,7 +12,8 @@ import * as schema from "./schema";
 import { eq, and, count } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import type { Course } from "$lib/types";
-import { MAX_GROUPS } from "$lib/state.svelte";
+
+const MAX_GROUPS = 8;
 
 class DB {
     database: BunSQLiteDatabase;

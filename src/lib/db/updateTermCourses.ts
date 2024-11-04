@@ -155,4 +155,6 @@ const updateTerm = async (term: number) => {
     );
 };
 
-updateTerm(1252);
+const currentTerm = process.env.CURRENT_TERM;
+if (!currentTerm) throw new Error("No CURRENT_TERM not set");
+updateTerm(parseInt(currentTerm));
