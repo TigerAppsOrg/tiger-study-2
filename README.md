@@ -1,4 +1,4 @@
-# 𝒯𝒾𝑔𝑒𝓇𝒮𝓉𝓊𝒹𝓎 𝟤
+# 𝗧𝗶𝗴𝗲𝗿𝗦𝘁𝘂𝗱𝘆𝟮
 
 This project is the 2nd version of [TigerStudy](https://study.tigerapps.org), a web application that helps Princeton students find study groups for their classes. This version is a complete rewrite of the original project with a new design and features.
 
