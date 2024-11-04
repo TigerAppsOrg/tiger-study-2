@@ -14,10 +14,10 @@
 <header class="h-16 border-b shadow-sm flex">
     <div class="cont btw-flex">
         <a href="/home" aria-label="Dashboard">
-            <h1 class="text-2xl font-semibold">
-                <span> 🐯 </span>
-                <span> TigerStudy </span>
-            </h1>
+            <div class="font-semibold flex items-end gap-1">
+                <img class="size-8" src="/logo.png" alt="TigerStudy logo" />
+                <h2 class="text-xl">TigerStudy</h2>
+            </div>
         </a>
 
         <nav class="flex items-center gap-4">

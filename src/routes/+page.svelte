@@ -19,10 +19,13 @@
                         // Scroll to top
                         window.scrollTo({ top: 0, behavior: "smooth" });
                     }}>
-                    <h1 class="text-2xl font-semibold">
-                        <span> 🐯 </span>
-                        <span> TigerStudy </span>
-                    </h1>
+                    <div class="font-semibold flex items-end gap-1">
+                        <img
+                            class="size-8"
+                            src="/logo.png"
+                            alt="TigerStudy logo" />
+                        <h2 class="text-xl">TigerStudy</h2>
+                    </div>
                 </button>
                 <nav>
                     <Button size="sm" href="/home">
