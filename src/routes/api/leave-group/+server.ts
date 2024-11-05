@@ -2,7 +2,9 @@ import { db } from "$lib/db/db";
 import type { RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-    const { groupId } = await request.json();
+    // TODO -- Look into why request.json() is hanging forever
+    const res = await request.json();
+    const groupId = res.groupId;
     const user = locals.session.data;
 
     if (!user.netid) {

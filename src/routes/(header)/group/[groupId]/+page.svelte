@@ -20,12 +20,19 @@
     let leaveDialogOpen = $state(false);
 
     const handleLeave = async () => {
-        await fetch("/api/leave-group", {
-            method: "POST",
-            body: JSON.stringify({
-                groupId: data.groupId
-            })
-        });
+        try {
+            await fetch("/api/leave-group", {
+                method: "POST",
+                body: JSON.stringify({
+                    groupId: data.groupId
+                })
+            });
+        } catch (error) {
+            console.error(error);
+            leaveDialogOpen = false;
+            toast.error("Failed to leave group. Please try again later.");
+            return;
+        }
         leaveDialogOpen = false;
         goto("/home");
         toast.success(`You have left your group for ${data.courseCode}.`);
