@@ -1,11 +1,3 @@
-<!-- 
-    @component +error.svelte 
-
-    View that renders when an error occurs.
-    Based on the TigerJunction error page.
-    - Author: Joshua Lau '26
--->
-
 <script lang="ts">
     import { page } from "$app/stores";
     import Button from "$lib/components/ui/button/button.svelte";
