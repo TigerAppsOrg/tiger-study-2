@@ -8,7 +8,17 @@
     let feedback = $state("");
 
     const submitFeedback = async () => {
-        // TODO - Validate feedback
+        // Feedback must be non-empty
+        if (!feedback.trim()) {
+            toast.error("Feedback cannot be empty!");
+            return;
+        }
+
+        // Feedback must be less than 10000 characters
+        if (feedback.length > 10000) {
+            toast.error("Feedback must be less than 10,000 characters!");
+            return;
+        }
 
         await fetch("/api/feedback", {
             method: "POST",
