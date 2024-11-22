@@ -5,6 +5,7 @@
         feedbackDialogOpen,
         joinDialogOpen
     } from "$lib/client/state.svelte";
+    import { toggleFont } from "$lib/client/font";
 </script>
 
 <header class="flex h-16 border-b shadow-sm">
@@ -32,6 +33,12 @@
                 <Icon src={Plus} class="size-5" />
                 <span> Join Group </span>
             </Button>
+
+            <Button
+                aria-label="Toggle font"
+                onclick={toggleFont}
+                variant="outline"
+                class="size-8 rounded-sm">A</Button>
         </nav>
     </div>
 </header>
