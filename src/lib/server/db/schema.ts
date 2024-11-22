@@ -5,6 +5,7 @@
  * App's SQLite database schema defined using Drizzle ORM.
  */
 
+import { relations } from "drizzle-orm";
 import {
     text,
     integer,
@@ -18,8 +19,12 @@ export const users = sqliteTable("users", {
     displayname: text("name").notNull(),
     mail: text("mail").notNull(),
     year: text("year").notNull(),
-    is_admin: integer("is_admin", { mode: "boolean" }).notNull().default(false)
+    isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false)
 });
+
+export const userRelations = relations(users, ({ many }) => ({
+    groupMembers: many(groupMembers)
+}));
 
 // Courses Table
 export const courses = sqliteTable("courses", {
@@ -29,6 +34,10 @@ export const courses = sqliteTable("courses", {
     term: integer("term").notNull()
 });
 
+export const courseRelations = relations(courses, ({ many }) => ({
+    groups: many(groups)
+}));
+
 // Groups Table
 export const groups = sqliteTable("groups", {
     id: integer("id", { mode: "number" })
@@ -36,28 +45,47 @@ export const groups = sqliteTable("groups", {
         .primaryKey({ autoIncrement: true })
         .unique(),
     name: text("name").notNull(),
-    course_id: text("course_id")
+    courseId: text("course_id")
         .notNull()
         .references(() => courses.id, {
             onDelete: "cascade"
         })
 });
 
+export const groupRelations = relations(groups, ({ one, many }) => ({
+    course: one(courses, {
+        fields: [groups.courseId],
+        references: [courses.id]
+    }),
+    groupMembers: many(groupMembers)
+}));
+
 // Group-Users Association Table
-export const group_members = sqliteTable(
+export const groupMembers = sqliteTable(
     "group_members",
     {
-        user_id: text("user_id")
+        userId: text("user_id")
             .notNull()
             .references(() => users.netid),
-        group_id: integer("group_id")
+        groupId: integer("group_id")
             .notNull()
             .references(() => groups.id)
     },
     (t) => ({
-        pk: primaryKey({ columns: [t.user_id, t.group_id] })
+        pk: primaryKey({ columns: [t.userId, t.groupId] })
     })
 );
+
+export const groupMembersRelations = relations(groupMembers, ({ one }) => ({
+    user: one(users, {
+        fields: [groupMembers.userId],
+        references: [users.netid]
+    }),
+    group: one(groups, {
+        fields: [groupMembers.groupId],
+        references: [groups.id]
+    })
+}));
 
 // Feedback Table
 export const feedback = sqliteTable("feedback", {

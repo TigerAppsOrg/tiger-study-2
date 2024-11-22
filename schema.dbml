@@ -33,3 +33,9 @@ table users {
   year text [not null]
   is_admin integer [not null, default: false]
 }
+
+ref: group_members.user_id > users.netid
+
+ref: group_members.group_id > groups.id
+
+ref: groups.course_id > courses.id
