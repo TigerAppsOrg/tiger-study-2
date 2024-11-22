@@ -7,11 +7,11 @@
         joinDialogOpen,
         selectedCourse,
         userGroups
-    } from "$lib/state.svelte";
-    import { Plus, ChevronLeft } from "svelte-radix";
+    } from "$lib/client/state.svelte";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
+    import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
 
     const normalize = (str: string) => {
         return str
@@ -174,10 +174,10 @@
                             <Button
                                 size="icon"
                                 variant="ghost"
-                                on:click={() => {
+                                onclick={() => {
                                     selectedCourse.value = null;
                                 }}>
-                                <ChevronLeft />
+                                <Icon src={ChevronLeft} size="32" />
                             </Button>
                         </span>
                         <span>
@@ -241,7 +241,7 @@
                     </div>
                 {/if}
                 <Button
-                    on:click={() => {
+                    onclick={() => {
                         if (availableGroups.length === 0) {
                             createNewGroup();
                         } else {
@@ -250,7 +250,7 @@
                     }}
                     class="mt-2 w-full">
                     <p class="std-flex">
-                        <Plus class="mr-1" />
+                        <Icon src={Plus} size="24" />
                         <span> New Group </span>
                     </p>
                 </Button>
@@ -266,7 +266,7 @@
                         </AlertDialog.Header>
                         <AlertDialog.Footer>
                             <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                            <Button on:click={createNewGroup}
+                            <Button onclick={createNewGroup}
                                 >Create New Group</Button>
                         </AlertDialog.Footer>
                     </AlertDialog.Content>
