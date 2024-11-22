@@ -1,5 +1,4 @@
 node_modules
-db.sqlite
 
 # Output
 .output
@@ -20,3 +19,7 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# SQLite
+*.db
+.dbml
