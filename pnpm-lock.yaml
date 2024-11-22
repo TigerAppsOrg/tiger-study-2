@@ -69,6 +69,9 @@ importers:
       svelte-check:
         specifier: ^4.0.0
         version: 4.1.0(svelte@5.2.7)(typescript@5.7.2)
+      svelte-hero-icons:
+        specifier: ^5.2.0
+        version: 5.2.0(svelte@5.2.7)
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
@@ -851,6 +854,9 @@ packages:
     resolution: {integrity: sha512-vliZLrDmYKyaUoMzEbMTg2JkerfBjn03KmAw9CykO0Zzkzoyd7o3iZNam/TpyWNjNT+Cz2iO3P9Smv2wgrR+Eg==}
     cpu: [x64]
     os: [win32]
+
+  '@steeze-ui/heroicons@2.4.2':
+    resolution: {integrity: sha512-66luL+uaxyC6mcZigewH4phfDxNWj4sH+n6qK2VnY3zcgpMmNAgVQbMGfZYfKhLqrUo13BlqpmhWuHqAUpehlA==}
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -2030,6 +2036,12 @@ packages:
       svelte:
         optional: true
 
+  svelte-hero-icons@5.2.0:
+    resolution: {integrity: sha512-KpdMTL0bOnkxciEmDXvyVF/R5nrZ1x1uHCSt9gMrrbEd3g5HSIaaDChOutTOfeI+cZ3EJbb+OcBH/lBzJr1aEw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0
+
   svelte-kit-cookie-session@4.0.0:
     resolution: {integrity: sha512-P7Og9z+cpwitS8JN9bBMxIFvX7kBM/Vrx4gDYbodO7qtT5C+EMJnNFpruvQgomL2UthzHYWLN/4aEgAGDgPTDA==}
 
@@ -2652,6 +2664,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.27.3':
     optional: true
+
+  '@steeze-ui/heroicons@2.4.2': {}
 
   '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.8.2(@sveltejs/vite-plugin-svelte@4.0.1(svelte@5.2.7)(vite@5.4.11(@types/node@22.9.1)))(svelte@5.2.7)(vite@5.4.11(@types/node@22.9.1)))':
     dependencies:
@@ -3774,6 +3788,11 @@ snapshots:
       postcss: 8.4.49
       postcss-scss: 4.0.9(postcss@8.4.49)
     optionalDependencies:
+      svelte: 5.2.7
+
+  svelte-hero-icons@5.2.0(svelte@5.2.7):
+    dependencies:
+      '@steeze-ui/heroicons': 2.4.2
       svelte: 5.2.7
 
   svelte-kit-cookie-session@4.0.0:
