@@ -2,6 +2,15 @@ type Box<T> = {
     value: T;
 };
 
+export type GroupDetails = {
+    groupId: number;
+    groupName: string;
+    members: {
+        netid: string;
+        displayname: string;
+    }[];
+};
+
 type Course = {
     id: string;
     code: string;

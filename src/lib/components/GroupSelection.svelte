@@ -1,24 +1,19 @@
 <script lang="ts">
     import { goto, invalidateAll } from "$app/navigation";
-    import { joinDialogOpen, selectedCourse } from "$lib/client/state.svelte";
+    import {
+        joinDialogOpen,
+        selectedCourse,
+        type GroupDetails
+    } from "$lib/client/state.svelte";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
     import { onMount } from "svelte";
 
-    type Group = {
-        groupId: number;
-        groupName: string;
-        members: {
-            netid: string;
-            displayname: string;
-        }[];
-    };
-
     let hasFailed = $state(false);
     let isLoading = $state(false);
-    let availableGroups: Group[] = $state([]);
+    let availableGroups: GroupDetails[] = $state([]);
     let alertDialogOpen = $state(false);
 
     async function loadGroups() {
@@ -51,7 +46,7 @@
         invalidateAll();
     };
 
-    const joinGroup = async (group: Group) => {
+    const joinGroup = async (group: GroupDetails) => {
         await fetch("/api/groups/join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
