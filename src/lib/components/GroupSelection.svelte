@@ -83,52 +83,61 @@
     </p>
 </div>
 
-{#if isLoading}
-    <div class="std-flex mt-4">Loading groups...</div>
-{:else if availableGroups.length === 0}
-    <div class="std-flex flex-1 text-slate-500">
-        No groups found. Create a new one?
-    </div>
-{:else}
-    <div class="flex flex-1 flex-col overflow-y-auto border-t border-input">
-        {#each availableGroups as group (group.groupId)}
-            <button onclick={() => joinGroup(group)} class="card">
-                <div class="p-2">
-                    <p class="text-sm font-semibold">
-                        Group: {group.groupName}
-                    </p>
-                    <p class="text-xs text-slate-500">
-                        <span class="font-semibold">
-                            {group.members.length} Members:
-                        </span>
-                        <span>
-                            {group.members.map((x) => x.displayname).join(", ")}
-                        </span>
-                    </p>
+{#if !isLoading}
+    {#if availableGroups.length === 0}
+        <div class="std-flex flex-1 text-slate-500">
+            No groups found. Create a new one?
+        </div>
+    {:else}
+        <div class="flex flex-1 flex-col overflow-y-auto border-t border-input">
+            {#each availableGroups as group (group.groupId)}
+                <button onclick={() => joinGroup(group)} class="card">
+                    <div class="p-2">
+                        <p class="text-sm font-semibold">
+                            Group: {group.groupName}
+                        </p>
+                        <p class="text-xs text-slate-500">
+                            <span class="font-semibold">
+                                {group.members.length} Members:
+                            </span>
+                            <span>
+                                {group.members
+                                    .map((x) => x.displayname)
+                                    .join(", ")}
+                            </span>
+                        </p>
+                    </div>
+                </button>
+            {:else}
+                <div class="flex-1 std-flex text-slate-500">
+                    You are already in all available groups.
                 </div>
-            </button>
-        {:else}
-            <div class="flex-1 std-flex text-slate-500">
-                You are already in all available groups.
-            </div>
-        {/each}
+            {/each}
+        </div>
+    {/if}
+
+    <Button
+        onclick={() => {
+            if (availableGroups.length === 0) {
+                createNewGroup();
+            } else {
+                alertDialogOpen = true;
+            }
+        }}
+        class="mt-2 w-full">
+        <p class="std-flex">
+            <Icon src={Plus} size="32" class="mr-1" />
+            <span>New Group</span>
+        </p>
+    </Button>
+{:else}
+    <div class="std-flex flex-1">
+        <div
+            class="h-8 w-8 animate-spin rounded-full border-4
+            border-slate-500 border-t-transparent">
+        </div>
     </div>
 {/if}
-
-<Button
-    onclick={() => {
-        if (availableGroups.length === 0) {
-            createNewGroup();
-        } else {
-            alertDialogOpen = true;
-        }
-    }}
-    class="mt-2 w-full">
-    <p class="std-flex">
-        <Icon src={Plus} size="32" class="mr-1" />
-        <span>New Group</span>
-    </p>
-</Button>
 
 <AlertDialog.Root bind:open={alertDialogOpen}>
     <AlertDialog.Trigger />
