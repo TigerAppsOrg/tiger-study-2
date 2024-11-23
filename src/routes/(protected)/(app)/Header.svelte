@@ -18,18 +18,17 @@
         </a>
 
         <nav class="flex items-center gap-4">
-            <Button variant="ghost" href="/dashboard" size="sm">Home</Button>
+            <Button variant="ghost" href="/dashboard">Home</Button>
             <Button
                 variant="ghost"
-                size="sm"
                 onclick={() => (feedbackDialogOpen.value = true)}
                 >Feedback</Button>
 
             <form method="POST" action="/dashboard?/logout">
-                <Button type="submit" variant="ghost" size="sm">Logout</Button>
+                <Button type="submit" variant="ghost">Logout</Button>
             </form>
 
-            <Button size="sm" onclick={() => (joinDialogOpen.value = true)}>
+            <Button onclick={() => (joinDialogOpen.value = true)}>
                 <Icon src={Plus} class="size-5" />
                 <span> Join Group </span>
             </Button>
@@ -38,7 +37,7 @@
                 aria-label="Toggle font"
                 onclick={toggleFont}
                 variant="outline"
-                class="size-8 rounded-sm">A</Button>
+                class="size-10 rounded-sm">A</Button>
         </nav>
     </div>
 </header>
