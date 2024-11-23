@@ -8,8 +8,6 @@ export const load: ServerLoad = async (req) => {
     const sessionData = req.locals.session.data;
     CASClient.check(sessionData);
 
-    console.log("Firing load function");
-
     const { courseList, userGroups } = await db.transaction(async (tx) => {
         const courseList = await tx
             .select({
