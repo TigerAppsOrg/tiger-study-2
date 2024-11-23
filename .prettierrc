@@ -8,7 +8,14 @@
 	"bracketSpacing": true,
 	"bracketSameLine": true,
 	"quoteProps": "consistent",
-	"arrowParens": "avoid",
-	"plugins": ["prettier-plugin-svelte"],
-	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+	"arrowParens": "always",
+	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
+	"overrides": [
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	]
 }

@@ -4,13 +4,13 @@ This project is the 2nd version of [TigerStudy](https://study.tigerapps.org), a 
 
 ## Getting Started
 
-This project uses [Bun](https://bun.sh/). To get started, make sure Bun is installed on your machine. Then, clone the repo and run `bun install` and `bun --bun run dev`.
+This project uses [pnpm](https://bun.sh/). To install pnpm, run `npm install -g pnpm`.
 
-To format the code with Prettier, run `bun format`. To lint the code with ESLint, run `bun lint`.
+To install the project dependencies, run `pnpm install`.
 
-### Important Note
+To run the project, run `pnpm dev`. To format the code, run `pnpm format`. To lint the code, run `pnpm lint`.
 
-You _must_ use Bun to run the project since it uses Bun-specific APIs like the SQLite driver. Additionally, this project cannot be deployed to serverless because of the SQLite dependency. Using the `--bun` flag is necessary to run the project with the correct configuration.
+To access DrizzleKit Studio to get a nice UI for the SQLite database, run `pnpm db:studio`. You can visualize the schema by running `pnpm db:schema` and then viewing the dbml file that is generated through the recommended extension.
 
 ### Technologies
 
@@ -22,7 +22,7 @@ Frontend:
 
 Backend:
 
--   [Bun](https://bun.sh/)
+-   [NodeJS](https://nodejs.org/en/)
 -   [SvelteKit](https://kit.svelte.dev/)
 -   [SQLite](https://www.sqlite.org/index.html)
 
@@ -35,7 +35,7 @@ Dev Tools:
 
 If you would like to contribute to this project, please message the TigerApps board on Discord (if you are a TigerApps member) or via email at [it.admin@tigerapps.org](mailto:it.admin@tigerapps.org).
 
-Please make sure to add file comments that specify authorship. Also, make sure to run `bun format` and `bun lint` before committing your changes.
+Please make sure to add file comments that specify authorship. Also, make sure to run `pnpm format` and `pnpm lint` before committing your changes.
 
 ## Acknowledgments
 
@@ -45,4 +45,4 @@ The original [TigerStudy](https://github.com/TigerAppsOrg/TigerStudy) project wa
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the BSD 3-Clause License - see the [LICENSE](LICENSE) file for details.

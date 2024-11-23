@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c95283d4-4a35-4d86-9f8f-d253966c7555",
+  "id": "fb6001f1-58f3-41c8-b41d-30dbc1123214",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "courses": {
@@ -138,8 +138,8 @@
       "compositePrimaryKeys": {
         "group_members_user_id_group_id_pk": {
           "columns": [
-            "user_id",
-            "group_id"
+            "group_id",
+            "user_id"
           ],
           "name": "group_members_user_id_group_id_pk"
         }

@@ -1,0 +1,41 @@
+table courses {
+  id text [pk, not null, unique]
+  code text [not null]
+  title text [not null]
+  term integer [not null]
+}
+
+table feedback {
+  id integer [pk, not null, unique]
+  feedback text [not null]
+  resolved integer [not null, default: false]
+}
+
+table group_members {
+  user_id text [not null]
+  group_id integer [not null]
+
+  indexes {
+    (user_id, group_id) [pk]
+  }
+}
+
+table groups {
+  id integer [pk, not null, unique]
+  name text [not null]
+  course_id text [not null]
+}
+
+table users {
+  netid text [pk, not null, unique]
+  name text [not null]
+  mail text [not null]
+  year text [not null]
+  is_admin integer [not null, default: false]
+}
+
+ref: group_members.user_id > users.netid
+
+ref: group_members.group_id > groups.id
+
+ref: groups.course_id > courses.id
