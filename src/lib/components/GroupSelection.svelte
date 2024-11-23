@@ -1,15 +1,12 @@
 <script lang="ts">
     import { goto, invalidateAll } from "$app/navigation";
-    import {
-        joinDialogOpen,
-        selectedCourse,
-        type GroupDetails
-    } from "$lib/client/state.svelte";
+    import { joinDialogOpen, selectedCourse } from "$lib/client/state.svelte";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import type { GroupDetails } from "$lib/constants";
+    import { onMount } from "svelte";
     import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
-    import { onMount } from "svelte";
 
     let hasFailed = $state(false);
     let isLoading = $state(false);

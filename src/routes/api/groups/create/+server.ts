@@ -1,8 +1,10 @@
+import { MAX_GROUPS } from "$lib/constants";
 import { httpCodes } from "$lib/httpCodes";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { groupMembers, groups } from "$lib/server/db/schema";
 import { type RequestHandler } from "@sveltejs/kit";
+import { count, eq } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
@@ -24,6 +26,23 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         .join(" ");
 
     const groupId = await db.transaction(async (tx) => {
+        // Check how many groups the user is in
+        const userGroups = await tx
+            .select({
+                count: count()
+            })
+            .from(groupMembers)
+            .where(eq(groupMembers.userId, locals.session.data.netid));
+
+        if (userGroups[0].count >= MAX_GROUPS) {
+            return new Response(
+                "You are already in the maximum number of groups.",
+                {
+                    status: httpCodes.error.badRequest
+                }
+            );
+        }
+
         // Create group
         const groupRes = await tx
             .insert(groups)
@@ -50,6 +69,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
         return groupId;
     });
+
+    if (groupId instanceof Response) return groupId;
 
     return new Response(JSON.stringify({ groupId }), {
         status: httpCodes.success.ok,

@@ -1,4 +1,4 @@
-import type { GroupDetails } from "$lib/client/state.svelte";
+import type { GroupDetails } from "$lib/constants";
 import { httpCodes } from "$lib/httpCodes";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
