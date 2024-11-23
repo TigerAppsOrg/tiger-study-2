@@ -98,4 +98,12 @@ export class CASClient {
         await locals.session.destroy();
         redirect(httpCodes.redirection.seeOther, "/");
     }
+
+    /**
+     * Check if the user is logged in. If not, redirect to the CAS server.
+     * @param sessionData
+     */
+    static check(sessionData: SessionData) {
+        if (!sessionData.displayname) this.authenticate();
+    }
 }

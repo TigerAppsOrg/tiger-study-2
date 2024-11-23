@@ -19,7 +19,7 @@ const checkAdmin = async (netid: string) => {
 
 export const load: ServerLoad = async (req) => {
     const sessionData = req.locals.session.data;
-    if (!sessionData.displayname) CASClient.authenticate();
+    CASClient.check(sessionData);
 
     const isAdmin = await checkAdmin(sessionData.netid);
     if (!isAdmin) {
@@ -35,7 +35,7 @@ export const load: ServerLoad = async (req) => {
 export const actions: Actions = {
     updateCourses: async ({ locals }) => {
         const sessionData = locals.session.data;
-        if (!sessionData.displayname) CASClient.authenticate();
+        CASClient.check(sessionData);
         if (!(await checkAdmin(sessionData.netid))) {
             error(
                 httpCodes.error.forbidden,

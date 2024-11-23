@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 export const load: ServerLoad = async (req) => {
     const sessionData = req.locals.session.data;
-    if (!sessionData.displayname) CASClient.authenticate();
+    CASClient.check(sessionData);
 
     const { courseList, userGroups } = await db.transaction(async (tx) => {
         const courseList = await tx
@@ -40,8 +40,6 @@ export const load: ServerLoad = async (req) => {
 
     return {
         courseList,
-        userGroups,
-        netid: sessionData.netid,
-        name: sessionData.displayname
+        userGroups
     };
 };
