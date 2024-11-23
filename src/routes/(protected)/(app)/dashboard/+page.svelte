@@ -3,8 +3,6 @@
     import * as Table from "$lib/components/ui/table";
     import { joinDialogOpen, userGroups } from "$lib/client/state.svelte.js";
     let { data } = $props();
-
-    userGroups.value = data.userGroups;
 </script>
 
 <div class="cont flex h-full flex-1 flex-col">

@@ -1,9 +1,13 @@
 <script>
+    import { courses, userGroups } from "$lib/client/state.svelte";
     import FeedbackDialog from "$lib/components/FeedbackDialog.svelte";
     import JoinDialog from "$lib/components/JoinDialog.svelte";
     import Header from "./Header.svelte";
 
-    let { children } = $props();
+    let { children, data } = $props();
+
+    userGroups.value = data.userGroups;
+    courses.value = data.courseList;
 </script>
 
 <JoinDialog />
