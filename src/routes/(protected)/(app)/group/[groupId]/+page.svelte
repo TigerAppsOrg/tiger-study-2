@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto, invalidateAll } from "$app/navigation";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import * as Alert from "$lib/components/ui/alert/index.js";
     import Button from "$lib/components/ui/button/button.svelte";
@@ -15,6 +16,25 @@
     const groupInfo = data.groupInfo;
 
     let leaveDialogOpen = $state(false);
+
+    const handleLeave = async () => {
+        try {
+            await fetch("/api/groups/leave", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ groupId: groupInfo.id })
+            });
+        } catch (e) {
+            console.error(e);
+            toast.error("Failed to leave group. Please try again later.");
+            return;
+        }
+
+        await invalidateAll();
+        await goto("/dashboard");
+        leaveDialogOpen = false;
+        toast.success("Left group successfully!");
+    };
 </script>
 
 <div class="cont flex h-full flex-col overflow-hidden">
@@ -51,7 +71,7 @@
                     </AlertDialog.Header>
                     <AlertDialog.Footer>
                         <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                        <Button variant="destructive" onclick={() => {}}
+                        <Button variant="destructive" onclick={handleLeave}
                             >Leave Group</Button>
                     </AlertDialog.Footer>
                 </AlertDialog.Content>
