@@ -18,7 +18,7 @@
         </a>
 
         <nav class="flex items-center gap-4">
-            <Button variant="ghost" href="/dashboard">Home</Button>
+            <Button variant="ghost" href="/dashboard">Dashboard</Button>
             <Button
                 variant="ghost"
                 onclick={() => (feedbackDialogOpen.value = true)}
