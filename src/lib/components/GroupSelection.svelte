@@ -16,6 +16,7 @@
         }[];
     };
 
+    let hasFailed = $state(false);
     let isLoading = $state(false);
     let availableGroups: Group[] = $state([]);
     let alertDialogOpen = $state(false);
@@ -28,6 +29,8 @@
             );
             const data = await res.json();
             availableGroups = data;
+        } catch (e) {
+            hasFailed = true;
         } finally {
             isLoading = false;
         }
@@ -83,7 +86,15 @@
     </p>
 </div>
 
-{#if !isLoading}
+{#if hasFailed}
+    <div class="std-flex flex-1 text-slate-500">
+        <p class="text-center">
+            Failed to load groups. This is most likely a connection issue. If
+            the problem persists, please contact support at
+            <span class="text-primary"> it.admin@tigerapps.org </span>
+        </p>
+    </div>
+{:else if !isLoading}
     {#if availableGroups.length === 0}
         <div class="std-flex flex-1 text-slate-500">
             No groups found. Create a new one?
@@ -133,6 +144,7 @@
 {:else}
     <div class="std-flex flex-1">
         <div
+            aria-label="Loading spinner"
             class="h-8 w-8 animate-spin rounded-full border-4
             border-slate-500 border-t-transparent">
         </div>
