@@ -53,7 +53,7 @@ const fetchRegCoures = async (term: number): Promise<RegCourse[]> => {
 
     const regCourses = uniqueRegListings.map((x: any) => ({
         id: x.course_id,
-        code: x.crosslistings.replace(/\s/g, ""),
+        code: x.crosslistings,
         title: x.long_title + (x.topic_title ? ": " + x.topic_title : ""),
         term: term
     }));
