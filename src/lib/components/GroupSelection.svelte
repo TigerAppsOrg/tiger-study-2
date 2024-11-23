@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
+    import { goto, invalidateAll } from "$app/navigation";
     import { joinDialogOpen, selectedCourse } from "$lib/client/state.svelte";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
@@ -24,7 +24,7 @@
         isLoading = true;
         try {
             const res = await fetch(
-                `/api/groups?courseId=${selectedCourse.value!.id}`
+                `/api/groups/get?courseId=${selectedCourse.value!.id}`
             );
             const data = await res.json();
             availableGroups = data;
@@ -34,33 +34,31 @@
     }
 
     const createNewGroup = async () => {
-        if (!selectedCourse.value) {
-            alertDialogOpen = false;
-            return;
-        }
-
-        const res = await fetch("/api/new-group", {
+        const res = await fetch("/api/groups/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ courseId: selectedCourse.value.id })
+            body: JSON.stringify({ courseId: selectedCourse.value!.id })
         });
-        const newGroupId = (await res.json()).group;
+        const newGroupId = (await res.json()).groupId;
 
-        goto(`/group/${newGroupId}`);
-        toast.success(`Created a new group for ${selectedCourse.value.code}!`);
+        await goto(`/group/${newGroupId}`);
         alertDialogOpen = false;
         joinDialogOpen.value = false;
+        toast.success(`Created a new group for ${selectedCourse.value!.code}!`);
+        invalidateAll();
     };
 
     const joinGroup = async (group: Group) => {
-        await fetch("/api/join-group", {
+        await fetch("/api/groups/join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ groupId: group.groupId })
         });
+
+        await goto(`/group/${group.groupId}`);
         joinDialogOpen.value = false;
-        goto(`/group/${group.groupId}`);
         toast.success(`Joined group ${group.groupName}!`);
+        invalidateAll();
     };
 
     onMount(() => {

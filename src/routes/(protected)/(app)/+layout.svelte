@@ -6,8 +6,10 @@
 
     let { children, data } = $props();
 
-    userGroups.value = data.userGroups;
-    courses.value = data.courseList;
+    $effect(() => {
+        userGroups.value = data.userGroups;
+        courses.value = data.courseList;
+    });
 </script>
 
 <JoinDialog />
