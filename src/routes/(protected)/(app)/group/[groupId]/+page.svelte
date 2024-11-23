@@ -2,7 +2,6 @@
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
-    import { userGroups } from "$lib/client/state.svelte";
     import { toast } from "svelte-sonner";
     import { ArrowLeftEndOnRectangle, Icon } from "svelte-hero-icons";
 
