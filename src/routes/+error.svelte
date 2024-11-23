@@ -10,12 +10,14 @@
 </svelte:head>
 
 <div class="std-flex h-[80vh]">
-    <div class="text-center">
-        <h1 class="text-8xl font-semibold text-primary">Oh noes!</h1>
-        <h2 class="mb-8 text-4xl font-light text-slate-700">
-            {$page.status}
-            {$page.error?.message}
+    <div class="cont">
+        <h1 class="mb-2 text-8xl font-semibold text-primary">Oh noes!</h1>
+        <h2 class="mb-2 text-4xl font-light text-slate-700">
+            Error: {$page.status}
         </h2>
+        <p class="mb-8 text-2xl text-slate-700">
+            {$page.error?.message}
+        </p>
         <Button href="/" size="lg">
             <Icon src={Home} />
             <span> Go to Homepage </span>
