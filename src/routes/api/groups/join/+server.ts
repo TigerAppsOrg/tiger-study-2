@@ -4,7 +4,7 @@ import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { groupMembers, groups } from "$lib/server/db/schema";
 import type { RequestHandler } from "@sveltejs/kit";
-import { count, eq } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     CASClient.check(locals.session.data);
@@ -12,7 +12,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     const req = await request.json();
     const groupId = req.groupId;
     if (!groupId) {
-        return new Response("No group ID provided.", {
+        return new Response("NO_ID", {
             status: httpCodes.error.badRequest
         });
     }
@@ -26,12 +26,9 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             .where(eq(groupMembers.userId, locals.session.data.netid));
 
         if (userGroups[0].count >= MAX_GROUPS) {
-            return new Response(
-                "You are already in the maximum number of groups.",
-                {
-                    status: httpCodes.error.badRequest
-                }
-            );
+            return new Response("MAX_GROUPS", {
+                status: httpCodes.error.badRequest
+            });
         }
 
         // Check if group exists
@@ -41,8 +38,25 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             .where(eq(groups.id, groupId));
 
         if (group.length === 0) {
-            return new Response("Group not found.", {
+            return new Response("NOT_FOUND.", {
                 status: httpCodes.error.notFound
+            });
+        }
+
+        // Ensure user is not already in group
+        const existing = await tx
+            .select()
+            .from(groupMembers)
+            .where(
+                and(
+                    eq(groupMembers.userId, locals.session.data.netid),
+                    eq(groupMembers.groupId, groupId)
+                )
+            );
+
+        if (existing.length > 0) {
+            return new Response("ALREADY_IN_GROUP.", {
+                status: httpCodes.error.badRequest
             });
         }
 

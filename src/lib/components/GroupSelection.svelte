@@ -7,6 +7,7 @@
     import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
+    import { httpCodes } from "$lib/httpCodes";
 
     let hasFailed = $state(false);
     let isLoading = $state(false);
@@ -34,26 +35,69 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ courseId: selectedCourse.value!.id })
         });
-        const newGroupId = (await res.json()).groupId;
 
-        await goto(`/group/${newGroupId}`);
-        alertDialogOpen = false;
-        joinDialogOpen.value = false;
-        toast.success(`Created a new group for ${selectedCourse.value!.code}!`);
-        invalidateAll();
+        if (res.status !== httpCodes.success.ok) {
+            const err = await res.text();
+            switch (err) {
+                case "NO_ID":
+                    toast.error(
+                        "Failed to create group. No course ID provided."
+                    );
+                    break;
+                case "MAX_GROUPS":
+                    toast.error(
+                        "Failed to create group. You have reached the maximum amount of groups."
+                    );
+                    break;
+                case "CREATION_ERROR":
+                    toast.error("Failed to create group. Please try again.");
+                    break;
+            }
+        } else {
+            const newGroupId = (await res.json()).groupId;
+            await goto(`/group/${newGroupId}`);
+            alertDialogOpen = false;
+            joinDialogOpen.value = false;
+            toast.success(
+                `Created a new group for ${selectedCourse.value!.code}!`
+            );
+            invalidateAll();
+        }
     };
 
     const joinGroup = async (group: GroupDetails) => {
-        await fetch("/api/groups/join", {
+        const res = await fetch("/api/groups/join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ groupId: group.groupId })
         });
 
-        await goto(`/group/${group.groupId}`);
-        joinDialogOpen.value = false;
-        toast.success(`Joined group ${group.groupName}!`);
-        invalidateAll();
+        if (res.status !== httpCodes.success.ok) {
+            const err = await res.text();
+            switch (err) {
+                case "NO_ID":
+                    toast.error("Failed to join group. No group ID provided.");
+                    break;
+                case "NOT_FOUND":
+                    toast.error("Failed to join group. Group not found.");
+                    break;
+                case "MAX_GROUPS":
+                    toast.error(
+                        "Failed to join group. You have reached the maximum amount of groups."
+                    );
+                    break;
+                case "ALREADY_IN_GROUP":
+                    toast.error(
+                        "Failed to join group. You are already in this group."
+                    );
+                    break;
+            }
+        } else {
+            await goto(`/group/${group.groupId}`);
+            joinDialogOpen.value = false;
+            toast.success(`Joined group ${group.groupName}!`);
+            invalidateAll();
+        }
     };
 
     onMount(() => {

@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     const req = await request.json();
     const courseId = req.courseId;
     if (!courseId) {
-        return new Response("No group ID provided.", {
+        return new Response("NO_ID", {
             status: httpCodes.error.badRequest
         });
     }
@@ -35,12 +35,9 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             .where(eq(groupMembers.userId, locals.session.data.netid));
 
         if (userGroups[0].count >= MAX_GROUPS) {
-            return new Response(
-                "You are already in the maximum number of groups.",
-                {
-                    status: httpCodes.error.badRequest
-                }
-            );
+            return new Response("MAX_GROUPS", {
+                status: httpCodes.error.badRequest
+            });
         }
 
         // Create group
@@ -55,7 +52,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             });
 
         if (groupRes.length === 0) {
-            return new Response("Group could not be created.", {
+            return new Response("CREATION_ERROR", {
                 status: httpCodes.error.internalServerError
             });
         }
