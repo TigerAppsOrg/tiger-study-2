@@ -1,9 +1,15 @@
 <script lang="ts">
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import * as Alert from "$lib/components/ui/alert/index.js";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
+    import {
+        ArrowLeftEndOnRectangle,
+        Clipboard,
+        ExclamationTriangle,
+        Icon
+    } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
-    import { ArrowLeftEndOnRectangle, Icon } from "svelte-hero-icons";
 
     let { data } = $props();
     const groupInfo = data.groupInfo;
@@ -53,6 +59,20 @@
         </div>
     </section>
     <section class="mt-8 flex flex-col space-y-4 overflow-hidden">
+        {#if groupInfo.members.length === 1}
+            <Alert.Root variant="destructive">
+                <Icon src={ExclamationTriangle} class="size-5" />
+                <Alert.Title>
+                    <span class="text-base font-semibold">
+                        You're the only one here!
+                    </span>
+                </Alert.Title>
+                <Alert.Description
+                    >Please wait for others to join and encourage your
+                    classmates to use TigerStudy!</Alert.Description>
+            </Alert.Root>
+        {/if}
+
         <div class="btw-flex">
             <h3 class="text-2xl font-semibold">
                 Members ({groupInfo.members.length})
@@ -67,7 +87,7 @@
                     navigator.clipboard.writeText(emails);
                     toast.success("Copied emails to clipboard!");
                 }}>
-                <Icon src={Clipboard} class="mr-1 size-6" />
+                <Icon src={Clipboard} class="size-6" />
                 Copy Emails
             </Button>
         </div>
