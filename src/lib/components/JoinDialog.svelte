@@ -6,15 +6,23 @@
 
     $effect(() => {
         // Clear component data when dialog is closed
-        if (joinDialogOpen.value === false) selectedCourse.value = null;
+        if (joinDialogOpen.value === false) {
+            selectedCourse.value = null;
+            search = "";
+        }
     });
+
+    // Search query value is owned by the parent component and bound to
+    // the search input in order to maintain the search state when a
+    // course is selected and <CourseSearch /> is unmounted
+    let search = $state("");
 </script>
 
 <Dialog.Root bind:open={joinDialogOpen.value}>
     <Dialog.Content class="h-2/3">
         <div class="flex h-full flex-col overflow-hidden">
             {#if !selectedCourse.value}
-                <CourseSearch />
+                <CourseSearch bind:search />
             {:else}
                 <GroupSelection />
             {/if}

@@ -6,6 +6,11 @@
     } from "$lib/client/state.svelte";
     import Input from "./ui/input/input.svelte";
 
+    interface Props {
+        search: string;
+    }
+    let { search = $bindable() }: Props = $props();
+
     const normalize = (str: string) => {
         return str
             .replace(/[^a-zA-Z0-9]/g, "")
@@ -13,7 +18,6 @@
             .trim();
     };
 
-    let search = $state("");
     const filteredCourses = $derived(
         courses.value.filter((course) => {
             if (userGroups.value.some((x) => x.course.id === course.id)) {
