@@ -1,17 +1,17 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import * as AlertDialog from "$lib/components/ui/alert-dialog";
-    import * as Dialog from "$lib/components/ui/dialog";
     import {
         courses,
         joinDialogOpen,
         selectedCourse,
         userGroups
     } from "$lib/client/state.svelte";
+    import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import * as Dialog from "$lib/components/ui/dialog";
+    import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
     import Button from "./ui/button/button.svelte";
     import Input from "./ui/input/input.svelte";
-    import { ChevronLeft, Icon, Plus } from "svelte-hero-icons";
 
     const normalize = (str: string) => {
         return str
@@ -23,7 +23,7 @@
     let search = $state("");
     const filteredCourses = $derived(
         courses.value.filter((course) => {
-            if (userGroups.value.some((x) => x.courseId === course.id)) {
+            if (userGroups.value.some((x) => x.course.id === course.id)) {
                 return false;
             }
 

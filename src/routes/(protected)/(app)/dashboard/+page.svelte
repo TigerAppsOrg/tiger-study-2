@@ -28,17 +28,17 @@
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {#each userGroups.value as group (group.groupId)}
+                    {#each userGroups.value as ug (ug.group.id)}
                         <Table.Row>
-                            <Table.Cell>{group.courseCode}</Table.Cell>
-                            <Table.Cell>{group.courseName}</Table.Cell>
-                            <Table.Cell>{group.groupName}</Table.Cell>
+                            <Table.Cell>{ug.course.code}</Table.Cell>
+                            <Table.Cell>{ug.course.title}</Table.Cell>
+                            <Table.Cell>{ug.group.name}</Table.Cell>
                             <Table.Cell class="text-right">
                                 <Button
                                     size="sm"
                                     class="h-6"
                                     variant="link"
-                                    href={`/group/${group.groupId}`}>
+                                    href={`/group/${ug.group.id}`}>
                                     View
                                 </Button>
                             </Table.Cell>

@@ -2,8 +2,8 @@
     import { feedbackDialogOpen } from "$lib/client/state.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
-    import Button from "./ui/button/button.svelte";
     import { toast } from "svelte-sonner";
+    import Button from "./ui/button/button.svelte";
 
     let feedback = $state("");
 
