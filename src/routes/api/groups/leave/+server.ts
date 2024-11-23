@@ -1,9 +1,9 @@
 import { httpCodes } from "$lib/httpCodes";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
-import { groupMembers } from "$lib/server/db/schema";
+import { groupMembers, groups } from "$lib/server/db/schema";
 import { error, type RequestHandler } from "@sveltejs/kit";
-import { eq, and } from "drizzle-orm";
+import { eq, and, count } from "drizzle-orm";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     CASClient.check(locals.session.data);
@@ -43,6 +43,18 @@ export const POST: RequestHandler = async ({ locals, request }) => {
                     eq(groupMembers.userId, locals.session.data.netid)
                 )
             );
+
+        // If the group is now empty, delete it
+        const groupMembersCount = await tx
+            .select({
+                count: count()
+            })
+            .from(groupMembers)
+            .where(eq(groupMembers.groupId, parseInt(groupId)));
+
+        if (groupMembersCount[0].count === 0) {
+            await tx.delete(groups).where(eq(groups.id, parseInt(groupId)));
+        }
     });
 
     return new Response("User left group.", {
