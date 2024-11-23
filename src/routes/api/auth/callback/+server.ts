@@ -11,10 +11,11 @@ import {
     type RequestEvent,
     type RequestHandler
 } from "@sveltejs/kit";
-import * as schema from "$lib/server/db/schema";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { httpCodes } from "$lib/httpCodes";
+import { users } from "$lib/server/db/schema";
+import { eq } from "drizzle-orm";
 
 // Validate a CAS login ticket and set the user's session data
 export const GET: RequestHandler = async (req: RequestEvent) => {
@@ -34,10 +35,17 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
         });
     }
 
-    // const existingUser = db.getUser(userInfo.netid);
-    // if (!existingUser) {
-    //     await db.insert(schema.users).values(userInfo);
-    // }
+    const existingUser = await db
+        .select({
+            netid: users.netid
+        })
+        .from(users)
+        .where(eq(users.netid, userInfo.netid));
+
+    console.log(existingUser);
+    if (existingUser.length === 0) {
+        await db.insert(users).values(userInfo);
+    }
 
     await req.locals.session.set(userInfo);
     redirect(httpCodes.redirection.seeOther, "/dashboard");
