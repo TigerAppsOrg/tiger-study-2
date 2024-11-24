@@ -15,7 +15,10 @@
     </h2>
 
     {#if userGroups.value && userGroups.value.length > 0}
-        <p class="mb-2 text-slate-500">View and manage your study groups:</p>
+        <p class="mb-2 text-slate-500">
+            Make sure to communicate with your group members to find study
+            times! Click "View" to see group details.
+        </p>
     {/if}
 
     <section class="space-y-8">
