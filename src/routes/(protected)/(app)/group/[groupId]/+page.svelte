@@ -8,7 +8,8 @@
         ArrowLeftEndOnRectangle,
         Clipboard,
         ExclamationTriangle,
-        Icon
+        Icon,
+        InformationCircle
     } from "svelte-hero-icons";
     import { toast } from "svelte-sonner";
 
@@ -97,6 +98,19 @@
                 <Alert.Description
                     >Please wait for others to join and encourage your
                     classmates to use TigerStudy!</Alert.Description>
+            </Alert.Root>
+        {:else}
+            <Alert.Root>
+                <Icon src={InformationCircle} class="size-5" />
+                <Alert.Title>
+                    <span class="text-base font-semibold">
+                        Connect with your group members!
+                    </span>
+                </Alert.Title>
+                <Alert.Description>
+                    Contact your group members to meet up and study together.
+                    You can copy their emails by clicking the button below.
+                </Alert.Description>
             </Alert.Root>
         {/if}
 
