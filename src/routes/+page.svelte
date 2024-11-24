@@ -112,9 +112,9 @@
 
 <style lang="postcss">
     #overlay {
-        --overlay-opacity: 0.15;
+        --overlay-opacity: 0.1;
         background-color: rgba(144, 238, 144, var(--overlay-opacity));
-        animation: colorChange 20s infinite;
+        animation: colorChange 15s infinite;
     }
 
     @keyframes colorChange {
