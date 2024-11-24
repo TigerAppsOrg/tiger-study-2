@@ -23,6 +23,7 @@
             const data = await res.json();
             availableGroups = data;
         } catch (e) {
+            console.error(e);
             hasFailed = true;
         } finally {
             isLoading = false;
