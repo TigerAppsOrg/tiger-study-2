@@ -123,7 +123,7 @@
             </h3>
             <Button
                 size="sm"
-                variant="secondary"
+                variant="outline"
                 onclick={() => {
                     const emails = groupInfo.members
                         .map((member) => member.mail)
