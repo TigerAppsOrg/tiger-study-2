@@ -4,7 +4,7 @@ import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { groupMembers, groups } from "$lib/server/db/schema";
 import { type RequestHandler } from "@sveltejs/kit";
-import { count, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
@@ -29,12 +29,19 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         // Check how many groups the user is in
         const userGroups = await tx
             .select({
-                count: count()
+                courseId: groups.courseId
             })
             .from(groupMembers)
+            .innerJoin(groups, eq(groupMembers.groupId, groups.id))
             .where(eq(groupMembers.userId, locals.session.data.netid));
 
-        if (userGroups[0].count >= MAX_GROUPS) {
+        if (userGroups.some((x) => x.courseId === courseId)) {
+            return new Response("ALREADY_IN_COURSE", {
+                status: httpCodes.error.badRequest
+            });
+        }
+
+        if (userGroups.length >= MAX_GROUPS) {
             return new Response("MAX_GROUPS", {
                 status: httpCodes.error.badRequest
             });

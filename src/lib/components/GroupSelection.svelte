@@ -37,20 +37,26 @@
         });
 
         if (res.status !== httpCodes.success.ok) {
+            const ERR_MSG = "Failed to create group. ";
+
             const err = await res.text();
             switch (err) {
                 case "NO_ID":
-                    toast.error(
-                        "Failed to create group. No course ID provided."
-                    );
+                    toast.error(ERR_MSG + "No course ID provided.");
                     break;
                 case "MAX_GROUPS":
                     toast.error(
-                        "Failed to create group. You have reached the maximum amount of groups."
+                        ERR_MSG +
+                            "You have reached the maximum amount of groups."
                     );
                     break;
                 case "CREATION_ERROR":
-                    toast.error("Failed to create group. Please try again.");
+                    toast.error(ERR_MSG + "Please try again.");
+                    break;
+                case "ALREADY_IN_COURSE":
+                    toast.error(
+                        ERR_MSG + "You are already in a group for this course."
+                    );
                     break;
             }
         } else {
@@ -73,22 +79,28 @@
         });
 
         if (res.status !== httpCodes.success.ok) {
+            const ERR_MSG = "Failed to join group. ";
+
             const err = await res.text();
             switch (err) {
                 case "NO_ID":
-                    toast.error("Failed to join group. No group ID provided.");
+                    toast.error(ERR_MSG + "No group ID provided.");
                     break;
                 case "NOT_FOUND":
-                    toast.error("Failed to join group. Group not found.");
+                    toast.error(ERR_MSG + "Group not found.");
                     break;
                 case "MAX_GROUPS":
                     toast.error(
-                        "Failed to join group. You have reached the maximum amount of groups."
+                        ERR_MSG +
+                            "You have reached the maximum amount of groups."
                     );
                     break;
                 case "ALREADY_IN_GROUP":
+                    toast.error(ERR_MSG + "You are already in this group.");
+                    break;
+                case "ALREADY_IN_COURSE":
                     toast.error(
-                        "Failed to join group. You are already in this group."
+                        ERR_MSG + "You are already in a group for this course."
                     );
                     break;
             }

@@ -4,7 +4,7 @@ import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { groupMembers, groups } from "$lib/server/db/schema";
 import type { RequestHandler } from "@sveltejs/kit";
-import { and, count, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     CASClient.check(locals.session.data);
@@ -18,22 +18,33 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     }
 
     const txRes = await db.transaction(async (tx) => {
+        // Fetch user's current groups
         const userGroups = await tx
             .select({
-                count: count()
+                groupId: groupMembers.groupId,
+                courseId: groups.courseId
             })
             .from(groupMembers)
+            .innerJoin(groups, eq(groupMembers.groupId, groups.id))
             .where(eq(groupMembers.userId, locals.session.data.netid));
 
-        if (userGroups[0].count >= MAX_GROUPS) {
+        if (userGroups.length >= MAX_GROUPS) {
             return new Response("MAX_GROUPS", {
+                status: httpCodes.error.badRequest
+            });
+        }
+
+        if (userGroups.some((x) => x.groupId === groupId)) {
+            return new Response("ALREADY_IN_GROUP", {
                 status: httpCodes.error.badRequest
             });
         }
 
         // Check if group exists
         const group = await tx
-            .select()
+            .select({
+                courseId: groups.courseId
+            })
             .from(groups)
             .where(eq(groups.id, groupId));
 
@@ -43,19 +54,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             });
         }
 
-        // Ensure user is not already in group
-        const existing = await tx
-            .select()
-            .from(groupMembers)
-            .where(
-                and(
-                    eq(groupMembers.userId, locals.session.data.netid),
-                    eq(groupMembers.groupId, groupId)
-                )
-            );
-
-        if (existing.length > 0) {
-            return new Response("ALREADY_IN_GROUP.", {
+        if (userGroups.some((x) => x.courseId === group[0].courseId)) {
+            return new Response("ALREADY_IN_COURSE", {
                 status: httpCodes.error.badRequest
             });
         }
