@@ -46,15 +46,18 @@
 </svelte:head>
 
 <div class="cont flex h-full flex-col overflow-hidden">
-    <section class="flex justify-between border-b pb-8">
+    <section
+        class="flex flex-col justify-between gap-2 border-b pb-4 sm:flex-row sm:gap-0 sm:pb-8">
         <div>
-            <h2 id="course-code" class="text-4xl font-semibold">
+            <h2 id="course-code" class="text-2xl font-semibold sm:text-4xl">
                 {groupInfo.courseCode}
             </h2>
-            <h3 id="course-name" class="text-xl font-semibold text-slate-700">
+            <h3
+                id="course-name"
+                class="font-semibold text-slate-700 sm:text-xl">
                 {groupInfo.courseTitle}
             </h3>
-            <h3 id="group-name" class="mt-2 text-xl text-slate-700">
+            <h3 id="group-name" class="mt-2 text-slate-700 sm:text-xl">
                 Group {groupInfo.name}
             </h3>
         </div>
