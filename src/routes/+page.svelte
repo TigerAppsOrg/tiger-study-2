@@ -30,7 +30,7 @@
                     </div>
                 </button>
                 <nav>
-                    <Button size="sm" href="/dashboard">
+                    <Button href="/dashboard">
                         <span> Get Started </span>
                     </Button>
                 </nav>
