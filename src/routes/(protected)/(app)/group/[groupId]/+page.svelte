@@ -37,6 +37,13 @@
     };
 </script>
 
+<svelte:head>
+    <title
+        >TigerStudy | {groupInfo.courseCode
+            .split(" / ")[0]
+            .replace(/\s/g, "")}</title>
+</svelte:head>
+
 <div class="cont flex h-full flex-col overflow-hidden">
     <section class="flex justify-between border-b pb-8">
         <div>

@@ -5,6 +5,10 @@
     let { data } = $props();
 </script>
 
+<svelte:head>
+    <title>TigerStudy | Dashboard</title>
+</svelte:head>
+
 <div class="cont flex h-full flex-1 flex-col">
     <h2 class="mt-4 text-2xl font-semibold">
         Welcome, {data.name}!
