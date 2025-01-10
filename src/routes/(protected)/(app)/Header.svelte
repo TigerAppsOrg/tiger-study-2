@@ -21,7 +21,7 @@
         <a href="/dashboard" aria-label="Dashboard">
             <div class="flex items-end gap-1 font-semibold">
                 <img class="size-8" src="/logo.png" alt="TigerStudy logo" />
-                <h2 class="text-xl">TigerStudy</h2>
+                <h2 class="text-xl tracking-tighter">TigerStudy</h2>
             </div>
         </a>
 

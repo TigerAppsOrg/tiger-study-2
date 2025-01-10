@@ -26,7 +26,7 @@
                             class="size-8"
                             src="/logo.png"
                             alt="TigerStudy logo" />
-                        <h2 class="text-xl">TigerStudy</h2>
+                        <h2 class="text-xl tracking-tighter">TigerStudy</h2>
                     </div>
                 </button>
                 <nav>
