@@ -16,8 +16,7 @@ import { db } from "$lib/server/db";
 import { httpCodes } from "$lib/httpCodes";
 import { users } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
-import { sendEmail } from "$lib/server/emails";
-import { welcomeHTML } from "$lib/server/emails/welcomeHTML";
+import { sendEmail, welcomeHTML } from "$lib/server/emails";
 
 // Validate a CAS login ticket and set the user's session data
 export const GET: RequestHandler = async (req: RequestEvent) => {
