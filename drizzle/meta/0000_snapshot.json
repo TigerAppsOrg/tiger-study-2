@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "fb6001f1-58f3-41c8-b41d-30dbc1123214",
+  "id": "a0dc43e6-ca3c-4e1b-8f63-0ca24cb00109",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "courses": {
@@ -118,7 +118,7 @@
           "columnsTo": [
             "netid"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "group_members_group_id_groups_id_fk": {
@@ -131,7 +131,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

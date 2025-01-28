@@ -15,8 +15,8 @@ CREATE TABLE `group_members` (
 	`user_id` text NOT NULL,
 	`group_id` integer NOT NULL,
 	PRIMARY KEY(`group_id`, `user_id`),
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`netid`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`group_id`) REFERENCES `groups`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`netid`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`group_id`) REFERENCES `groups`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `groups` (
