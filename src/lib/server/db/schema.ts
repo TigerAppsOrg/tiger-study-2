@@ -59,10 +59,14 @@ export const groupMembers = sqliteTable(
     {
         userId: text("user_id")
             .notNull()
-            .references(() => users.netid),
+            .references(() => users.netid, {
+                onDelete: "cascade"
+            }),
         groupId: integer("group_id")
             .notNull()
-            .references(() => groups.id)
+            .references(() => groups.id, {
+                onDelete: "cascade"
+            })
     },
     (t) => ({
         pk: primaryKey({ columns: [t.userId, t.groupId] })
