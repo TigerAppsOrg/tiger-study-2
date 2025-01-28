@@ -16,6 +16,7 @@ import { db } from "$lib/server/db";
 import { httpCodes } from "$lib/httpCodes";
 import { users } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
+import { sendEmail } from "$lib/server/emails";
 
 // Validate a CAS login ticket and set the user's session data
 export const GET: RequestHandler = async (req: RequestEvent) => {
@@ -45,6 +46,13 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
     console.log(existingUser);
     if (existingUser.length === 0) {
         await db.insert(users).values(userInfo);
+        const firstName = userInfo.displayname.split(" ")[0];
+        await sendEmail(
+            "TigerStudy",
+            userInfo.mail,
+            "Welcome to TigerStudy!",
+            `Welcome to TigerStudy, ${firstName}!`
+        );
     }
 
     await req.locals.session.set(userInfo);
