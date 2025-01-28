@@ -17,6 +17,7 @@ import { httpCodes } from "$lib/httpCodes";
 import { users } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import { sendEmail } from "$lib/server/emails";
+import { welcomeHTML } from "$lib/server/emails/welcomeHTML";
 
 // Validate a CAS login ticket and set the user's session data
 export const GET: RequestHandler = async (req: RequestEvent) => {
@@ -51,7 +52,7 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
             "TigerStudy",
             userInfo.mail,
             "Welcome to TigerStudy!",
-            `Welcome to TigerStudy, ${firstName}!`
+            welcomeHTML(firstName)
         );
     }
 

@@ -116,7 +116,7 @@ export const welcomeHTML = (name: string) => `
                 </div>
             </div>
 
-            <a href="https://tigerstudy.princeton.edu/dashboard" class="button">Get Started</a>
+            <a href="https://study.tigerapps.org/dashboard" class="button">Get Started</a>
         </div>
 
         <div class="footer">
