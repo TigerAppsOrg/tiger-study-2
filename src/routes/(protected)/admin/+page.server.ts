@@ -3,6 +3,7 @@ import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { users } from "$lib/server/db/schema";
 import { sendEmail, testHTML } from "$lib/server/emails";
+import { welcomeHTML } from "$lib/server/emails/welcomeHTML";
 import { seed } from "$lib/server/seed";
 import { updateCourses } from "$lib/server/updateCourses";
 import { error, type Actions, type ServerLoad } from "@sveltejs/kit";
@@ -49,14 +50,14 @@ export const actions: Actions = {
         await adminGuard(locals);
 
         const formData = await request.formData();
-        const emailAddress = formData.get("email") as string;
+        const emailAddress = formData.get("emailAddress") as string;
         if (!emailAddress) throw new Error("No email address provided");
 
         await sendEmail(
             "TigerStudy",
             emailAddress,
             "TESTING from TigerStudy",
-            testHTML
+            welcomeHTML("Joshua")
         );
     }
 };

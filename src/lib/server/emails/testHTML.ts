@@ -1,4 +1,7 @@
-export const testHTML = `
+// testHTML.ts
+// Sent via the admin dashboard to test the email sending functionality
+
+export const testHTML = () => `
 <!DOCTYPE html>
 <html>
 <head>
