@@ -23,7 +23,12 @@ const sesClient = new SESClient({
     }
 });
 
-export const sendEmail = async (to: string, subject: string, body: string) => {
+export const sendEmail = async (
+    from: string,
+    to: string,
+    subject: string,
+    body: string
+) => {
     const params = {
         Destination: {
             ToAddresses: [to]
@@ -34,7 +39,7 @@ export const sendEmail = async (to: string, subject: string, body: string) => {
             },
             Subject: { Data: subject }
         },
-        Source: AWS_FROM_EMAIL
+        Source: `${from} <${AWS_FROM_EMAIL}>`
     };
 
     try {
