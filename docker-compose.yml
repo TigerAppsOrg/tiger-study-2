@@ -1,8 +1,10 @@
-version: '3.8'
 services:
-  app:
-    build: .
-    container_name: tiger-study
-    restart: always
-    ports:
-      - "3000:3000"
+    db:
+        image: postgres
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_DB: local
