@@ -56,7 +56,6 @@ export class CASClient {
 
         if (this.hasKey(serviceResponse, "authenticationSuccess")) {
             const userInfo = serviceResponse.authenticationSuccess;
-            console.log(userInfo);
 
             const classYrStr = userInfo.attributes.grouperGroups.filter(
                 (x: string[]) => x.includes("PU:basis:classyear:")

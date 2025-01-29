@@ -45,7 +45,6 @@ export const sendEmail = async (
     try {
         const command = new SendEmailCommand(params);
         const res = await sesClient.send(command);
-        console.log("Email sent", res.MessageId);
         return res;
     } catch (e) {
         console.error("Email error", e);

@@ -43,7 +43,6 @@ export const GET: RequestHandler = async (req: RequestEvent) => {
         .from(users)
         .where(eq(users.netid, userInfo.netid));
 
-    console.log(existingUser);
     if (existingUser.length === 0) {
         await db.insert(users).values(userInfo);
         const firstName = userInfo.displayname.split(" ")[0];
