@@ -6,9 +6,9 @@ table courses {
 }
 
 table feedback {
-  id integer [pk, not null, unique]
+  id serial [pk, not null, unique, increment]
   feedback text [not null]
-  resolved integer [not null, default: false]
+  resolved boolean [not null, default: false]
 }
 
 table group_members {
@@ -21,7 +21,7 @@ table group_members {
 }
 
 table groups {
-  id integer [pk, not null, unique]
+  id serial [pk, not null, unique, increment]
   name text [not null]
   course_id text [not null]
 }
@@ -31,7 +31,7 @@ table users {
   name text [not null]
   mail text [not null]
   year text [not null]
-  is_admin integer [not null, default: false]
+  is_admin boolean [not null, default: false]
 }
 
 ref: group_members.user_id > users.netid

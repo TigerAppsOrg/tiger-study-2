@@ -12,6 +12,7 @@
 		"lint": "prettier --check . && eslint .",
 		"test": "vitest",
 		"db:schema": "tsx src/lib/server/db/generate-dbml.ts",
+		"db:start": "docker compose up",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio"
@@ -21,7 +22,6 @@
 		"@sveltejs/adapter-node": "^5.2.9",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"@types/better-sqlite3": "^7.6.11",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "1.0.0-next.64",
 		"clsx": "^2.1.1",
@@ -53,9 +53,9 @@
 		"@aws-sdk/client-ses": "^3.699.0",
 		"@fontsource/lato": "^5.1.0",
 		"@fontsource/spectral": "^5.1.0",
-		"better-sqlite3": "^11.1.2",
 		"drizzle-dbml-generator": "^0.9.0",
 		"drizzle-orm": "^0.33.0",
+		"postgres": "^3.4.5",
 		"svelte-kit-cookie-session": "^4.0.0",
 		"unique-names-generator": "^4.7.1"
 	}
