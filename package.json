@@ -12,6 +12,7 @@
 		"lint": "prettier --check . && eslint .",
 		"test": "vitest",
 		"db:schema": "tsx src/lib/server/db/generate-dbml.ts",
+		"db:start": "docker compose up",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio"
