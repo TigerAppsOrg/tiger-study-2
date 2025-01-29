@@ -58,11 +58,13 @@ export class CASClient {
             const userInfo = serviceResponse.authenticationSuccess;
             console.log(userInfo);
 
-            let year = "Graduate";
-            if (userInfo.attributes.pustatus[0] === "undergraduate") {
-                const splitDpt = userInfo.attributes.department[0].split(" ");
-                year = splitDpt[splitDpt.length - 1];
-            }
+            const classYrStr = userInfo.attributes.grouperGroups.filter(
+                (x: string[]) => x.includes("PU:basis:classyear:")
+            );
+            const year =
+                classYrStr.length > 0
+                    ? classYrStr[0].split(":")[3]
+                    : "Graduate";
 
             return {
                 netid: userInfo.user,
