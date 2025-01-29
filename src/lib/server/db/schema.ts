@@ -14,7 +14,8 @@ export const users = pgTable("users", {
     displayname: text("name").notNull(),
     mail: text("mail").notNull(),
     year: text("year").notNull(),
-    isAdmin: boolean("is_admin").notNull().default(false)
+    isAdmin: boolean("is_admin").notNull().default(false),
+    isFeedbackList: boolean("is_feedback_list").notNull().default(false)
 });
 
 export const userRelations = relations(users, ({ many }) => ({

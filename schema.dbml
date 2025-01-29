@@ -32,6 +32,7 @@ table users {
   mail text [not null]
   year text [not null]
   is_admin boolean [not null, default: false]
+  is_feedback_list boolean [not null, default: false]
 }
 
 ref: group_members.user_id > users.netid

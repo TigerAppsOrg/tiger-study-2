@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "is_feedback_list" boolean DEFAULT false NOT NULL;
