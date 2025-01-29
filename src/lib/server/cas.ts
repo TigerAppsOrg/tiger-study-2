@@ -56,6 +56,7 @@ export class CASClient {
 
         if (this.hasKey(serviceResponse, "authenticationSuccess")) {
             const userInfo = serviceResponse.authenticationSuccess;
+            console.log(userInfo);
 
             let year = "Graduate";
             if (userInfo.attributes.pustatus[0] === "undergraduate") {
