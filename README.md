@@ -4,13 +4,13 @@ This project is the 2nd version of [TigerStudy](https://study.tigerapps.org), a 
 
 ## Getting Started
 
-This project uses [pnpm](https://bun.sh/). To install pnpm, run `npm install -g pnpm`.
+First, make sure you have Node.js installed on your machine. You can download it [here](https://nodejs.org/en/).
 
-To install the project dependencies, run `pnpm install`.
+To install the project dependencies, run `npm install`.
 
-To run the project, run `pnpm dev`. To format the code, run `pnpm format`. To lint the code, run `pnpm lint`.
+To run the project, run `npm dev`. To format the code, run `npm format`. To lint the code, run `npm lint`.
 
-To access DrizzleKit Studio to get a nice UI for the SQLite database, run `pnpm db:studio`. You can visualize the schema by running `pnpm db:schema` and then viewing the dbml file that is generated through the recommended extension.
+To access DrizzleKit Studio to get a nice UI for the relational database, run `npm db:studio`. You can visualize the schema by running `npm db:schema` and then viewing the dbml file that is generated through the recommended extension.
 
 ### Technologies
 
@@ -24,7 +24,7 @@ Backend:
 
 -   [NodeJS](https://nodejs.org/en/)
 -   [SvelteKit](https://kit.svelte.dev/)
--   [SQLite](https://www.sqlite.org/index.html)
+-   [PostgreSQL](https://www.postgresql.org/)
 
 Dev Tools:
 
@@ -35,7 +35,7 @@ Dev Tools:
 
 If you would like to contribute to this project, please message the TigerApps board on Discord (if you are a TigerApps member) or via email at [it.admin@tigerapps.org](mailto:it.admin@tigerapps.org).
 
-Please make sure to add file comments that specify authorship. Also, make sure to run `pnpm format` and `pnpm lint` before committing your changes.
+Please make sure to add file comments that specify authorship. Also, make sure to run `npm format` and `npm lint` before committing your changes.
 
 ## Acknowledgments
 

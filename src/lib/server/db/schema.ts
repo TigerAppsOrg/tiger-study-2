@@ -1,18 +1,20 @@
 import { relations } from "drizzle-orm";
 import {
+    pgTable,
     text,
     integer,
-    sqliteTable,
-    primaryKey
-} from "drizzle-orm/sqlite-core";
+    primaryKey,
+    boolean,
+    serial
+} from "drizzle-orm/pg-core";
 
 // Users Table
-export const users = sqliteTable("users", {
+export const users = pgTable("users", {
     netid: text("netid").notNull().primaryKey().unique(),
     displayname: text("name").notNull(),
     mail: text("mail").notNull(),
     year: text("year").notNull(),
-    isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false)
+    isAdmin: boolean("is_admin").notNull().default(false)
 });
 
 export const userRelations = relations(users, ({ many }) => ({
@@ -20,7 +22,7 @@ export const userRelations = relations(users, ({ many }) => ({
 }));
 
 // Courses Table
-export const courses = sqliteTable("courses", {
+export const courses = pgTable("courses", {
     id: text("id").notNull().primaryKey().unique(),
     code: text("code").notNull(),
     title: text("title").notNull(),
@@ -32,11 +34,8 @@ export const courseRelations = relations(courses, ({ many }) => ({
 }));
 
 // Groups Table
-export const groups = sqliteTable("groups", {
-    id: integer("id", { mode: "number" })
-        .notNull()
-        .primaryKey({ autoIncrement: true })
-        .unique(),
+export const groups = pgTable("groups", {
+    id: serial("id").notNull().primaryKey().unique(),
     name: text("name").notNull(),
     courseId: text("course_id")
         .notNull()
@@ -54,7 +53,7 @@ export const groupRelations = relations(groups, ({ one, many }) => ({
 }));
 
 // Group-Users Association Table
-export const groupMembers = sqliteTable(
+export const groupMembers = pgTable(
     "group_members",
     {
         userId: text("user_id")
@@ -85,11 +84,8 @@ export const groupMembersRelations = relations(groupMembers, ({ one }) => ({
 }));
 
 // Feedback Table
-export const feedback = sqliteTable("feedback", {
-    id: integer("id", { mode: "number" })
-        .notNull()
-        .primaryKey({ autoIncrement: true })
-        .unique(),
+export const feedback = pgTable("feedback", {
+    id: serial("id").notNull().primaryKey().unique(),
     feedback: text("feedback").notNull(),
-    resolved: integer("resolved", { mode: "boolean" }).notNull().default(false)
+    resolved: boolean("resolved").notNull().default(false)
 });
