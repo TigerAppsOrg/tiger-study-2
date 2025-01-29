@@ -4,15 +4,60 @@ export const welcomeHTML = (name: string) => `
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Welcome to TigerStudy</title>
     <style>
+        :root {
+            color-scheme: light dark;
+        }
+
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background-color: #F8FAFC;
-            margin: 0;
-            padding: 0;
-            color: #0F172A;
             line-height: 1.5;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #F8FAFC;
+                color: #0F172A;
+            }
+
+            .card {
+                background: linear-gradient(to bottom right, #FFFFFF, #EFF3F7);
+                border: 1px solid #E2E8F0;
+            }
+
+            .footer {
+                color: #64748B;
+            }
+
+            .link {
+                color: #4F46E5;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0F172A;
+                color: #F8FAFC;
+            }
+
+            .card {
+                background: linear-gradient(to bottom right, #1E293B, #0F172A);
+                border: 1px solid #334155;
+            }
+
+            .footer {
+                color: #94A3B8;
+            }
+
+            .link {
+                color: #818CF8;
+            }
+
+            h1, .step-title, p {
+                color: #F8FAFC;
+            }
         }
 
         .container {
@@ -22,8 +67,6 @@ export const welcomeHTML = (name: string) => `
         }
 
         .card {
-            background: linear-gradient(to bottom right, #FFFFFF, #EFF3F7);
-            border: 1px solid #E2E8F0;
             border-radius: 1rem;
             padding: 2rem;
             margin: 2rem 0;
@@ -37,13 +80,11 @@ export const welcomeHTML = (name: string) => `
         h1 {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #0F172A;
             margin-bottom: 1rem;
         }
 
         p {
             margin-bottom: 1rem;
-            color: #0F172A;
         }
 
         .steps {
@@ -57,20 +98,9 @@ export const welcomeHTML = (name: string) => `
         .step-title {
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: #0F172A;
         }
 
         .button {
-            display: inline-block;
-            background-color: #4F46E5;
-            color: #FFFFFF;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            margin: 1rem 0;
-        }
-
-        a.button {
             display: inline-block !important;
             background-color: #4F46E5 !important;
             color: #FFFFFF !important;
@@ -83,12 +113,10 @@ export const welcomeHTML = (name: string) => `
         .footer {
             text-align: center;
             font-size: 0.875rem;
-            color: #64748B;
             margin-top: 2rem;
         }
 
         .link {
-            color: #4F46E5;
             text-decoration: none;
         }
     </style>
