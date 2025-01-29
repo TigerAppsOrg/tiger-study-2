@@ -51,10 +51,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
         .from(users)
         .where(eq(users.isFeedbackList, true));
 
+    // TODO - Need an async queue to send emails and handle backpressure
     await sendFeedbackEmails(
         feedbackList.map((user) => user.email),
         text,
-        1000
+        50
     );
 
     return new Response("Feedback submitted", {
