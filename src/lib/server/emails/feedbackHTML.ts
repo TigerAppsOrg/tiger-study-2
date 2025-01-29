@@ -9,11 +9,8 @@ export const feedbackHTML = (content: string) => `
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>TigerStudy Feedback</title>
    <style>
-       body, p, h1, div {
-           font-family: Georgia, Times, 'Times New Roman', serif;
-       }
-
        body {
+           font-family: system-ui, -apple-system, sans-serif;
            background-color: #F8FAFC;
            margin: 0;
            padding: 0;
@@ -75,8 +72,7 @@ export const feedbackHTML = (content: string) => `
    <div class="container">
        <div class="card">
            <div class="header">
-               <span class="logo">🐯</span>
-               <h1>New TigerStudy Feedback</h1>
+               <h1>🐯 New TigerStudy Feedback</h1>
            </div>
 
            <div class="content">
@@ -85,7 +81,7 @@ export const feedbackHTML = (content: string) => `
        </div>
 
        <div class="footer">
-           <p>This feedback was submitted through TigerStudy</p>
+           <p>This feedback was submitted in-app through TigerStudy</p>
            <p>Please review and take appropriate action if needed</p>
        </div>
    </div>
