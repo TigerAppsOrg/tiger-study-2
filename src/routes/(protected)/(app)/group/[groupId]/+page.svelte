@@ -31,8 +31,8 @@
             return;
         }
 
-        await invalidateAll();
         await goto("/dashboard");
+        await invalidateAll();
         leaveDialogOpen = false;
         toast.success("Left group successfully!");
     };
