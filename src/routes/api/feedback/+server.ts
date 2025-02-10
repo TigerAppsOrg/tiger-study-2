@@ -5,6 +5,8 @@ import { feedbackHTML, sendEmail } from "$lib/server/emails";
 import type { RequestHandler } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 
+const WAIT_TIME_BETWEEN_EMAILS_MS = 100;
+
 const sendFeedbackEmails = async (
     emailList: string[],
     feedback: string,
@@ -51,11 +53,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
         .from(users)
         .where(eq(users.isFeedbackList, true));
 
-    // TODO - Need an async queue to send emails and handle backpressure
     await sendFeedbackEmails(
         feedbackList.map((user) => user.email),
         text,
-        50
+        WAIT_TIME_BETWEEN_EMAILS_MS
     );
 
     return new Response("Feedback submitted", {
