@@ -2,7 +2,12 @@ import { httpCodes } from "$lib/httpCodes";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { users } from "$lib/server/db/schema";
-import { sendEmail, testHTML, welcomeHTML } from "$lib/server/emails";
+import {
+    sendEmail,
+    welcomeHTML,
+    feedbackHTML,
+    joinedHTML
+} from "$lib/server/emails";
 import { seed } from "$lib/server/seed";
 import { updateCourses } from "$lib/server/updateCourses";
 import { error, type Actions, type ServerLoad } from "@sveltejs/kit";
