@@ -2,7 +2,12 @@ import { httpCodes } from "$lib/httpCodes";
 import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { users } from "$lib/server/db/schema";
-import { sendEmail, testHTML, welcomeHTML } from "$lib/server/emails";
+import {
+    feedbackHTML,
+    joinedHTML,
+    sendEmail,
+    welcomeHTML
+} from "$lib/server/emails";
 import { seed } from "$lib/server/seed";
 import { updateCourses } from "$lib/server/updateCourses";
 import { error, type Actions, type ServerLoad } from "@sveltejs/kit";
@@ -29,6 +34,13 @@ const adminGuard = async (locals: App.Locals, isLoad: boolean = false) => {
     }
 };
 
+// Extract the email address from a FormData object
+const getEmailAddress = async (formData: FormData) => {
+    const emailAddress = formData.get("emailAddress") as string;
+    if (!emailAddress) throw new Error("No email address provided");
+    return emailAddress;
+};
+
 export const load: ServerLoad = async (req) => {
     await adminGuard(req.locals, true);
     return {};
@@ -45,18 +57,44 @@ export const actions: Actions = {
         await seed();
     },
 
-    sendTestEmail: async ({ locals, request }) => {
+    //----------------------------------------
+    // Emails
+    //----------------------------------------
+
+    email: async ({ locals, request }) => {
+        const SENDER_NAME = "TigerStudy";
+
         await adminGuard(locals);
 
         const formData = await request.formData();
-        const emailAddress = formData.get("emailAddress") as string;
-        if (!emailAddress) throw new Error("No email address provided");
+        const emailAddress = await getEmailAddress(formData);
+        const emailType = formData.get("emailType");
 
-        await sendEmail(
-            "TigerStudy",
-            emailAddress,
-            "TESTING from TigerStudy",
-            welcomeHTML("Marisa")
-        );
+        switch (emailType) {
+            case "welcome":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] Welcome to TigerStudy!",
+                    welcomeHTML("Marisa")
+                );
+                break;
+            case "feedback":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] New Feedback Received",
+                    feedbackHTML("This is a test feedback message.")
+                );
+                break;
+            case "joined":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] New TigerStudy Group Member",
+                    joinedHTML("COS 126", "https://study.tigerapps.org")
+                );
+                break;
+        }
     }
 };

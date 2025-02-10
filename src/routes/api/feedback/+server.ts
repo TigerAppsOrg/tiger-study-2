@@ -1,15 +1,14 @@
 import { httpCodes } from "$lib/httpCodes";
+import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { feedback, users } from "$lib/server/db/schema";
 import { feedbackHTML, sendEmail } from "$lib/server/emails";
 import type { RequestHandler } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 
-const sendFeedbackEmails = async (
-    emailList: string[],
-    feedback: string,
-    waitTime: number
-) => {
+const sendFeedbackEmails = async (emailList: string[], feedback: string) => {
+    const WAIT_TIME_BETWEEN_EMAILS_MS = 100;
+
     for (const email of emailList) {
         await sendEmail(
             "TigerStudy",
@@ -18,18 +17,16 @@ const sendFeedbackEmails = async (
             feedbackHTML(feedback)
         );
 
-        await new Promise((resolve) => setTimeout(resolve, waitTime));
+        await new Promise((resolve) =>
+            setTimeout(resolve, WAIT_TIME_BETWEEN_EMAILS_MS)
+        );
     }
 };
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-    const { text } = await request.json();
+    CASClient.check(locals.session.data);
 
-    if (!locals.session.data.netid) {
-        return new Response("Unauthorized", {
-            status: httpCodes.error.unauthorized
-        });
-    }
+    const { text } = await request.json();
 
     // Validate Feedback
     if (text.length > 1000) {
@@ -51,11 +48,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
         .from(users)
         .where(eq(users.isFeedbackList, true));
 
-    // TODO - Need an async queue to send emails and handle backpressure
     await sendFeedbackEmails(
         feedbackList.map((user) => user.email),
-        text,
-        50
+        text
     );
 
     return new Response("Feedback submitted", {

@@ -1,5 +1,6 @@
 <script>
     import { Button } from "$lib/components/ui/button";
+    import { CONTACT_EMAIL } from "$lib/constants";
     import {
         ChatBubbleOvalLeft,
         Icon,
@@ -87,8 +88,8 @@
             <div class="cont">
                 <p class="mt-4 text-center text-sm text-slate-500">
                     Have questions? Contact us at
-                    <a class="link" href="mailto:tiger-study@princeton.edu">
-                        tiger-study@princeton.edu</a
+                    <a class="link" href="mailto:${CONTACT_EMAIL}">
+                        {CONTACT_EMAIL}</a
                     >. TigerStudy is supported by the
                     <a
                         class="link"

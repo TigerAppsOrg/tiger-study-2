@@ -66,7 +66,8 @@ export const groupMembers = pgTable(
             .notNull()
             .references(() => groups.id, {
                 onDelete: "cascade"
-            })
+            }),
+        hasEmailSent: boolean("has_email_sent").notNull().default(false)
     },
     (t) => ({
         pk: primaryKey({ columns: [t.userId, t.groupId] })

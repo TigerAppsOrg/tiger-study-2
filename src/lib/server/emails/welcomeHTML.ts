@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL } from "$lib/constants";
+
 export const welcomeHTML = (name: string) => `
 <!DOCTYPE html>
 <html>
@@ -148,7 +150,7 @@ export const welcomeHTML = (name: string) => `
         </div>
 
         <div class="footer">
-            <p>Need help? Contact us at <a href="mailto:tiger-study@princeton.edu" class="link">tiger-study@princeton.edu</a></p>
+            <p>Need help? Contact us at <a href="mailto:${CONTACT_EMAIL}" class="link">${CONTACT_EMAIL}</a></p>
             <p>TigerStudy is supported by the <a href="https://mcgraw.princeton.edu/" class="link">McGraw Center for Teaching and Learning</a> and maintained by the <a href="https://tigerapps.org" class="link">TigerApps</a> Team.</p>
         </div>
     </div>

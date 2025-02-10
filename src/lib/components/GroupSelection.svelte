@@ -110,6 +110,12 @@
             joinDialogOpen.value = false;
             toast.success(`Joined group ${group.groupName}!`);
             invalidateAll();
+
+            fetch("/api/groups/email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ groupId: group.groupId })
+            });
         }
     };
 

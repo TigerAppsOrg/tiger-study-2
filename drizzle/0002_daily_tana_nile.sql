@@ -1,0 +1,1 @@
+ALTER TABLE "group_members" ADD COLUMN "has_email_sent" boolean DEFAULT false NOT NULL;
