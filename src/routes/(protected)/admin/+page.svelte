@@ -108,6 +108,17 @@
                 </form>
             </div>
         </div>
+
+        <div class="rounded-lg border border-gray-200 p-4">
+            <h2 class="mb-4 text-lg font-semibold">Database Seeder</h2>
+            <p class="mb-4 text-sm text-gray-600">
+                Seed the database with initial data.
+            </p>
+
+            <form method="POST" action="?/seed" class="space-y-4">
+                <Button type="submit" class="w-full">Seed Database</Button>
+            </form>
+        </div>
     </div>
 </div>
 

@@ -4,34 +4,10 @@ import { courses, groupMembers, groups, users } from "./db/schema";
 
 const SAMPLE_USERS = [
     {
-        netid: "rs2071",
-        displayname: "Remilia Scarlet",
-        mail: "remilia@princeton.edu",
-        year: "2026"
-    },
-    {
-        netid: "ms2071",
+        netid: "marisakirisame",
         displayname: "Marisa Kirisame",
-        mail: "marisa@princeton.edu",
-        year: "2027"
-    },
-    {
-        netid: "alice",
-        displayname: "Alice Margatroid",
-        mail: "alice@princeton.edu",
-        year: "2022"
-    },
-    {
-        netid: "pk1234",
-        displayname: "Patchouli Knowledge",
-        mail: "pk1234@princeton.edu",
-        year: "2023"
-    },
-    {
-        netid: "yy6231",
-        displayname: "Yukari Yakumo",
-        mail: "yy6231@princeton.edu",
-        year: "Graduate"
+        mail: "dachshunduniverse@gmail.com",
+        year: "2026"
     }
 ];
 
