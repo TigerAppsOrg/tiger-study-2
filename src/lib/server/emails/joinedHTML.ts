@@ -119,9 +119,7 @@ export const joinedHTML = (course: string, groupLink: string) => `
                <p>A new student has joined your study group for ${course}!</p>
            </div>
 
-           <p>This is a great opportunity to expand your study circle and make your group sessions even more productive.</p>
-
-           <p>Consider reaching out to coordinate study times and introduce yourself to your new group member. Working together helps everyone succeed!</p>
+           <p>Reach out to coordinate study times and introduce yourself to your new group member. Working together helps everyone succeed!</p>
 
            <a href="${groupLink}" class="button">View Your Group</a>
        </div>
