@@ -90,11 +90,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             .innerJoin(groupMembers, eq(users.netid, groupMembers.userId))
             .where(eq(groupMembers.groupId, groupId));
 
-        await sendJoinEmails(
-            groupMembersList.map((user) => user.email),
-            course[0].courseName,
-            groupId
-        );
+        const groupEmails = groupMembersList
+            .map((user) => user.email)
+            .filter((email) => email !== locals.session.data.mail);
+
+        await sendJoinEmails(groupEmails, course[0].courseName, groupId);
 
         // Update groupMembers
         await tx
