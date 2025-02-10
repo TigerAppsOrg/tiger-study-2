@@ -8,3 +8,5 @@ export type GroupDetails = {
 };
 
 export const MAX_GROUPS = 10;
+
+export const CONTACT_EMAIL = "it.admin@tigerapps.org";

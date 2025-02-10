@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { joinDialogOpen, userGroups } from "$lib/client/state.svelte.js";
     import Button from "$lib/components/ui/button/button.svelte";
     import * as Table from "$lib/components/ui/table";
-    import { joinDialogOpen, userGroups } from "$lib/client/state.svelte.js";
+    import { CONTACT_EMAIL } from "$lib/constants.js";
+
     let { data } = $props();
 </script>
 
@@ -110,9 +112,8 @@
     <footer>
         <p class="mt-4 text-center text-sm text-slate-500">
             Experiencing difficulties? Contact us at
-            <a class="link" href="mailto:tiger-study@princeton.edu">
-                tiger-study@princeton.edu</a
-            >. TigerStudy is supported by the
+            <a class="link" href="mailto:${CONTACT_EMAIL}"> {CONTACT_EMAIL}</a>.
+            TigerStudy is supported by the
             <a
                 class="link"
                 href="https://mcgraw.princeton.edu/"

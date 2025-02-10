@@ -1,6 +1,8 @@
 // joinedHTML.ts
 // Send to all group members when a user joins a group.
 
+import { CONTACT_EMAIL } from "$lib/constants";
+
 export const joinedHTML = (course: string, groupLink: string) => `
 <!DOCTYPE html>
 <html>
@@ -125,7 +127,7 @@ export const joinedHTML = (course: string, groupLink: string) => `
        </div>
 
        <div class="footer">
-           <p>Need help? Contact us at <a href="mailto:tiger-study@princeton.edu" class="link">tiger-study@princeton.edu</a></p>
+           <p>Need help? Contact us at <a href="mailto:${CONTACT_EMAIL}" class="link">${CONTACT_EMAIL}</a></p>
            <p>TigerStudy is supported by the <a href="https://mcgraw.princeton.edu/" class="link">McGraw Center for Teaching and Learning</a></p>
        </div>
    </div>
