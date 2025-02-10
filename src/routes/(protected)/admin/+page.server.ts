@@ -3,10 +3,10 @@ import { CASClient } from "$lib/server/cas";
 import { db } from "$lib/server/db";
 import { users } from "$lib/server/db/schema";
 import {
-    sendEmail,
-    welcomeHTML,
     feedbackHTML,
-    joinedHTML
+    joinedHTML,
+    sendEmail,
+    welcomeHTML
 } from "$lib/server/emails";
 import { seed } from "$lib/server/seed";
 import { updateCourses } from "$lib/server/updateCourses";
@@ -34,6 +34,13 @@ const adminGuard = async (locals: App.Locals, isLoad: boolean = false) => {
     }
 };
 
+// Extract the email address from a FormData object
+const getEmailAddress = async (formData: FormData) => {
+    const emailAddress = formData.get("emailAddress") as string;
+    if (!emailAddress) throw new Error("No email address provided");
+    return emailAddress;
+};
+
 export const load: ServerLoad = async (req) => {
     await adminGuard(req.locals, true);
     return {};
@@ -50,18 +57,49 @@ export const actions: Actions = {
         await seed();
     },
 
-    sendTestEmail: async ({ locals, request }) => {
+    //----------------------------------------
+    // Emails
+    //----------------------------------------
+
+    sendWelcomeEmail: async ({ locals, request }) => {
         await adminGuard(locals);
 
         const formData = await request.formData();
-        const emailAddress = formData.get("emailAddress") as string;
-        if (!emailAddress) throw new Error("No email address provided");
+        const emailAddress = await getEmailAddress(formData);
 
         await sendEmail(
             "TigerStudy",
             emailAddress,
-            "TESTING from TigerStudy",
+            "[TEST] Welcome to TigerStudy!",
             welcomeHTML("Marisa")
+        );
+    },
+
+    sendFeedbackEmail: async ({ locals, request }) => {
+        await adminGuard(locals);
+
+        const formData = await request.formData();
+        const emailAddress = await getEmailAddress(formData);
+
+        await sendEmail(
+            "TigerStudy",
+            emailAddress,
+            "[TEST] New Feedback Received",
+            feedbackHTML("This is a test feedback message.")
+        );
+    },
+
+    sendJoinedEmail: async ({ locals, request }) => {
+        await adminGuard(locals);
+
+        const formData = await request.formData();
+        const emailAddress = await getEmailAddress(formData);
+
+        await sendEmail(
+            "TigerStudy",
+            emailAddress,
+            "[TEST] New TigerStudy Group Member",
+            joinedHTML("COS 126", "https://study.tigerapps.org")
         );
     }
 };
