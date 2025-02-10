@@ -61,45 +61,40 @@ export const actions: Actions = {
     // Emails
     //----------------------------------------
 
-    sendWelcomeEmail: async ({ locals, request }) => {
+    email: async ({ locals, request }) => {
+        const SENDER_NAME = "TigerStudy";
+
         await adminGuard(locals);
 
         const formData = await request.formData();
         const emailAddress = await getEmailAddress(formData);
+        const emailType = formData.get("emailType");
 
-        await sendEmail(
-            "TigerStudy",
-            emailAddress,
-            "[TEST] Welcome to TigerStudy!",
-            welcomeHTML("Marisa")
-        );
-    },
-
-    sendFeedbackEmail: async ({ locals, request }) => {
-        await adminGuard(locals);
-
-        const formData = await request.formData();
-        const emailAddress = await getEmailAddress(formData);
-
-        await sendEmail(
-            "TigerStudy",
-            emailAddress,
-            "[TEST] New Feedback Received",
-            feedbackHTML("This is a test feedback message.")
-        );
-    },
-
-    sendJoinedEmail: async ({ locals, request }) => {
-        await adminGuard(locals);
-
-        const formData = await request.formData();
-        const emailAddress = await getEmailAddress(formData);
-
-        await sendEmail(
-            "TigerStudy",
-            emailAddress,
-            "[TEST] New TigerStudy Group Member",
-            joinedHTML("COS 126", "https://study.tigerapps.org")
-        );
+        switch (emailType) {
+            case "welcome":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] Welcome to TigerStudy!",
+                    welcomeHTML("Marisa")
+                );
+                break;
+            case "feedback":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] New Feedback Received",
+                    feedbackHTML("This is a test feedback message.")
+                );
+                break;
+            case "joined":
+                await sendEmail(
+                    SENDER_NAME,
+                    emailAddress,
+                    "[TEST] New TigerStudy Group Member",
+                    joinedHTML("COS 126", "https://study.tigerapps.org")
+                );
+                break;
+        }
     }
 };
